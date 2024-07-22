@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #E3F1FF;
+    height: 100vh;
+    color: black;
+    
+    padding-top: 50px;
+    
+}
+p{
+    color: black;
+}
+
+.selectjour{
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.selectjour form select {
+  border: none;
+  font-size: 12px;
+  padding: 10px;
+  font-weight: bold;
+  outline: none;
+  border: 1px solid gray;
+}
+
+.conteneurprincipal{
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+#carteconteneur{
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    margin-left: 30px;
+
+}
+
+.cart1, .cart2, .cart3,.cart4{
+ 
+    width: 300px;
+    height: 110px;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    justify-content: center;
+    font-family: "Nunito", sans-serif;
+    font-weight: bolder;
+    align-items: center;
+    text-align: center;
+    /* background: linear-gradient(to right, #4328EB 14%, #F5F4FF 130%); */
+    background-color: #FFFFFF;
+
+}
+
+.cart1 .divicone, .cart2 .divicone, .cart3 .divicone, .cart4 .divicone{
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    background-color: #5b92ff1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+
+
+}
+
+.cart2 .divicone{
+    background-color: rgba(255, 187, 15, 0.15);  ;
+}
+
+.cart3 .divicone{
+    background-color: #ff906b21 ;
+}
+
+.cart4 .divicone{
+    background-color: #65558f27 ;
+}
+.cart1 .divicone i{
+    color: #5B93FF;
+    font-size: 20px;
+}
+
+.cart2 .divicone i{
+    color: #FFC327;
+    font-size: 20px;
+}
+
+.cart3 .divicone i{
+    color: #FF8F6B;
+    font-size: 20px;
+}
+
+.cart4 .divicone i{
+    color: #65558F;
+    font-size: 20px;
+}
+.cart1 .interieur{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: left;
+    line-height: 30px;
+}
+.cart1 .interieur p{
+    /* margin: 5px 0px; 
+      margin: auto;
+    font-size: 42px;
+    color: black;
+    align-self: center;
+    font-weight: 500;
+    
+    */
+}
+
+.cart .interieur h4{
+    padding-left: 30px;
+    
+}
+
+ .cart1 p, .cart2 p, .cart3 p, .cart4 p{
+  
+    margin: 5px 0px;
+    font-size: 35px;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.685);
+    
+    
+
+} 
+
+.cart1 h4, .cart2 h4, .cart3 h4, .cart4 h4 {
+    margin: 0;
+    color: black;
+    align-self: center;
+    font-size: 16px;
+    
+} 
+
+/* .cart2{
+         
+    background: linear-gradient(to right, #0085FF 27%, #E3F1FF 130%);
+
+}
+
+.cart3{
+    background: linear-gradient(to right, #EB4028 27%, #FDEAE7 130%);
+
+}
+
+.cart4{
+    
+    background: linear-gradient(to right, #EB2891 27%, #FDE7F3 130%);
+
+} */
