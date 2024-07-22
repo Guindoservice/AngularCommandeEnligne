@@ -1,0 +1,54 @@
+
+.Login{
+
+  background-image: linear-gradient(to right,#EB2891,#EB4028);
+  height: 100%;
+}
+.contente{
+
+  background-color: black;
+  height: 700px;
+  border-radius: 10px;
+  color: black;
+}
+.imag{
+  margin-top: 50px;
+  background-color: #EB4028;
+  height: 650px;
+}
+.rightside{
+  background-color: white;
+  margin-top: 50px;
+  height: 650px;
+}
+.contain{
+
+  margin-left: 70px;
+  margin-top: 50px;
+  align-content: center;
+  width: 450px;
+}
+.contain h3{
+  font-weight: bold;
+}
+
+.borderall{
+  border: 1px solid var(--Orangefort);
+}
+.btns{
+  background-color: white;
+  color: var(--Orangefort);
+  font-size: 20px;
+  border-radius: 4px;
+  border:  1px solid var(--Orangefort);
+}
+.btncolor{
+  background-color: var(--Orangefort);
+  color: white;
+  font-size: 20px;
+}
+.text-foote{
+  color: white;
+  text-align: center;
+  margin-top: 120px;
+}

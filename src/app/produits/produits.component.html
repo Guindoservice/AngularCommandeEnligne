@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <section id="produitinfos">
+        <div class="produit-carte">
+            <div class="icone">
+                <h3>Electronique</h3>
+                <i class="fa-solid fa-computer"></i>
+            </div>
+
+
+            <p>1900</p>
+        </div>
+        <div class="produit-carte">
+            <div class="icone">
+                <h3>Vêtements</h3>
+                <i class="fa-solid fa-shirt"></i>
+            </div>
+
+
+            <p>1900</p>
+        </div>
+        <div class="produit-carte">
+            <div class="icone">
+                <h3>Chaussures</h3>
+                <i class="fa-solid fa-shoe-prints"></i>
+            </div>
+
+
+            <p>1900</p>
+        </div>
+        <div class="produit-carte">
+            <div class="icone">
+
+                <h3>Sacoches</h3>
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+
+            <p>1900</p>
+        </div>
+    </section>
+        <div class="ajoutbtn">
+            <p>Ajouter un produit</p>
+            <button (click)="showContainer()">+ Ajouter</button>
+        </div>
+
+        <table>
+            <thead>
+              <tr>
+                <th>Numéro</th>
+                <th>Nom du produit</th>
+                <th>Prix</th>
+                <th>Catégorie</th>
+                <th>Sous-catégorie</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Téléphone portable</td>
+                <td>499,99 €</td>
+                <td>Électronique</td>
+                <td>Téléphonie</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Ordinateur portable</td>
+                <td>799,99 €</td>
+                <td>Électronique</td>
+                <td>Informatique</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Chemise en coton</td>
+                <td>39,99 €</td>
+                <td>Vêtements</td>
+                <td>Homme</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Sac à dos</td>
+                <td>59,99 €</td>
+                <td>Accessoires</td>
+                <td>Bagagerie</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Tapis de yoga</td>
+                <td>29,99 €</td>
+                <td>Sport</td>
+                <td>Fitness</td>
+                <td><i class="fa-regular fa-pen-to-square"></i></td>
+
+              </tr>
+
+            </tbody>
+          </table>
+
+          <div *ngIf="isContainerVisible" id="containe">
+            <div class="formulaire">
+              <form action="">
+                <!-- <span id="span1" (click)="hideContainer()">X</span> -->
+                <i id="span1" (click)="hideContainer()"  class="fa-solid fa-x"></i>
+                <input type="text">
+                <input type="text">
+                <button (click)="hideContainer()" >Ajouter</button>
+              </form>
+            </div>
+          </div>
+
+
+</body>
+</html>

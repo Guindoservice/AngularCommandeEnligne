@@ -1,0 +1,31 @@
+You can add global styles to this file, and also import other style files
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    box-sizing: border-box;
+    height: 120vh;
+    background-color: #E3F1FF;
+    color: black;
+    /* padding-top: 30px; */
+}
+
+*{}
+
+.test{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    color: #EE4D2D;
+}
+:root {
+    --degraderblue: #0085FF;
+    --degraderblanc: #E3F1FF;
+    --Orangefort: #EB4028;
+    --violet: #EB2891;
+    --bluefort: #9747FF;
+
+  }
+
+
