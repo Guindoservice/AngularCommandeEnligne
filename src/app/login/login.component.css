@@ -52,3 +52,8 @@
   text-align: center;
   margin-top: 120px;
 }
+.forget a{
+  font-size: 12px;
+margin-left: 130px;
+  color: var(--Orangefort);
+}
