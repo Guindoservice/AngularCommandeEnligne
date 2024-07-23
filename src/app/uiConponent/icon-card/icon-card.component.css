@@ -1,0 +1,55 @@
+.cart1{
+    width: 250px;
+    height: 100px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-family: "Nunito", sans-serif;
+    font-weight: bolder;
+    align-items: center;
+    text-align: center;
+    background-color: #FFFFFF;
+    padding: 10px;
+}
+.cart1 .divicone {
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    background-color: #5b92ff1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.cart1 .divicone i{
+    color: #5B93FF;
+    font-size: 20px;
+}
+
+.cart1 .interieur{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: left;
+    line-height: 30px;
+}
+
+.cart .interieur h4{
+    padding-left: 30px;
+}
+
+ .cart1 p{
+    margin: 5px 0px;
+    font-size: 25px;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.685);
+} 
+
+.cart1 h4{
+    margin: 0;
+    color: black;
+    align-self: center;
+    font-size: 13px; 
+} 
