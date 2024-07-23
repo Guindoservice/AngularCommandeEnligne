@@ -1,0 +1,121 @@
+<div class="user-table-container">
+  <!-- Bouton pour afficher le formulaire d'ajout d'utilisateur -->
+  <button class="add-user-btn" (click)="showContainer()">
+    Ajouter Utilisateur
+  </button>
+
+  <!-- Tableau des utilisateurs avec Angular Material Table -->
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 user-table"
+  >
+    <!-- Colonne pour l'ID de l'utilisateur -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+    </ng-container>
+
+    <!-- Colonne pour l'email de l'utilisateur -->
+    <ng-container matColumnDef="mail">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let user">{{ user.mail }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le nom d'utilisateur -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le mot de passe de l'utilisateur -->
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef>Password</th>
+      <td mat-cell *matCellDef="let user">
+        <!-- Masquer le mot de passe par défaut et afficher en texte clair lorsqu'on clique sur l'icône -->
+        {{ getMaskedPassword(user.password, user.showPassword) }}
+        <button mat-icon-button (click)="togglePasswordVisibility(user)">
+          <!-- Icône pour afficher/masquer le mot de passe -->
+          <mat-icon>{{
+            user.showPassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Colonne pour le rôle de l'utilisateur -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+    </ng-container>
+
+    <!-- Colonne pour les actions (éditer, supprimer) -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user">
+        <!-- Icône pour éditer l'utilisateur -->
+        <i
+          class="fa-regular fa-pen-to-square edit-icon"
+          (click)="editUser(user)"
+        ></i>
+        <!-- Icône pour supprimer l'utilisateur -->
+        <i class="fa-solid fa-trash delete-icon" (click)="deleteUser(user)"></i>
+      </td>
+    </ng-container>
+
+    <!-- Ligne d'en-tête du tableau -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- Lignes du tableau -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<!-- Formulaire pour ajouter/éditer un utilisateur, affiché conditionnellement -->
+<div *ngIf="isContainerVisible" class="user-form-container">
+  <div class="formulaire">
+    <!-- Formulaire avec soumission -->
+    <form (ngSubmit)="addUser()">
+      <!-- Icône pour fermer le formulaire -->
+      <i
+        id="span1"
+        (click)="hideContainer()"
+        class="fa-solid fa-x close-icon"
+      ></i>
+      <!-- Champ pour le nom d'utilisateur -->
+      <input
+        type="text"
+        [(ngModel)]="newUser.username"
+        name="username"
+        placeholder="Username"
+        required
+      />
+      <!-- Champ pour l'email -->
+      <input
+        type="text"
+        [(ngModel)]="newUser.mail"
+        name="mail"
+        placeholder="Mail"
+        required
+      />
+      <!-- Champ pour le mot de passe -->
+      <input
+        type="password"
+        [(ngModel)]="newUser.password"
+        name="password"
+        placeholder="Password"
+        required
+      />
+      <!-- Sélecteur pour le rôle -->
+      <select [(ngModel)]="newUser.role" name="role" required>
+        <option value="" disabled selected>Role</option>
+        <option value="admin">Admin</option>
+        <option value="personnel">Personnel</option>
+        <option value="client">Client</option>
+      </select>
+      <!-- Bouton de soumission -->
+      <button type="submit">{{ isEditing ? "Modifier" : "Ajouter" }}</button>
+    </form>
+    <!-- Message d'erreur affiché conditionnellement -->
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+</div>
