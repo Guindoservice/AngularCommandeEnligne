@@ -11,7 +11,6 @@ import {NgIf} from "@angular/common";
 })
 export class CategorieComponent {
 
-
   Ismodal:boolean=false;
 
   affichemodal() {
@@ -21,6 +20,5 @@ export class CategorieComponent {
   nomodal() {
     this.Ismodal = false;
   }
-
 
 }

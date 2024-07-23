@@ -9,6 +9,7 @@ import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { StockComponent } from './stock/stock.component';
 import { ParametresComponent } from './parametres/parametres.component';
 
+import { SecuriteComponent } from './securite/securite.component';
 export const routes: Routes = [
     {path: "dashboard", component: DashboardComponent},
     {path: "produits", component: ProduitsComponent},
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: "utilisateurs", component: UtilisateursComponent},
     {path: "stock", component: StockComponent},
     {path: "parametres", component: ParametresComponent},
-
-
+    { path: '', redirectTo: '/parametres', pathMatch: 'full' },
+     { path: 'securite', component: SecuriteComponent },
+  {  path: '', redirectTo: '/securite', pathMatch: 'full' }  // Redirection par défaut
 ];

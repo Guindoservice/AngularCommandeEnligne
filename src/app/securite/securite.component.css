@@ -34,7 +34,7 @@ nav {
 
 .nav-list li {
     margin-right: 10px;
-    font-weight: bold;
+font-weight: bold;
 }
 
 .btn {
@@ -66,14 +66,15 @@ nav {
 /* Form styles */
 .form-group {
     margin-bottom: 50px;
+    width: 80%;
     margin-left: 50px;
+    align-self: auto;
 }
 .hr-bottom {
     width: 100%;
     margin-top: 0px;
     border: 2px solid #EE4D2D;
 }
-
 
 .form-group label {
     display: block; /* S'assure que le label est affiché comme bloc */
