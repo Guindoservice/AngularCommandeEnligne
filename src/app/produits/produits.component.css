@@ -9,7 +9,6 @@
     flex-wrap: wrap;
     padding: 30px;
 
-    
 }
 
 #produitinfos .icone{
@@ -69,7 +68,6 @@
     margin-left: 25px;
     align-items: baseline;
     margin-bottom: 30px;
-    
 }
 
 .ajoutbtn p{
@@ -86,7 +84,6 @@
     font-size: 15px;
     border: none;
     border-radius: 5px;
-    
 }
 
 table {
@@ -142,5 +139,5 @@ table {
     color: red;
     font-weight: 900;
     font-size: 32px;
-    
   }
+
