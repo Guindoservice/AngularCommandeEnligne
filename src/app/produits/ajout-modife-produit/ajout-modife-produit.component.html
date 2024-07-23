@@ -1,0 +1,86 @@
+<div>
+  <h1 mat-dialog-title>{{action}}</h1>
+</div>
+
+<form novalidate (ngSubmit)="onSubmit()" [formGroup]="tableForm" role="form">
+
+  <div mat-dialog-content>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+      <div fxFlex="100">
+        <mat-form-field style="width: 100%;">
+          <input placeholder="Country" matInput formControlName="country">
+          <mat-error>
+            {{error['country']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field style="width: 100%;">
+          <input placeholder="Cases" matInput formControlName="cases">
+          <mat-error>
+            {{error['cases']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field style="width: 100%;">
+          <input placeholder="Today Cases" matInput formControlName="todayCases">
+          <mat-error>
+            {{error['todayCases']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <input placeholder="Deaths" matInput formControlName="deaths">
+          <mat-error>
+            {{error['deaths']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <input placeholder="Today Deaths" matInput formControlName="todayDeaths">
+          <mat-error>
+            {{error['todayDeaths']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <input placeholder="Recovered" matInput formControlName="recovered">
+          <mat-error>
+            {{error['recovered']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <input placeholder="Active" matInput formControlName="active">
+          <mat-error>
+            {{error['active']}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions style="float: right;">
+    <div>
+      <button class="dialog-btn" mat-raised-button type="button" (click)="closeDialog()">{{cancel}}</button>
+      <button class="dialog-btn" mat-raised-button color="primary" type="submit"
+        [disabled]="tableForm.invalid">{{action}}</button>
+    </div>
+  </div>
+
+</form>
