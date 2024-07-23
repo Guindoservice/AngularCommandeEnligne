@@ -1,3 +1,4 @@
+
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,9 +16,11 @@ interface User {
   showPassword?: boolean; // Ajouter la propriété showPassword pour gérer la visibilité du mot de passe
 }
 
+
 @Component({
   selector: 'app-utilisateurs',
   standalone: true,
+
   imports: [MatTableModule, MatDividerModule, NgIf, FormsModule, MatIconModule], // Ajouter MatIconModule
   templateUrl: './utilisateurs.component.html',
   styleUrls: ['./utilisateurs.component.css'], // Correction du nom du fichier de style
@@ -155,4 +158,5 @@ export class UtilisateursComponent implements OnInit {
   getMaskedPassword(password: string, showPassword: boolean): string {
     return showPassword ? password : '*'.repeat(password.length);
   }
+
 }
