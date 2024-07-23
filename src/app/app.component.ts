@@ -10,10 +10,6 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 
-
-
-
-
 @Component({
   selector: 'app-root',
   standalone: true,
