@@ -39,13 +39,17 @@
     justify-content: space-between;
     margin: 5px auto;
   }
-  .search{
+  .search-input{
     color: #EE4D2D;
     cursor: pointer;
-    align-self: center;
-    font-size: 24px;
+    align-self: left;
+    font-size: 14px;
+    width: 50px;
+    height: 60px;
   }
-  
+  mat-form-field{
+    background: none;
+  }
 .rightS{
   display: flex;
   justify-content: center;
@@ -73,3 +77,4 @@ mat-icon{
   color: #EE4D2D;
   cursor: pointer;
 }
+/* ---------------------------------------------------- */

@@ -1,21 +1,29 @@
 
-    <!-- Assuming you have a stylesheet -->
 
-    <div class="container" >
-      <form>
-        <div class="row">
-          <h5>Informations du produit</h5>
-          <div class="input-group input-group-icon">
-            <input type="text" placeholder="Id produits"  disabled/>
-            <div class="input-icon">
-            </div>
-          </div>
-
-
-          
-          </div>
-
-          
-          
-      </form>
+    <h5 mat-dialog-title>
+      {{ data.numero ? "Edit Product" : "Ajout de produit" }}
+    </h5>
+    <div mat-dialog-content [formGroup]="productForm">
+      <mat-form-field>
+        <input matInput placeholder="Nom" formControlName="nom" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Prix" formControlName="prix" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Categorie" formControlName="categorie" />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="SousCategorie"
+          formControlName="sousCategorie"
+        />
+      </mat-form-field>
     </div>
+    <div mat-dialog-actions class="btn_row">
+      <button mat-raised-button (click)="onNoClick()">Cancel</button>
+      <button mat-raised-button (click)="onSave()">Submit</button>
+    </div>
+
+

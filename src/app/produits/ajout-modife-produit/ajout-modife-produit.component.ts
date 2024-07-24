@@ -1,70 +1,51 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {FormGroup,FormBuilder,Validators,ReactiveFormsModule,} from '@angular/forms';
-import { errorMessages, regExps } from '../../utils/form-validator';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-export interface UserData {
-  name: string;
-  id: string;
-  action: string;
-}
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-ajout-modife-produit',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './ajout-modife-produit.component.html',
-  styleUrl: './ajout-modife-produit.component.css',
+  styleUrls: ['./ajout-modife-produit.component.css'],
 })
 export class AjoutModifeProduitComponent {
-  action: string;
-  local_data: UserData;
-  countries!: string[];
-  cancel: string = 'Cancel';
-
-  tableForm!: FormGroup;
-  error = errorMessages;
+  productForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<AjoutModifeProduitComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: UserData,
-    private formBuilder: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder
   ) {
-    this.local_data = { ...data };
-    this.action = this.local_data.action;
-    this.creatForm();
-    this.tableForm.patchValue(this.local_data);
-  }
-
-  creatForm(): void {
-    this.tableForm = this.formBuilder.group({
-      country: ['', [Validators.required, Validators.pattern(regExps['str'])]],
-      cases: ['', [Validators.required, Validators.pattern(regExps['num'])]],
-      todayCases: [
-        '',
-        [Validators.required, Validators.pattern(regExps['num'])],
-      ],
-      deaths: ['', [Validators.required, Validators.pattern(regExps['num'])]],
-      todayDeaths: [
-        '',
-        [Validators.required, Validators.pattern(regExps['num'])],
-      ],
-      recovered: [
-        '',
-        [Validators.required, Validators.pattern(regExps['num'])],
-      ],
-      active: ['', [Validators.required, Validators.pattern(regExps['num'])]],
+    this.productForm = this.fb.group({
+      nom: [data.nom || '', Validators.required],
+      prix: [data.prix || '', Validators.required],
+      categorie: [data.categorie || '', Validators.required],
+      sousCategorie: [data.sousCategorie || '', Validators.required],
     });
   }
-  closeDialog() {
-    this.dialogRef.close({ data: { action: 'Cancel' } });
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
-  onSubmit(): void {
-    this.dialogRef.close({
-      data: { action: this.action, data: this.tableForm.value },
-    });
+  onSave(): void {
+    if (this.productForm.valid) {
+      const newProduct = {
+        ...this.data,
+        ...this.productForm.value,
+      };
+      this.dialogRef.close(newProduct);
+    }
   }
 }
