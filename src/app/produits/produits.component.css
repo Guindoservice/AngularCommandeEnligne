@@ -2,7 +2,8 @@
     background-color: white;
     border-radius: 8px;
     padding: 16px;
-    margin: 0 20px; /* Marge extérieure à droite et à gauche */
+    margin: 0 20px; 
+    text-align: left;/* Marge extérieure à droite et à gauche */
   }
  th{
     border-bottom: 2px solid #616161;
@@ -65,4 +66,10 @@
   justify-content: space-between;
   gap: 10px;
   color: #EE4D2D;
+}
+mat-icon{
+  text-align: left;
+  gap: 10px;
+  color: #EE4D2D;
+  cursor: pointer;
 }
