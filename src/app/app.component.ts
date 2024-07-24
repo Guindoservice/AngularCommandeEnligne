@@ -9,16 +9,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
-
-
-
-
+import {LoginComponent} from "./login/login.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,  MatToolbarModule, MatIconModule,MatSidenavModule,MatButtonModule,
-    MatListModule, RouterModule, MatSelectModule,MatTableModule,MatDividerModule,
+    MatListModule, RouterModule, MatSelectModule,MatTableModule,MatDividerModule,LoginComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

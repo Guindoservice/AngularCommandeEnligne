@@ -122,4 +122,3 @@ constructor(private commandeServiceService:CommandeServiceService) {
       }
     }
   ];
-}
