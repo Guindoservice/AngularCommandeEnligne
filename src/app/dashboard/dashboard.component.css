@@ -1,0 +1,94 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #E3F1FF;
+    height: 100vh;
+    color: black;
+    padding-top: 50px;
+    
+}
+p{
+    color: black;
+}
+
+.selectjour{
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.selectjour form select {
+  border: none;
+  font-size: 12px;
+  padding: 10px;
+  font-weight: bold;
+  outline: none;
+  border: 1px solid gray;
+}
+
+.conteneurprincipal{
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+#carteconteneur{
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    margin-left: 30px;
+
+}
+
+.cart1, .cart2, .cart3,.cart4{
+ 
+    width: 263px;
+    height: 156px;
+    /* border: 1px solid black; */
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: center;
+    background: linear-gradient(to right, #4328EB 14%, #F5F4FF 130%);
+
+}
+
+.cart1 p, .cart2 p, .cart3 p, .cart4 p{
+    margin: auto;
+    font-size: 42px;
+    color: white;
+    align-self: center;
+
+}
+
+.cart1 h4, .cart2 h4, .cart3 h4, .cart4 h4 {
+    margin: 0;
+    color: white;
+    align-self: flex-start;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.cart2{
+         
+    background: linear-gradient(to right, #0085FF 27%, #E3F1FF 130%);
+
+}
+
+.cart3{
+    background: linear-gradient(to right, #EB4028 27%, #FDEAE7 130%);
+
+}
+
+.cart4{
+    
+    background: linear-gradient(to right, #EB2891 27%, #FDE7F3 130%);
+
+}
