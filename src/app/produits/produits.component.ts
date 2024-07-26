@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AjoutModifeProduitComponent } from './ajout-modife-produit/ajout-modife-produit.component';
@@ -20,6 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProduitService } from '../Services/produits.service';
 
 declare var $: any;
 
@@ -58,6 +59,11 @@ interface Product {
   styleUrls: ['./produits.component.css'],
 })
 export class ProduitsComponent implements AfterViewInit, OnInit {
+  
+  showInfo(_t82: any) {
+    throw new Error('Method not implemented.');
+  }
+
   searchText: string = '';
   displayedColumns: string[] = [
     'numero',
@@ -67,29 +73,24 @@ export class ProduitsComponent implements AfterViewInit, OnInit {
     'sousCategorie',
     'action',
   ];
-  products: Product[] = [
-    {
-      numero: 1,
-      nom: 'Bakary Samaké',
-      prix: '100000 F',
-      categorie: '80000090',
-      sousCategorie: '12/03/2023',
-    },
-    {
-      numero: 2,
-      nom: 'Hamidou Diallo',
-      prix: '100000 F',
-      categorie: '80000090',
-      sousCategorie: '1/03/2023',
-    },
-    // Add more products as needed
-  ];
+  products: Product[] = [];
   filteredProducts = new MatTableDataSource<Product>(this.products);
+  
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private produitService:ProduitService) {}
+
+  
+
+  loadProduits(): void {
+    this.produitService.getProduits().subscribe((data: Product[]) => {
+      this.products = data;
+      this.filteredProducts.data = this.products;
+    });
+  }
 
   ngOnInit(): void {
     this.applyFilter();
+    this.loadProduits();
   }
 
   applyFilter(): void {
@@ -100,8 +101,8 @@ export class ProduitsComponent implements AfterViewInit, OnInit {
 
   openDialog(product: Product | null = null): void {
     const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
-      width: '700px', 
-      height: '400px',
+      width: '800px',
+      height: '600px',
       panelClass: 'custom-dialog-container',
       data: product ? { ...product } : {},
     });
@@ -110,23 +111,63 @@ export class ProduitsComponent implements AfterViewInit, OnInit {
       if (result) {
         if (product) {
           // Update existing product
-          const index = this.products.findIndex(
-            (p) => p.numero === product.numero
-          );
+          const index = this.products.findIndex((p) => p.numero === product.numero);
           this.products[index] = result;
+          this.updateProduit(result);
+          this.produitService
+            .updateProduit(product.numero, result)
+            .subscribe(() => {
+              this.loadProduits();
+            });
         } else {
           // Add new product
           result.numero = this.products.length + 1;
           this.products.push(result);
+          this.createProduit(result);
+          this.produitService.createProduit(result).subscribe(() => {
+            this.loadProduits();
+          });
         }
         this.applyFilter();
       }
     });
   }
 
+  createProduit(product: Product): void{
+    this.produitService.createProduit(product).subscribe(
+      (data) => {
+        console.log('Produit crée avec succès', data);
+      },
+      (error) => {
+        console.log('Erruer de creation....', error);
+      }
+    );
+  }
+
+  updateProduit(prooduit: Product): void{
+    this.produitService.updateProduit(prooduit.numero, prooduit).subscribe(
+      (data) => {
+        console.log('Produit mdofier avec succès', data);
+      },
+      (error) => {
+        console.log('Erreur de modification...', error);
+      }
+    );
+}
+
+
   deleteProduct(product: Product): void {
-    this.products = this.products.filter((p) => p.numero !== product.numero);
-    this.applyFilter();
+    this.produitService.deleteProduit(product.numero).subscribe(
+      (data) => {
+        this.products = this.products.filter((p) => p.numero !== product.numero);
+        this.applyFilter();
+      },
+      (error) => {
+        console.log('Erreur de suppression...', error);
+      }
+    );
+    
+    this.loadProduits();
   }
 
   ngAfterViewInit() {

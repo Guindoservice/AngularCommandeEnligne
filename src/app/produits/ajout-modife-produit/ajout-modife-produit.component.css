@@ -1,26 +1,109 @@
-.containerP{
-  text-align: center;
-  background: #fff;
-  width: 500px;
-}
-.content{
-  text-align: center;
-  padding: 10px;
-}
-h5{
-  color: #05091d;
+h5 {
+  color: #ffffff;
   font-size: 17px;
   font-weight: 500;
+  text-align: center;
+  margin-top: 5px;
 }
-.btn_row{
+
+.btn {
+  background: #fff;
+  border: 1px solid #ee4d2d;
+  padding: 5px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  background: #ee4d2d;
+  gap: 5px;
+}
+
+/* ----------------------- */
+.containerV {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.variant-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.var {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vOpt {
   display: flex;
   align-items: center;
-  justify-content: space-around;
 }
-button{
-background: none;
-border: 1px solid #EE4D2D;
-padding: 5px;
-border-radius: 5px;
-width: 50%;
+
+.mat-dialog-title {
+  text-align: center;
 }
+
+.mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+.var,
+#var {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: start;
+  align-items: center;
+}
+
+/* --------------- */
+/* ajout-modife-produit.component.css */
+
+/* ajout-modife-produit.component.css */
+
+.close-button {
+  position: absolute;
+  top: 4;
+  right: 0;
+  background: none;
+  color: #fff;
+  border: none;
+}
+
+
+.variant-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.var1 {
+  flex: 1 1 100%;
+}
+
+.var2 {
+  flex: 1 1 100%;
+}
+

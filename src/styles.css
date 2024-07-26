@@ -46,10 +46,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 
 /* styles.css or styles.scss */
 .custom-dialog-container {
-    background: #fff;
     width: 700px;
   /* Add styles that you want to apply to the dialog container */
   padding: 1px;
-  border-radius: 8px; /* Example for rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Example for shadow effect */
+  border-radius: 8px;  
 }
+

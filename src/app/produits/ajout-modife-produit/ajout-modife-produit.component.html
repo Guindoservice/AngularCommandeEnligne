@@ -1,29 +1,55 @@
+<h5 mat-dialog-title class="mat-title mat-align-center">
+  {{ data.numero ? "Edit Product" : "Ajout de produit" }}
+  <button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</h5>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="productForm" class="popup">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Nom" formControlName="nom" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Prix" formControlName="prix" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Quantité" formControlName="quantite" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Categorie</mat-label>
+      <mat-select formControlName="categorie" (selectionChange)="onCategoryChange()">
+        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width" *ngIf="showSousCategorie">
+      <mat-label>SousCategorie</mat-label>
+      <mat-select formControlName="sousCategorie">
+        <mat-option *ngFor="let sousCat of sousCategories" [value]="sousCat">{{ sousCat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-
-    <h5 mat-dialog-title>
-      {{ data.numero ? "Edit Product" : "Ajout de produit" }}
-    </h5>
-    <div mat-dialog-content [formGroup]="productForm">
-      <mat-form-field>
-        <input matInput placeholder="Nom" formControlName="nom" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Prix" formControlName="prix" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Categorie" formControlName="categorie" />
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="SousCategorie"
-          formControlName="sousCategorie"
-        />
-      </mat-form-field>
+    <!-- Variants Section -->
+    <div class="containerV">
+      <div *ngIf="showVariant1" class="var var1">
+        <label>{{ variant1Label }}</label>
+        <div class="variant-options">
+          <mat-checkbox *ngFor="let var1 of variant1Options" [value]="var1" (change)="onVariant1Change($event)">
+            {{ var1 }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div *ngIf="showVariant2" class="var var2">
+        <label>{{ variant2Label }}</label>
+        <div class="variant-options">
+          <mat-radio-group formControlName="variant2">
+            <mat-radio-button *ngFor="let var2 of variant2Options" [value]="var2">{{ var2 }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
     </div>
-    <div mat-dialog-actions class="btn_row">
-      <button mat-raised-button (click)="onNoClick()">Cancel</button>
-      <button mat-raised-button (click)="onSave()">Submit</button>
-    </div>
-
-
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onReset()" class="btn">Reset</button>
+  <button mat-raised-button color="primary" (click)="onSave()" class="btn">Submit</button>
+</mat-dialog-actions>
