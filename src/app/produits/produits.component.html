@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <table mat-table [dataSource]="filteredProducts" class="tableS" role="table">
+  <table mat-table [dataSource]="filteredProduits" class="tableS" role="table">
     <!-- Columns Definitions -->
     <ng-container matColumnDef="numero">
       <th mat-header-cell *matHeaderCellDef>Numéro</th>
@@ -54,7 +54,7 @@
         <button mat-icon-button (click)="openDialog(row)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteProduct(row)">
+        <button mat-icon-button (click)="deleteProduit(row)">
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-icon-button (click)="showInfo(row)">

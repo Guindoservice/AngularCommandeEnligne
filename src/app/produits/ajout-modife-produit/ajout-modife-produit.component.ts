@@ -14,7 +14,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
-import { ProduitService } from '../../Services/produits.service';
 
 @Component({
   selector: 'app-ajout-modife-produit',
@@ -56,8 +55,7 @@ export class AjoutModifeProduitComponent {
   constructor(
     public dialogRef: MatDialogRef<AjoutModifeProduitComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
-    private produitService : ProduitService
+    private fb: FormBuilder
   ) {
     this.productForm = this.fb.group({
       nom: [data.nom || '', Validators.required],
@@ -124,11 +122,8 @@ export class AjoutModifeProduitComponent {
     this.productForm.reset();
   }
 
-  onSave(product:any): void {
-    if (this.productForm.valid, product.numero) {
-      this.produitService.updateProduit(product.numero, product).subscribe(() => {
-        this.dialogRef.close(product);
-      });
+  onSave(): void {
+    if (this.productForm.valid) {
       const newProduct = {
         ...this.data,
         ...this.productForm.value,
@@ -136,10 +131,6 @@ export class AjoutModifeProduitComponent {
       // Assuming a function to save the product to the table
       this.saveProduct(newProduct);
       this.dialogRef.close(newProduct);
-    } else {
-      this.produitService.createProduit(product.subscribe(() => {
-        this.dialogRef.close(product);
-      }))
     }
   }
 
