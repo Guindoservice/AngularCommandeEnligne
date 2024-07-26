@@ -1,5 +1,20 @@
 You can add global styles to this file, and also import other style files
 
+
+
+:root {
+    --degraderblue: #0085FF;
+    --degraderblanc: #E3F1FF;
+    --Orangefort: #EB4028;
+    --violet: #EB2891;
+    --bluefort: #9747FF;
+    --mainColor:#EE4D2D;
+    --secondColor:#8C21FF;
+    --activeColor:#F4F8FA;
+    --gradientColor:linear-gradient(var(--mainColor),var(--secondColor));
+
+  }
+  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 
@@ -16,11 +31,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     margin-left: 10px;
     color: #EE4D2D;
 }
-:root {
-    --degraderblue: #0085FF;
-    --degraderblanc: #E3F1FF;
-    --Orangefort: #EB4028;
-    --violet: #EB2891;
-    --bluefort: #9747FF;
-
-  }

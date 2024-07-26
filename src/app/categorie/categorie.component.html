@@ -1,1 +1,62 @@
-<p>categorie works!</p>
+<div class="table-container mat-elevation-z3">
+ 
+
+    <div class="caption"> 
+      <div class="leftS"><h5>Liste des Categories |</h5></div>
+      
+      <div class="rightS">
+        <mat-icon class="search">search</mat-icon>
+        <button class="btn" (click)="openDialog()">
+          
+          <mat-icon>add</mat-icon>Ajouter
+        </button>
+       
+      </div>
+    </div>
+  
+  
+    <table id="example" class="tableS" role="table">
+      <thead role="rowgroup">
+        <tr>
+          <th>Numéro</th>
+          <th>Nom de la categorie</th>
+          <th>Date</th>
+          <th>Ajouté par</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+
+          <td>12/03/2023</td>
+          <td>Bakary Samaké</td>
+          <td>Electronique</td>
+        
+          <td class="action-btn">
+            <!-- icons -->
+            <mat-icon>delete</mat-icon>
+            <mat-icon>edit</mat-icon>
+            <mat-icon>info</mat-icon>
+          </td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+
+          <td>12/03/2023</td>
+          <td>Bakary Samaké</td>
+          <td>Electronique</td>
+        
+          <td class="action-btn">
+            <!-- icons -->
+            <mat-icon>delete</mat-icon>
+            <mat-icon>edit</mat-icon>
+            <mat-icon>info</mat-icon>
+          </td>
+        </tr>
+       
+      </tbody>
+    </table>
+  </div>
+  

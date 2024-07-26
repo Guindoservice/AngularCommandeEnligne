@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms'; // Import pour utiliser ngModel
 import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
+import { UsersService } from '../users.service';
 
 // Interface pour définir la structure d'un utilisateur
 interface User {
@@ -29,49 +30,7 @@ export class UtilisateursComponent implements OnInit {
   isContainerVisible = false; // Indique si le formulaire d'ajout/édition est visible
   isEditing = false; // Indique si un utilisateur est en cours d'édition
   errorMessage = ''; // Stocke le message d'erreur
-  users: User[] = [
-    // Liste initiale des utilisateurs
-    // {
-    //   id: 1,
-    //   mail: 'mail.com',
-    //   username: 'adama',
-    //   password: 'mdp',
-    //   role: 'client',
-    //   showPassword: false,
-    // },
-    // {
-    //   id: 2,
-    //   mail: 'email.com',
-    //   username: 'oumou',
-    //   password: 'mdp',
-    //   role: 'personnel',
-    //   showPassword: false,
-    // },
-    // {
-    //   id: 3,
-    //   mail: 'email.com',
-    //   username: 'moussa',
-    //   password: 'mdp',
-    //   role: 'admin',
-    //   showPassword: false,
-    // },
-    // {
-    //   id: 4,
-    //   mail: 'email.com',
-    //   username: 'awa',
-    //   password: 'mdp',
-    //   role: 'client',
-    //   showPassword: false,
-    // },
-    // {
-    //   id: 5,
-    //   mail: 'email.com',
-    //   username: 'kone',
-    //   password: 'mdp',
-    //   role: 'admin',
-    //   showPassword: false,
-    // },
-  ];
+  users: User[] = [];
   newUser: User = { id: 0, mail: '', username: '', password: '', role: '' }; // Objet pour stocker les informations du nouvel utilisateur ou de l'utilisateur en cours d'édition
   displayedColumns: string[] = [
     'id',
@@ -84,10 +43,21 @@ export class UtilisateursComponent implements OnInit {
   dataSource = new MatTableDataSource(this.users); // Source de données pour le tableau
 
   // Constructeur du composant
-  constructor() {}
+  constructor(private userService: UsersService) {}
+  data:any;
 
   // Méthode appelée lors de l'initialisation du composant
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let auth = localStorage.getItem("authToken");
+    if (auth != null) {
+      this.userService.findAll(auth).subscribe({
+        next: data => this.users = data,
+
+        error: er => console.log(er)      
+      });
+    } 
+    
+  }
 
   // Afficher le formulaire d'ajout/édition
   showContainer() {

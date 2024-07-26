@@ -10,6 +10,8 @@ import { StockComponent } from './stock/stock.component';
 import { ParametresComponent } from './parametres/parametres.component';
 import {LoginComponent} from "./login/login.component";
 import { SecuriteComponent } from './securite/securite.component';
+import {PayementComponent} from "./payement/payement.component";
+import { PersonnelComponent } from './personnel/personnel.component';
 
 // @ts-ignore
 export const routes: Routes = [
@@ -23,6 +25,8 @@ export const routes: Routes = [
   {path: "utilisateurs", component: UtilisateursComponent},
   {path: "stock", component: StockComponent},
   {path: "parametres", component: ParametresComponent},
+  {path: "payement", component: PayementComponent},
+  {path: "personnel", component:PersonnelComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'securite', component: SecuriteComponent },
 ];

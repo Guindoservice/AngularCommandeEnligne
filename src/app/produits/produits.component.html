@@ -2,12 +2,15 @@
  
 
   <div class="caption"> 
-    <div class="leftS"><h5>Liste des Commandes |</h5></div>
+    <div class="leftS"><h5>Liste des produits |</h5></div>
+    
     <div class="rightS">
+      <mat-icon class="search">search</mat-icon>
       <button class="btn" (click)="openDialog()">
+        
         <mat-icon>add</mat-icon>Ajouter
       </button>
-      <mat-icon class="search">search</mat-icon>
+     
     </div>
   </div>
 
@@ -20,7 +23,7 @@
         <th>Prix</th>
         <th>Categorie</th>
         <th>SousCategorie</th>
-        <th>Action</th>
+        <th colspan="">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -30,7 +33,7 @@
         <td>Bakary Samaké</td>
         <td>80000090</td>
         <td>100000 F</td>
-        <td class="action-btn">
+        <td >
           <!-- icons -->
           <mat-icon>delete</mat-icon>
           <mat-icon>edit</mat-icon>

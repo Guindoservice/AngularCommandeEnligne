@@ -1,13 +1,14 @@
 import { AfterViewInit, Component } from '@angular/core';
-declare var $: any;  // Déclaration pour utiliser jQuery dans Angular
+declare var $: any; 
 @Component({
-  selector: 'app-stock',
+  selector: 'app-personnel',
   standalone: true,
   imports: [],
-  templateUrl: './stock.component.html',
-  styleUrl: './stock.component.css'
+  templateUrl: './personnel.component.html',
+  styleUrl: './personnel.component.css'
 })
-export class StockComponent implements AfterViewInit{
+export class PersonnelComponent implements AfterViewInit {
+  
   ngAfterViewInit() {
     $(document).ready(function() {
       $('#example').DataTable({
@@ -37,6 +38,3 @@ export class StockComponent implements AfterViewInit{
     });
   }
 }
-
-
-

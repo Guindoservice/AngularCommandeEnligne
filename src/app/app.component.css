@@ -1,3 +1,4 @@
+
 .user-profile {
     display: flex;
     align-items: center;
@@ -75,53 +76,24 @@
     outline: none;
   }
 
-  .mdc-button__label{
-    color: black;
-  }
-  .sidebarcote{
-    width: 200px;
-    background-color: white;
-    /* margin-top: 2px; */
-    /* border: 1px solid black; */
-    box-shadow: 0px 4px 6px  gray ;
-    padding-top: 50px;
-    border-radius: 0;
-    overflow: hidden;
-
-    
-  }
-
   .sidebarcote  .mat-list-item {
     color: white; 
-    margin-left: -20px;
-   
+    margin-left: 3px;
+   border-radius: 5px;
+  }
+  .sidebarcote  .mat-list-item:hover {
+    background:#e3f1ff;
   }
 
-  #parameters{
-    align-items: center;
-    /* justify-content: center; */
-    /* display: flex; */
-    padding-left: 50px;
-    /* color: white; */
-    background-color: #EE4D2D;
-    width: auto;
-    border-radius: 0;
-  }
+button{
+  background:none;
+  border: #EE4D2D;
+}
 
-  #parameters #parambtn{
-    color: white;
-    text-align: center;
-    align-items: center;
-    font-weight: 500;
-    
-
-  }
-
- 
   
   .sidebarcote .mat-list-item button {
-    /* color: #EE4D2D;  */
-    color: black;
+   color: black;
+  
   }
   .test{
     border-radius: 50%;
@@ -136,4 +108,44 @@
 
 body::-webkit-scrollbar{
     display: none;
+}
+/* Styles pour la barre de navigation latérale */
+.sidebarcote {
+  width: 250px;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding-top: 50px;
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+  position: fixed;
+  top: 5%;
+  left: 0;
+  z-index: 999; /* Assure que la barre latérale est en dessous de la barre d'outils */
+  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+}
+mat-toolbar.principal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff; /* Couleur de fond de la barre d'outils */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0 16px;
+  position: fixed;
+  top: 0;
+  
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Assure que la barre de navigation est au-dessus des autres éléments */
+  
+ 
+}
+.containerprincipal {
+  margin-top: 5rem; /* Hauteur de la barre de navigation principale pour ne pas chevaucher */
+
+
+}
+
+/* --------------- */
+.active {
+  border-left: 7px solid #EE4D2D; /* Adjust color as needed */
+  background-color: var(--activeColor); /* Grey background */
 }

@@ -10,16 +10,16 @@ export class UsersService {
   private baseUrl: string;
 
   constructor(private http: HttpClient){
-    this.baseUrl = 'http://localhost:8080'
+    this.baseUrl = 'http://localhost:8080/admin/liste_utilisateurs'
   }
 
-  public findAll():Observable<any[]>{
+  public findAll(token: string):Observable<any[]>{
     return this.http.get<any[]>(this.baseUrl, {
       headers: new HttpHeaders(
         
       {
         'content-Type': 'application/json',
-        'Authorization': 'Basic' + btoa('admin:admin'),
+        'Authorization': token,
 
       }
     )
