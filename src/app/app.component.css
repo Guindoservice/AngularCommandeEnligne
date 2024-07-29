@@ -1,48 +1,24 @@
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .profile-picture {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-left: 10px;
-    overflow: hidden;
-    margin-right: 8px;
-  }
-  
-  .profile-picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .username {
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-  }
-  
-  .spacer {
-    flex-grow: 1;
-  }
+ .containerR{
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  justify-content: center;
+  align-items: center;
+ }
 
-  .principal{
-    background-color: white;
-    width: 100%;
-    /* border: 1px solid black; */
-    /* box-shadow: 0px 4px 1px -2px gray; */
-    box-shadow: 0px 4px 1px -2px rgba(128, 128, 128, 0.5); 
+img{
+  width: 90px;
+}
 
-    /* margin-top: 300px; */
-    height: 5rem;
 
-  }
 
-  .voirsite{
+/* -----------------SIDEBAR------------------------- */
+body::-webkit-scrollbar{
+    display: none;
+}
+
+.voirsite{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,34 +30,19 @@
     margin-right: 30px;
   }
 
-  .voirsite #element1, #element2{
+.voirsite #element1, #element2{
     color: #EE4D2D;
     height: 30px;
     width: 30px;
   }
-  .imagelogo{
-    width: auto;
-    height: 180px;
-  }
-  .containerdroit{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .containerdroit input[type= "text"]{
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #EE4D2D;
-    border-radius: 5px;
-    outline: none;
-  }
 
-  .sidebarcote  .mat-list-item {
+.sidebarcote  .mat-list-item {
     color: white; 
     margin-left: 3px;
    border-radius: 5px;
   }
-  .sidebarcote  .mat-list-item:hover {
+
+.sidebarcote  .mat-list-item:hover {
     background:#e3f1ff;
   }
 
@@ -90,11 +51,11 @@ button{
   border: #EE4D2D;
 }
 
-  
-  .sidebarcote .mat-list-item button {
+.sidebarcote .mat-list-item button {
    color: black;
   
   }
+
   .test{
     border-radius: 50%;
     height: 40px;
@@ -102,13 +63,12 @@ button{
     margin-left: 10px;
     color: #EE4D2D;
 }
+
 .containerprincipal{
     margin-top: 5px;
 }
 
-body::-webkit-scrollbar{
-    display: none;
-}
+
 /* Styles pour la barre de navigation latérale */
 .sidebarcote {
   width: 250px;
@@ -122,6 +82,7 @@ body::-webkit-scrollbar{
   z-index: 999; /* Assure que la barre latérale est en dessous de la barre d'outils */
   overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
 }
+
 mat-toolbar.principal {
   display: flex;
   align-items: center;
@@ -131,20 +92,16 @@ mat-toolbar.principal {
   padding: 0 16px;
   position: fixed;
   top: 0;
-  
   left: 0;
   width: 100%;
   z-index: 1000; /* Assure que la barre de navigation est au-dessus des autres éléments */
-  
- 
 }
+
 .containerprincipal {
   margin-top: 5rem; /* Hauteur de la barre de navigation principale pour ne pas chevaucher */
-
-
 }
 
-/* --------------- */
+/* -----------------------ACTIVE------------------------------ */
 .active {
   border-left: 7px solid #EE4D2D; /* Adjust color as needed */
   background-color: var(--activeColor); /* Grey background */

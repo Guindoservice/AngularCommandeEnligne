@@ -9,23 +9,63 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"
     />
   </head>
-  <app-login *ngIf="logIN == false" (loginEvent)="verifier($event)"></app-login>
+  <!-- <app-login *ngIf="logIN == true" (loginEvent)="verifier($event)"></app-login> -->
   <body *ngIf="logIN == true">
-    <mat-toolbar class="principal" color="primary">
-      <div class="containerdroit">
-        <img class="imagelogo" src="assets/logoo.png" alt="Profile Picture" />
-      </div>
-      <div class="user-profile">
-        <div class="profile-picture">
-          <img src="assets/profile.jpg" alt="Profile Picture" />
+    <!-- ------------------------ -->
+    <mat-toolbar class="principal header" color="primary">
+      <div class="containerR">
+        <div class="logo">
+          <img src="assets/logoo.png" alt="logo-mirashop" classe="logoImg" />
         </div>
-        <span class="username">Mohamed Koné</span>
+        <mat-divider [inset]="true"></mat-divider>
+        <div class="toggle">
+          <button
+            class="toggle_btn"
+            aria-label="Menu icon"
+            
+            matTooltip="Menu"
+          >
+          <!-- (click)="drawer.toggle()" -->
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
       </div>
-      <button class="test" mat-icon-button>
-        <mat-icon>more_vert</mat-icon>
-      </button>
+      <!-- ------------- -->
+
+      <div class="containerL">
+        <div class="userpic">
+          <button
+            mat-icon-button
+            matTooltip="My Account"
+            [matMenuTriggerFor]="userAccountMenu"
+          >
+            <mat-icon>account_circle</mat-icon>
+          </button>
+
+        <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
+        <button mat-menu-item routerLink="#">
+            <mat-icon>person</mat-icon><span>My Account</span>
+        </button>
+        <button mat-menu-item routerLink="#">
+            <mat-icon>settings</mat-icon><span>Settings</span>
+        </button>
+        <button mat-menu-item routerLink="#">
+            <mat-icon>help</mat-icon><span>Help</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="#">
+            <mat-icon>exit_to_app</mat-icon>Logout
+        </button>
+    </mat-menu>
+
+        </div>
+        <div class="name">N</div>
+        <div class="i">i</div>
+      </div>
     </mat-toolbar>
-    <mat-drawer-container class="containerprincipal">
+
+    <!-- ------------------------ -->
+    <mat-drawer-container class="containerprincipal" #drawer autosize>
       <mat-drawer
         class="sidebarcote"
         mode="side"
@@ -50,58 +90,94 @@
               Dashboard
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="produitsItem" routerLink="produits">
-            <button class="btn_menu" mat-button >
+          <mat-list-item
+            class="mat-list-item active"
+            id="produitsItem"
+            routerLink="produits"
+          >
+            <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">redeem</mat-icon>
               Produits
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="commandeItem" routerLink="commande">
+          <mat-list-item
+            class="mat-list-item active"
+            id="commandeItem"
+            routerLink="commande"
+          >
             <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">shopping_cart</mat-icon>
               Commandes
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="livraisonsItem" routerLink="livraisons">
+          <mat-list-item
+            class="mat-list-item active"
+            id="livraisonsItem"
+            routerLink="livraisons"
+          >
             <button class="btn_menu" class="btn" mat-button>
               <mat-icon style="color: #ee4d2d">local_shipping</mat-icon>
               Livraisons
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="categorieItem" routerLink="categorie">
+          <mat-list-item
+            class="mat-list-item active"
+            id="categorieItem"
+            routerLink="categorie"
+          >
             <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">category</mat-icon>
               Catégories
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="clientItem" routerLink="client">
-            <button class="btn_menu" mat-button >
+          <mat-list-item
+            class="mat-list-item active"
+            id="clientItem"
+            routerLink="client"
+          >
+            <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">people</mat-icon>
               Clients
             </button>
           </mat-list-item>
 
-          <mat-list-item class="mat-list-item active" id="payementItem" routerLink="payement">
-            <button class="btn_menu" mat-button >
+          <mat-list-item
+            class="mat-list-item active"
+            id="payementItem"
+            routerLink="payement"
+          >
+            <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">monetization_on</mat-icon>
               Payements
             </button>
           </mat-list-item>
 
-          <mat-list-item class="mat-list-item active" id="personnelItem" routerLink="personnel">
+          <mat-list-item
+            class="mat-list-item active"
+            id="personnelItem"
+            routerLink="personnel"
+          >
             <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">supervisor_account</mat-icon>
               Personnels
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="utilisateursItem" routerLink="utilisateurs">
+          <mat-list-item
+            class="mat-list-item active"
+            id="utilisateursItem"
+            routerLink="utilisateurs"
+          >
             <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">group_add</mat-icon>
               Utilisateurs
             </button>
           </mat-list-item>
-          <mat-list-item class="mat-list-item active" id="stockItem" routerLink="stock">
-            <button class="btn_menu" mat-button >
+          <mat-list-item
+            class="mat-list-item active"
+            id="stockItem"
+            routerLink="stock"
+          >
+            <button class="btn_menu" mat-button>
               <mat-icon style="color: #ee4d2d">store_mall_directory</mat-icon>
               Stocks
             </button>
@@ -109,10 +185,10 @@
           <mat-list-item
             id="parameters"
             class="mat-list-item active"
-            id="parametresItem" routerLink="parametres"
+            id="parametresItem"
+            routerLink="parametres"
           >
-          
-            <button id="parambtn" class="btn" mat-button >
+            <button id="parambtn" class="btn" mat-button>
               <mat-icon style="color: #ee4d2d">settings</mat-icon>
               Paramètres
             </button>

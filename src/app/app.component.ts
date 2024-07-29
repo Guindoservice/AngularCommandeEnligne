@@ -1,17 +1,17 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatButtonModule} from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
 import { RouterModule, Routes } from '@angular/router';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
-import {LoginComponent} from "./login/login.component";
+import { LoginComponent } from './login/login.component';
 import { NgIf } from '@angular/common';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-root',
@@ -27,9 +27,10 @@ import { NgIf } from '@angular/common';
     MatSelectModule,
     MatTableModule,
     MatDividerModule,
-    LoginComponent,
     NgIf,
-  ],
+    MatMenuModule
+],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -49,7 +50,7 @@ export class AppComponent implements OnInit {
           'personnel',
           'utilisateurs',
           'stock',
-          'parametres'
+          'parametres',
         ]; // Add all your routes here
 
         items.forEach((item) => {
@@ -66,7 +67,7 @@ export class AppComponent implements OnInit {
   }
 
   title = 'mirashop';
-  logIN: boolean = false;
+  logIN: boolean = true;
 
   ngOnInit(): void {
     let auth = localStorage.getItem('authToken');
