@@ -3,15 +3,15 @@ import {
   CdkScrollableModule,
   ScrollDispatcher,
   ViewportRuler
-} from "./chunk-G7SJWDUF.js";
-import "./chunk-55QBGF4Z.js";
+} from "./chunk-7SL7ZBZU.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-ZEXPNA5K.js";
+} from "./chunk-VJ3HA6VS.js";
+import "./chunk-5CSWUS5R.js";
 import {
   Directionality,
   ESCAPE,
@@ -23,10 +23,10 @@ import {
   coerceBooleanProperty,
   coerceNumberProperty,
   hasModifierKey
-} from "./chunk-2KCNK7DC.js";
+} from "./chunk-ENOV4HUF.js";
 import {
   DOCUMENT
-} from "./chunk-TF77KWS5.js";
+} from "./chunk-7USFEYGO.js";
 import {
   ANIMATION_MODULE_TYPE,
   AfterRenderPhase,
@@ -92,7 +92,7 @@ import {
   ɵɵsyntheticHostProperty,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-BQYFHK5Y.js";
+} from "./chunk-CK76D5UX.js";
 
 // node_modules/@angular/material/fesm2022/sidenav.mjs
 var _c0 = ["*"];

@@ -8,22 +8,25 @@ import { ClientComponent } from './client/client.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { StockComponent } from './stock/stock.component';
 import { ParametresComponent } from './parametres/parametres.component';
+import {LoginComponent} from "./login/login.component";
+import { SecuriteComponent } from './securite/securite.component';
+import {PayementComponent} from "./payement/payement.component";
+import { PersonnelComponent } from './personnel/personnel.component';
 
+// @ts-ignore
 export const routes: Routes = [
-    {
-        path: 'dashboard', component: DashboardComponent,
-        data: { icon: 'dashboard', text: 'Dashboard' }
-    },
-  { path: 'produits', component: ProduitsComponent },
-  { path: 'commande', component: CommandesComponent },
-  { path: 'livraisons', component: LivraisonComponent },
-  { path: 'categorie', component: CategorieComponent },
-  { path: 'client', component: ClientComponent },
-  { path: 'utilisateurs', component: UtilisateursComponent },
-  { path: 'stock', component: StockComponent },
-  { path: 'parametres', component: ParametresComponent },
-  
-  
-
-]
-
+  {path: "login", component: LoginComponent},
+  {path:'dashboard', component:DashboardComponent},
+  {path: "produits", component: ProduitsComponent},
+  {path: "commande", component: CommandesComponent},
+  {path: "livraisons", component: LivraisonComponent},
+  {path: "categorie", component: CategorieComponent},
+  {path: "client", component: ClientComponent},
+  {path: "utilisateurs", component: UtilisateursComponent},
+  {path: "stock", component: StockComponent},
+  {path: "parametres", component: ParametresComponent},
+  {path: "payement", component: PayementComponent},
+  {path: "personnel", component:PersonnelComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'securite', component: SecuriteComponent },
+];

@@ -1,70 +1,188 @@
 <div class="table-container mat-elevation-z3">
-  <div class="caption">
-    <div class="leftS"><h5>Liste des Commandes |</h5></div>
+ 
+
+  <div class="caption"> 
+    <div class="leftS"><h5>Liste des produits |</h5></div>
+    
     <div class="rightS">
-      <!--  -->
-
-      <div class="searchBox">
-        <input
-          class="searchInput searchInput1"
-          [(ngModel)]="searchText"
-          (ngModelChange)="applyFilter()"
-          type="text"
-          name=""
-          placeholder="Rechercher"
-        />
-        <button class="searchButton" href="#">
-          <i class="material-icons"> search </i>
-        </button>
-      </div>
-
-      <!--  -->
-      <button mat-raised-button class="btn" (click)="openDialog()">
+      <mat-icon class="search">search</mat-icon>
+      <button class="btn" (click)="openDialog()">
+        
         <mat-icon>add</mat-icon>Ajouter
       </button>
+     
     </div>
   </div>
 
-  <table mat-table [dataSource]="filteredProduits" class="tableS" role="table">
-    <!-- Columns Definitions -->
-    <ng-container matColumnDef="numero">
-      <th mat-header-cell *matHeaderCellDef>Numéro</th>
-      <td mat-cell *matCellDef="let row">{{ row.numero }}</td>
-    </ng-container>
-    <ng-container matColumnDef="nom">
-      <th mat-header-cell *matHeaderCellDef>Nom de Produit</th>
-      <td mat-cell *matCellDef="let row">{{ row.nom }}</td>
-    </ng-container>
-    <ng-container matColumnDef="prix">
-      <th mat-header-cell *matHeaderCellDef>Prix</th>
-      <td mat-cell *matCellDef="let row">{{ row.prix }}</td>
-    </ng-container>
-    <ng-container matColumnDef="categorie">
-      <th mat-header-cell *matHeaderCellDef>Categorie</th>
-      <td mat-cell *matCellDef="let row">{{ row.categorie }}</td>
-    </ng-container>
-    <ng-container matColumnDef="sousCategorie">
-      <th mat-header-cell *matHeaderCellDef>SousCategorie</th>
-      <td mat-cell *matCellDef="let row">{{ row.sousCategorie }}</td>
-    </ng-container>
-    <!--  -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="openDialog(row)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="deleteProduit(row)">
-          <mat-icon>delete</mat-icon>
-        </button>
-        <button mat-icon-button (click)="showInfo(row)">
-          <mat-icon>info</mat-icon>
-        </button>
-      </td>
-    </ng-container>
 
-    <!-- Header and Row Definitions -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <table id="example" class="tableS" role="table">
+    <thead role="rowgroup">
+      <tr>
+        <th>Numéro</th>
+        <th>Nom de Produit</th>
+        <th>Prix</th>
+        <th>Categorie</th>
+        <th>SousCategorie</th>
+        <th colspan="">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>12/03/2023</td>
+        <td>Bakary Samaké</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td >
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1/03/2023</td>
+        <td>Hamidou Diallo</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>12/03/2023</td>
+        <td>Bakary Samaké</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1/03/2023</td>
+        <td>Hamidou Diallo</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>12/03/2023</td>
+        <td>Bakary Samaké</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1/03/2023</td>
+        <td>Hamidou Diallo</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>12/03/2023</td>
+        <td>Bakary Samaké</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1/03/2023</td>
+        <td>Hamidou Diallo</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>12/03/2023</td>
+        <td>Bakary Samaké</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1/03/2023</td>
+        <td>Hamidou Diallo</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>12/03/2023</td>
+        <td>Bakary Samaké</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1/03/2023</td>
+        <td>Hamidou Diallo</td>
+        <td>80000090</td>
+        <td>100000 F</td>
+        <td class="action-btn">
+          <!-- icons -->
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+          <mat-icon>info</mat-icon>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>

@@ -1,150 +1,70 @@
-.table-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 0 20px;
-  text-align: left; /* Marge extérieure à droite et à gauche */
-}
-th {
-  border-bottom: 2px solid #616161;
-  font-size: 12px;
-  color: #0000009f;
-}
-
-#example {
-  border: none; /* Supprimer la bordure de la table */
-}
-
-#example td {
-  border: none;
-  background: #ffffff;
-  /* Supprimer la bordure des cellules */
-}
-
-#example tbody tr {
-  border: none; /* Supprimer la bordure des lignes du corps de table */
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button,
-.dataTables_wrapper .dataTables_filter input,
-.dataTables_wrapper .dataTables_info {
-  border: none; /* Supprimer les bordures des éléments DataTables */
-}
-h5 {
-  font-size: 14px;
-  font-weight: 500;
-}
-.caption {
-  display: flex;
-  justify-content: space-between;
-  margin: 5px auto;
-}
-.search-input {
-  color: #ee4d2d;
-  cursor: pointer;
-  align-self: left;
-  font-size: 14px;
-  width: 50px;
-  height: 60px;
-}
-
-.rightS {
+.table-container{
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 20px; 
+    text-align: left;/* Marge extérieure à droite et à gauche */
+  }
+ th{
+    border-bottom: 2px solid #616161;
+    font-size: 12px;
+    color: #0000009f;
+  }
+  
+  #example {
+    border: none; /* Supprimer la bordure de la table */
+  }
+  
+ #example td {
+    border: none;
+    background: #ffffff;
+     /* Supprimer la bordure des cellules */
+  }
+  
+  #example tbody tr {
+    border: none; /* Supprimer la bordure des lignes du corps de table */
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button,
+  .dataTables_wrapper .dataTables_filter input,
+  .dataTables_wrapper .dataTables_info {
+    border: none; /* Supprimer les bordures des éléments DataTables */
+  }
+  h5{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .caption{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px auto;
+  }
+  .search{
+    color: #EE4D2D;
+    cursor: pointer;
+    align-self: center;
+    font-size: 24px;
+  }
+  
+.rightS{
   display: flex;
   justify-content: center;
-  width: 150px;
-  align-items: center;
+  width: 200px;
+  gap: 2px;
 }
 .btn {
   display: table-cell;
   max-width: 600px;
   background: none;
   max-height: 40px;
-  border: 1px solid #ee4d2d;
+  border: 1px solid #EE4D2D;
   display: flex;
 }
 
-.acttion-btn {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  color: #ee4d2d;
-}
-mat-icon {
+
+mat-icon{
   text-align: left;
   gap: 10px;
-  color: #ee4d2d;
+  color: #EE4D2D;
   cursor: pointer;
-}
-/* ---------------------------------------------------- */
-/* Styles for the search input */
-.searchBox {
-  position: absolute;
-  top: 9px;
-  right: 165px;
-  transform: translate(-5%, 50%);
-  height: 40px;
-  border-radius: 40px;
-  padding: 10px;
- 
-  
-}
-
-.searchBox:hover > .searchInput {
-  width: 200px;
-  padding: 0 ;
-}
-
-.searchBox:hover > .searchButton {
-  margin-top: 1px;
-  padding-top: 5px;
-  width: 30px;
-  height: 38px;
-  background: white;
-  color: #ee4d2d;
-}
-
-.searchButton {
-  border: #ee4d2d;
-  color: white;
-  float: right;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: #ee4d2d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-}
-.searchInput1{
-  border: none;
-}
-.searchInput1 {
-
-  border: 1px solid #ee4d2d;
-  background: none;
-  outline: none;
-  float: left;
-  padding: 0;
-  margin-right: -40px;
-  border-radius: 5px;
-  color: rgb(12, 12, 12);
-  font-size: 16px;
-  transition: 0.4s;
-  line-height: 38px;
-  width: 0px;
-}
-
-@media screen and (max-width: 620px) {
-  .searchBox:hover > .searchInput {
-    width: 10px;
-    padding: 0 6px;
-  }
-}
-/* ------------ */
-table{
-  background: none;
-}
-tr{
-  color: black;
 }

@@ -1,0 +1,160 @@
+.container {
+  background-color: #E3F1FF;
+  border-radius: 8px;
+  padding: 16px;
+ 
+  margin: 0 20px; /* Marge extérieure à droite et à gauche */
+}
+
+
+.Tableau{
+  font-size: 16px;
+  margin-top: 0px;
+}
+
+/* Optionnel : Style pour l'élévation */
+.mat-elevation-z8 {
+  border: none; 
+  background-color: white;
+  
+}
+
+.en-tête, .cellule{
+  color: black;
+  border: none;
+}
+
+.en-tête-colonne{
+  width: 40px;
+}
+
+ng-container{
+  width: 12px;
+  padding: 10px;
+}
+
+/* livraison.component.css */
+.livraison-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #E3F1FF;
+  height: 60%;
+}
+
+.stat-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.line{
+  height: 100%;
+  width: 100%;
+}
+
+.sales-graph {
+  background-color: #fff;
+  padding: 0px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  margin-left: 20px;
+  height: 60%;
+  text-align: center;
+}
+
+.graph-container {
+  height: 50px;
+  /* Insérer le code pour afficher le graphique ici */
+}
+
+.sales-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.livraison-container {
+  display: flex;
+  justify-content: center;
+ 
+  height: 100vh;
+  background: #f7f9fc; /* Light background color */
+  margin-top: 10px;
+}
+
+.stat-box {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  height: 70%;
+}
+
+.Tableau {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #EE4D2D; /* Darker text color */
+  font-weight: 600;
+ 
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+
+}
+
+.stat-item span:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-item span {
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #EE4D2D;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 20px;
+}
+
+.stat-item span:last-child {
+  font-weight: 700;
+  color: #333;
+  margin-top: 20px;
+  background-color: white;
+}
+
+@media (max-width: 480px) {
+  .stat-box {
+    padding: 15px;
+  }
+  .Tableau {
+    font-size: 20px;
+  }
+  .stat-item span {
+    font-size: 16px;
+  }
+}
+

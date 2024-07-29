@@ -1,30 +1,20 @@
 You can add global styles to this file, and also import other style files
 
-/* styles.css */
-/* Import Angular Material core theme 
-@import '~@angular/material/core/theming/all-theme';*/
 
-/* Include the core theme 
-@import '~@angular/material/core/theming/purple-green';*/
 
-/* Define your custom theme (optional) */
 :root {
-  --primary-color: #3f51b5;
-  --accent-color: #f06292;
-  --warn-color: #f44336;
-}
+    --degraderblue: #0085FF;
+    --degraderblanc: #E3F1FF;
+    --Orangefort: #EB4028;
+    --violet: #EB2891;
+    --bluefort: #9747FF;
+    --mainColor:#EE4D2D;
+    --secondColor:#8C21FF;
+    --activeColor:#F4F8FA;
+    --gradientColor:linear-gradient(var(--mainColor),var(--secondColor));
 
-.mat-raised-button {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.mat-raised-button:hover {
-  background-color: darken(var(--primary-color), 10%);
-}
-
-
-
+  }
+  
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 
@@ -34,7 +24,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     color: black;
     /* padding-top: 30px; */
 }
-
 .test{
     border-radius: 50%;
     height: 40px;
@@ -42,13 +31,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     margin-left: 10px;
     color: #EE4D2D;
 }
-
-
-/* styles.css or styles.scss */
-.custom-dialog-container {
-    width: 700px;
-  /* Add styles that you want to apply to the dialog container */
-  padding: 1px;
-  border-radius: 8px;  
-}
-

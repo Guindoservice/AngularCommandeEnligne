@@ -1,1 +1,52 @@
-<p>parametres works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#modifier" class="btn btn">Modifier Profil</a>
+                    <hr class="hr-bottom"></li>
+                <li><a href="/securite" class="btn btn-info">Sécurité</a></li>
+            </ul>
+            <div id="nav-separator" class="nav-separator"></div>
+        </nav>
+
+        <div id="modifier" class="section">
+            <form>
+                <div class="form-row">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="nouveauMotDePasse">Prénom :</label>
+                            <input type="password" class="form-control" id="nouveauMotDePasse" name="nouveauMotDePasse">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <input type="text" class="form-control" id="nom" name="nom">
+                        </div>
+                    </div>
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="Adresse">Adresse :</label>
+                            <input type="text" class="form-control" id="Adresse" name="Adresse">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">Contact :</label>
+                            <input type="text" class="form-control" id="contact" name="contact">
+                        </div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
