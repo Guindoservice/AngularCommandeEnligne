@@ -1,13 +1,23 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
 
 declare var $: any;  // Déclaration pour utiliser jQuery dans Angular
 
 @Component({
   selector: 'app-commandes',
   templateUrl: './commandes.component.html',
-  styleUrls: ['./commandes.component.css']
+  styleUrls: ['./commandes.component.css'],
+  standalone: true,  // Important pour Angular 13 et supérieur
+  imports: [
+    MatIconModule,
+    MatPaginator
+  ],
 })
 export class CommandesComponent implements AfterViewInit {
+filterelement($event: Event) {
+throw new Error('Method not implemented.');
+}
   
   ngAfterViewInit() {
     $(document).ready(function() {

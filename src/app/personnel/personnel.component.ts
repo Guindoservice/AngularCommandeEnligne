@@ -1,40 +1,19 @@
 import { AfterViewInit, Component } from '@angular/core';
-declare var $: any; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+declare var $: any;
 @Component({
   selector: 'app-personnel',
   standalone: true,
-  imports: [],
+  imports: [MatIconModule, MatPaginator],
   templateUrl: './personnel.component.html',
-  styleUrl: './personnel.component.css'
+  styleUrl: './personnel.component.css',
 })
 export class PersonnelComponent implements AfterViewInit {
-  
-  ngAfterViewInit() {
-    $(document).ready(function() {
-      $('#example').DataTable({
-        language: {
-          processing: "Traitement en cours...",
-          search: "Rechercher&nbsp;:",
-          lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
-          info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-          infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-          infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-          infoPostFix: "",
-          loadingRecords: "Chargement en cours...",
-          zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
-          emptyTable: "Aucune donnée disponible dans le tableau",
-          paginate: {
-            first: "<<",
-            previous: "Last",
-            next: "Next",
-            last: ">>"
-          },
-          aria: {
-            sortAscending: ": activer pour trier la colonne par ordre croissant",
-            sortDescending: ": activer pour trier la colonne par ordre décroissant"
-          }
-        }
-      });
-    });
+  filterelement($event: Event) {
+    throw new Error('Method not implemented.');
+  }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
   }
 }

@@ -1,59 +1,81 @@
-import { NgIf } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { MatMenuModule } from '@angular/material/menu';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AjoutModifeProduitComponent } from './ajout-modife-produit/ajout-modife-produit.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ProductService } from '../Services/produit.service';
+import { NgFor } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
 
+declare var $: any;
+declare var angularComponent: any;
 
-declare var $: any; 
+interface Product {
+  id: number;
+  nom: string;
+  prix: number;
+  quantite: number;
+  categorie: string;
+  SousCategorie: string;
+  Action: null;
+}
 
 @Component({
   selector: 'app-produits',
   standalone: true,
   imports: [
-    MatDialogModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatProgressSpinnerModule,
-    MatCheckboxModule,
-    MatTableModule,
-    MatDividerModule,
-    NgIf,
-    MatPaginatorModule,
     MatIconModule,
-    MatFormFieldModule,
     MatButtonModule,
-    MatToolbarModule,
-    MatListModule,
-    MatInputModule,
-    MatCardModule,
-    MatSortModule,
+    MatTableModule,
+    MatDialogModule,
+    MatPaginator,
+    NgFor,
+    // Import other Angular Material modules here
   ],
   templateUrl: './produits.component.html',
-  styleUrl: './produits.component.css',
+  styleUrls: ['./produits.component.css'],
 })
-export class ProduitsComponent implements AfterViewInit {
-  constructor(private dialog: MatDialog) {}
-
-  applyFilter($event: KeyboardEvent) {
+export class ProduitsComponent implements OnInit, AfterViewInit {
+  filterelement($event: Event) {
     throw new Error('Method not implemented.');
   }
-  ngAfterViewInit() {
-    $(document).ready(function () {
+  products: any[] = [];
+
+  constructor(
+    private dialog: MatDialog,
+    private productService: ProductService
+  ) {
+    (window as any).angularComponent = this;
+  }
+
+  ngAfterViewInit(): void {
+    this.initializeDataTable();
+  }
+
+  ngOnInit() {
+    this.fetchProducts();
+  }
+
+  fetchProducts() {
+    this.productService.getProducts().subscribe((data) => {
+      //
+      this.products = data.map((product, index) => ({
+        ...product,
+        id: index + 1,
+      }));
+      console.log(data);
+      this.products = data;
+      this.initializeDataTable();
+    });
+  }
+
+  initializeDataTable() {
+    $(document).ready(() => {
+      if ($.fn.DataTable.isDataTable('#example')) {
+        $('#example').DataTable().clear().destroy();
+      }
       $('#example').DataTable({
         language: {
           processing: 'Traitement en cours...',
@@ -64,41 +86,89 @@ export class ProduitsComponent implements AfterViewInit {
             "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
           infoFiltered:
             '(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)',
-          infoPostFix: '',
           loadingRecords: 'Chargement en cours...',
           zeroRecords: 'Aucun &eacute;l&eacute;ment &agrave; afficher',
           emptyTable: 'Aucune donnée disponible dans le tableau',
           paginate: {
             first: '<<',
-            previous: 'Last',
-            next: 'Next',
+            previous: 'Prev',
+            next: 'Suiv',
             last: '>>',
           },
-          // aria: {
-          //   sortAscending:
-          //     ': activer pour trier la colonne par ordre croissant',
-          //   sortDescending:
-          //     ': activer pour trier la colonne par ordre décroissant',
-          // },
         },
+        data: this.products,
+        columns: [
+          { data: 'id' }, // Column 0: Numéro
+          { data: 'nom' }, // Column 1: Nom de Produit
+          { data: 'prix' }, // Column 2: Prix
+          { data: 'quantite' }, // Column 3: Quantite
+          { data: 'categorie' }, // Column 4: Categorie
+          { data: 'SousCategorie' }, // Column 5: SousCategorie
+        ],
+        columnDefs: [
+          {
+            targets: 6,
+            data: null,
+          },
+        ],
       });
     });
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
       height: '650px',
       panelClass: 'custom-dialog-container',
       data: {
-        /* any data you want to pass to the dialog */
+        //
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-      // Handle any result from the dialog here
+      this.fetchProducts();
+    });
+  }
+
+  deleteProduct(id: number): void {
+    if (confirm('Voulez-vous supprimer ce produit ?')) {
+      this.productService.deleteProduct(id).subscribe(() => {
+        this.fetchProducts();
+      });
+    }
+  }
+
+  editProduct(id: number): void {
+    this.productService.getProductById(id).subscribe((product) => {
+      const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
+        height: '650px',
+        panelClass: 'custom-dialog-container',
+        data: product,
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.productService.updateProduct(id, result).subscribe(() => {
+            this.fetchProducts();
+          });
+        }
+      });
+    });
+  }
+
+  viewProduct(id: number): void {
+    this.productService.getProductById(id).subscribe((product) => {
+      const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
+        height: '650px',
+        panelClass: 'custom-dialog-container',
+        data: { product, viewOnly: true },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.fetchProducts();
+        }
+      });
     });
   }
 }
-
-
-

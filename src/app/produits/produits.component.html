@@ -1,188 +1,74 @@
 <div class="table-container mat-elevation-z3">
- 
+  <div class="caption">
+    <div class="leftS"><h5>Liste des Produits |</h5></div>
 
-  <div class="caption"> 
-    <div class="leftS"><h5>Liste des produits |</h5></div>
-    
     <div class="rightS">
-      <mat-icon class="search">search</mat-icon>
-      <button class="btn" (click)="openDialog()">
-        
-        <mat-icon>add</mat-icon>Ajouter
-      </button>
-     
+      <!--  -->
+      <div class="searchetajout">
+        <!--  -->
+        <div class="search-box">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+          <input
+            matInput
+            (input)="filterelement($event)"
+            placeholder="Search"
+            class="input-search"
+          />
+        </div>
+        <!--  -->
+        <button class="btn add-user-btn" (click)="openDialog()">
+          <mat-icon>add</mat-icon>Ajouter
+        </button>
+      </div>
     </div>
   </div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
 
-
-  <table id="example" class="tableS" role="table">
-    <thead role="rowgroup">
-      <tr>
-        <th>Numéro</th>
-        <th>Nom de Produit</th>
-        <th>Prix</th>
-        <th>Categorie</th>
-        <th>SousCategorie</th>
-        <th colspan="">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>12/03/2023</td>
-        <td>Bakary Samaké</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td >
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>1/03/2023</td>
-        <td>Hamidou Diallo</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>12/03/2023</td>
-        <td>Bakary Samaké</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>1/03/2023</td>
-        <td>Hamidou Diallo</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>12/03/2023</td>
-        <td>Bakary Samaké</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>1/03/2023</td>
-        <td>Hamidou Diallo</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>12/03/2023</td>
-        <td>Bakary Samaké</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>1/03/2023</td>
-        <td>Hamidou Diallo</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>12/03/2023</td>
-        <td>Bakary Samaké</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>1/03/2023</td>
-        <td>Hamidou Diallo</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>12/03/2023</td>
-        <td>Bakary Samaké</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>1/03/2023</td>
-        <td>Hamidou Diallo</td>
-        <td>80000090</td>
-        <td>100000 F</td>
-        <td class="action-btn">
-          <!-- icons -->
-          <mat-icon>delete</mat-icon>
-          <mat-icon>edit</mat-icon>
-          <mat-icon>info</mat-icon>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="tablecontainer">
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th>Nom de Produit</th>
+          <th>Prix</th>
+          <th>Quantite</th>
+          <th>Categorie</th>
+          <th>SousCategorie</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <!--  -->
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.nom }}</td>
+          <td>{{ product.prix }}</td>
+          <td>{{ product.quantite }}</td>
+          <td>{{ product.categorie }}</td>
+          <td>{{ product.SousCategorie }}</td>
+          <td>
+            <button mat-icon-button (click)="deleteProduct(product.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editProduct(product.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="viewProduct(product.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <!--  -->
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
 </div>

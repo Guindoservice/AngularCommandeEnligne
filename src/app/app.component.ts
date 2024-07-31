@@ -28,8 +28,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTableModule,
     MatDividerModule,
     NgIf,
-    MatMenuModule
-],
+    MatMenuModule,
+    LoginComponent,
+  ],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

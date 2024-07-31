@@ -1,70 +1,129 @@
-import { Component, Inject, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {FormGroup,FormBuilder,Validators,ReactiveFormsModule,} from '@angular/forms';
-import { errorMessages, regExps } from '../../utils/form-validator';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-export interface UserData {
-  name: string;
-  id: string;
-  action: string;
-}
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+} from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
+import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-ajout-modife-produit',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatDialogActions,
+    MatDialogClose,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOption,
+    MatDialogContent,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioButton,
+    MatIconModule,
+  ],
   templateUrl: './ajout-modife-produit.component.html',
-  styleUrl: './ajout-modife-produit.component.css',
+  styleUrls: ['./ajout-modife-produit.component.css'],
 })
 export class AjoutModifeProduitComponent {
-  action: string;
-  local_data: UserData;
-  countries!: string[];
-  cancel: string = 'Cancel';
+  variant2Label: any;
+  variant2Options: any;
 
-  tableForm!: FormGroup;
-  error = errorMessages;
+  productForm: FormGroup;
+  categories: string[] = ['Categorie 1', 'Categorie 2', 'Categorie 3'];
+  SousCategories: string[] = [];
+  allSousCategories: { [key: string]: string[] } = {
+    'Categorie 1': [
+      'SousCategorie 1.1',
+      'SousCategorie 1.2',
+      'SousCategorie 1.3',
+    ],
+    'Categorie 2': ['SousCategorie 2.1', 'SousCategorie 2.2'],
+    'Categorie 3': ['SousCategorie 3.1'],
+  };
+  showSousCategorie: boolean = false;
+  showVariant2: any;
+  showVariant1: any;
+  variant1Label: any;
+  variant1Options: any;
 
   constructor(
     public dialogRef: MatDialogRef<AjoutModifeProduitComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: UserData,
-    private formBuilder: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
+    private http: HttpClient
   ) {
-    this.local_data = { ...data };
-    this.action = this.local_data.action;
-    this.creatForm();
-    this.tableForm.patchValue(this.local_data);
+    this.productForm = this.fb.group({
+      id:[data.id ||'', Validators.required],
+      nom: [data.nom || '', Validators.required],
+      prix: [data.prix || '', Validators.required],
+      quantite: [data.quantite || '', Validators.required],
+      categorie: [data.categorie || '', Validators.required],
+      SousCategorie: [data.sousCategorie || '', Validators.required],
+    });
+
+    if (data.categorie) {
+      this.onCategoryChange();
+    }
   }
 
-  creatForm(): void {
-    this.tableForm = this.formBuilder.group({
-      country: ['', [Validators.required, Validators.pattern(regExps['str'])]],
-      cases: ['', [Validators.required, Validators.pattern(regExps['num'])]],
-      todayCases: [
-        '',
-        [Validators.required, Validators.pattern(regExps['num'])],
-      ],
-      deaths: ['', [Validators.required, Validators.pattern(regExps['num'])]],
-      todayDeaths: [
-        '',
-        [Validators.required, Validators.pattern(regExps['num'])],
-      ],
-      recovered: [
-        '',
-        [Validators.required, Validators.pattern(regExps['num'])],
-      ],
-      active: ['', [Validators.required, Validators.pattern(regExps['num'])]],
-    });
-  }
-  closeDialog() {
-    this.dialogRef.close({ data: { action: 'Cancel' } });
+  onCategoryChange(): void {
+    const selectedCategory: string = this.productForm.get('categorie')?.value;
+    this.SousCategories = this.allSousCategories[selectedCategory] || [];
+    this.showSousCategorie = this.SousCategories.length > 0;
   }
 
-  onSubmit(): void {
-    this.dialogRef.close({
-      data: { action: this.action, data: this.tableForm.value },
-    });
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSave(): void {
+    if (this.productForm.valid) {
+      const newProduct = {
+        ...this.productForm.value,
+        id: this.data.id,
+      };
+      this.http
+        .post('http://localhost:3000/products', newProduct)
+        .subscribe(() => {
+          this.dialogRef.close(newProduct);
+        });
+    }
+  }
+
+  onReset(): void {
+    this.productForm.reset();
+  }
+
+  onCheckboxChange(_t59: number, $event: MatCheckboxChange) {
+    throw new Error('Method not implemented.');
+  }
+
+  checkboxes: any;
+  onFileChange($event: Event) {
+    throw new Error('Method not implemented.');
+  }
+
+  onVariant2Change($event: MatRadioChange) {
+    throw new Error('Method not implemented.');
+  }
+  onVariant1Change($event: MatCheckboxChange) {
+    throw new Error('Method not implemented.');
   }
 }

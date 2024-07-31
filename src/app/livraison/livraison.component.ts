@@ -46,14 +46,12 @@ export class LivraisonComponent implements OnInit{
       }
     },
     title: {
-      text: 'Linechart'
+      text: ''
     },
     credits: {
       enabled: false
     },
     xAxis: {
-      /*tickWidth: 0, // Supprime les ticks sur l'axe x
-      lineWidth: 0, // Supprime la ligne de l'axe x*/
       labels: {
         style: {
           fontSize: '12px'

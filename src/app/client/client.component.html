@@ -1,44 +1,71 @@
-<div class="table-container">
-  <h5>Liste des clients</h5>
-  <table id="example" class="table   ">
-    <thead>
-      <tr >
-        <th >Id</th>
-        <th >Nom prénom </th>
-        <th >Mot de passe  </th>
-        <th>Téléphone</th>
-        <th>ََActions</th>
-      </tr>
+<div class="table-container mat-elevation-z3">
+  <div class="caption">
+    <div class="leftS"><h5>Liste des Clients |</h5></div>
+
+    <div class="rightS">
+      <!--  -->
+      <div class="searchetajout">
+        <!--  -->
+        <div class="search-box">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+          <input
+            matInput
+            (input)="filterelement($event)"
+            placeholder="Search"
+            class="input-search"
+          />
+        </div>
+        <!--  
+        <button class="btn add-user-btn" (click)="openDialog()">
+          <mat-icon>add</mat-icon>Ajouter Catégorie
+        </button>-->
+      </div>
+    </div>
+  </div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+
+  <div class="tablecontainer">
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Statut</th>
+          <th>Téléphone</th>
+          <th>ََActions</th>
+        </tr>
       </thead>
+      <!--  -->
       <tbody>
-      <tr >
-        <td>1</td>
-        <td>Adama Diarra</td>
-        <td>******</td>
-        <td>99 44 32 44</td>
+        <tr>
+          <td>1</td>
+          <td>Adama</td>
+          <td>Diarra</td>
+          <td>
+            <select class="custom-select">
+              <option value="Livré" class="livré">Actif</option>
+              <option value="En Cours" class="encours">Inatif</option>
+            </select>
+          </td>
 
-        <td>
-          <a class="btn optionbtn btns">Desactif</a>&nbsp;
-        <a  class=" btn delete"><i class="fa fa-trash btns"></i> </a>&nbsp;
-
-        </td>
-      <tr >
-        <td>1</td>
-        <td>Adama Diarra</td>
-        <td>******</td>
-        <td>99 44 32 44</td>
-
-        <td>
-          <a class="btn optionbtn btns">Desactif</a>&nbsp;
-          <a  class=" btn delete"><i class="fa fa-trash btns"></i> </a>&nbsp;
-
-        </td>
-      </tr>
-  
-      
-      
-       
-       
-    </tbody>
-  </table>
+          <td>99 44 32 44</td>
+          <td class="displayT">
+            <mat-icon style="color: #ee4d2d">shopping_cart</mat-icon>
+            <mat-icon style="color: #ee4d2d">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+      <!--  -->
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
 </div>

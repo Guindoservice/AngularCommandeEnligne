@@ -1,5 +1,5 @@
-import { NgIf } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -16,7 +16,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CategorieService } from '../Services/categorie.service';
+import { AjoutModifeCategorieComponent } from '../categorie/ajout-modife-categorie/ajout-modife-categorie.component';
+
+interface Categorie {
+  id: number;
+  nom: string;
+  souscategorie: string;
+  Action: null;
+}
+
 declare var $: any;
+
 @Component({
   selector: 'app-categorie',
   standalone: true,
@@ -29,6 +40,7 @@ declare var $: any;
     MatTableModule,
     MatDividerModule,
     NgIf,
+    NgFor,
     MatPaginatorModule,
     MatIconModule,
     MatFormFieldModule,
@@ -40,48 +52,52 @@ declare var $: any;
     MatSortModule,
   ],
   templateUrl: './categorie.component.html',
-  styleUrl: './categorie.component.css'
+  styleUrl: './categorie.component.css',
 })
-export class CategorieComponent implements AfterViewInit {
-  constructor(private dialog: MatDialog) {}
+export class CategorieComponent {
+  filterelement($event: Event) {
+    throw new Error('Method not implemented.');
+  }
+  modifiercategorie(id: number): void {
+    this.categorieService.getcategorie(id).subscribe((categorie) => {
+      const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
+        height: '650px',
+        panelClass: 'custom-dialog-container',
+        data: {
+          categorie: categorie,
+        },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log('The dialog was closed');
+        // Handle any result from the dialog here
+      });
+    });
+  }
+  supprimercategorie(id: number): void {
+    if (confirm('Voulez vous supprimer cette catégorie')) {
+      this.categorieService.supprimercategorie(id).subscribe(() => {});
+    }
+  }
+  categorie: Categorie[] = [];
+  displayedColumns: string[] = ['id', 'nom', 'SousCategorie', 'Action'];
+  dataSource: Categorie[] = [];
+  isLoadingResults = true;
+
+  constructor(
+    private dialog: MatDialog,
+    private categorieService: CategorieService
+  ) {}
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   applyFilter($event: KeyboardEvent) {
     throw new Error('Method not implemented.');
   }
-  ngAfterViewInit() {
-    $(document).ready(function () {
-      $('#example').DataTable({
-        language: {
-          processing: 'Traitement en cours...',
-          search: 'Rechercher&nbsp;:',
-          lengthMenu: 'Afficher _MENU_ &eacute;l&eacute;ments',
-          info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-          infoEmpty:
-            "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-          infoFiltered:
-            '(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)',
-          infoPostFix: '',
-          loadingRecords: 'Chargement en cours...',
-          zeroRecords: 'Aucun &eacute;l&eacute;ment &agrave; afficher',
-          emptyTable: 'Aucune donnée disponible dans le tableau',
-          paginate: {
-            first: '<<',
-            previous: 'Last',
-            next: 'Next',
-            last: '>>',
-          },
-          // aria: {
-          //   sortAscending:
-          //     ': activer pour trier la colonne par ordre croissant',
-          //   sortDescending:
-          //     ': activer pour trier la colonne par ordre décroissant',
-          // },
-        },
-      });
-    });
-  }
+
   openDialog(): void {
-    const dialogRef = this.dialog.open(CategorieComponent, {
+    const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
       height: '650px',
       panelClass: 'custom-dialog-container',
       data: {
@@ -95,6 +111,3 @@ export class CategorieComponent implements AfterViewInit {
     });
   }
 }
-
-
-

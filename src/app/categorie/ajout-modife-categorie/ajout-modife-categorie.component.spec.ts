@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AjoutModifeProduitComponent } from './ajout-modife-produit.component';
+import { AjoutModifeProduitComponent } from './ajout-modife-categorie.component';
 
 describe('AjoutModifeProduitComponent', () => {
   let component: AjoutModifeProduitComponent;
