@@ -14,7 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
-import { CategorieService } from '../../Services/categorie.service';
+import { SousCategorieService } from '../../../Services/sous-categorie.service';
+
 
 @Component({
   selector: 'app-ajout-modife-produit',
@@ -32,22 +33,22 @@ import { CategorieService } from '../../Services/categorie.service';
     MatSelectModule,
     MatIconModule,
   ],
-  templateUrl: './ajout-modife-categorie.component.html',
-  styleUrls: ['./ajout-modife-categorie.component.css'],
+  templateUrl: './ajout-scategorie.component.html',
+  styleUrls: ['./ajout-scategorie.component.css'],
 })
-export class AjoutModifeCategorieComponent {
-  categorieForm: FormGroup;
+export class AjooutScategorieComponent {
+  ajSForm: FormGroup;
   categoryAdded: any;
 
   constructor(
-    public dialogRef: MatDialogRef<AjoutModifeCategorieComponent>,
+    public dialogRef: MatDialogRef<AjooutScategorieComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private http: HttpClient,
-    private categorieService: CategorieService
+    private souscategorie: SousCategorieService
   ) {
-    this.categorieForm = this.fb.group({
-      id: [{ value: data.id || '', disabled: true }],
+    this.ajSForm = this.fb.group({
+      id: [data.id || '', Validators.required ],
       libelle: [data.libelle || '', Validators.required],
     });
   }
@@ -56,18 +57,18 @@ export class AjoutModifeCategorieComponent {
     this.dialogRef.close();
   }
   onSave(): void {
-    if (this.categorieForm.valid) {
-      const formValue = this.categorieForm.value;
-      const newcategorie = {
+    if (this.ajSForm.valid) {
+      const formValue = this.ajSForm.value;
+      const newscategorie = {
         libelle: formValue.libelle,
         // Exclude id or manage as needed
       };
       this.http
-        .post('http://localhost:8080/admin/creer-categories', newcategorie)
+        .post('', newscategorie)
         .subscribe(
           () => {
-             this.categoryAdded.emit();
-            this.dialogRef.close(newcategorie);
+            this.categoryAdded.emit();
+            this.dialogRef.close(newscategorie);
           },
           (error) => {
             console.error('Error saving category', error);
@@ -78,21 +79,10 @@ export class AjoutModifeCategorieComponent {
   }
 
   onReset(): void {
-    this.categorieForm.reset({
+    this.ajSForm.reset({
       id: this.data.id || '',
       libelle: this.data.libelle || '',
     });
   }
 
-  refreshCategories(): void {
-    this.categorieService.getCategories().subscribe(
-      (categories) => {
-        // Handle the updated categories here
-        console.log('Categories refreshed', categories);
-      },
-      (error) => {
-        console.error('Error refreshing categories', error);
-      }
-    );
-  }
 }

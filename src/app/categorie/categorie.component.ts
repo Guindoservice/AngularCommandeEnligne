@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,21 +17,22 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CategorieService } from '../Services/categorie.service';
+import { SousCategorieService } from '../Services/sous-categorie.service';
 import { AjoutModifeCategorieComponent } from '../categorie/ajout-modife-categorie/ajout-modife-categorie.component';
+import { Router, RouterLink } from '@angular/router';
+import { SousCategorieComponent } from './sousCategorie/sous-categorie.component';
 
-interface Categorie {
+
+export interface Categorie { 
   id: number;
-  nom: string;
-  souscategorie: string;
-  Action: null;
+  libelle: string;
 }
-
-declare var $: any;
 
 @Component({
   selector: 'app-categorie',
   standalone: true,
   imports: [
+    RouterLink,
     MatDialogModule,
     MatMenuModule,
     MatSelectModule,
@@ -52,62 +53,87 @@ declare var $: any;
     MatSortModule,
   ],
   templateUrl: './categorie.component.html',
-  styleUrl: './categorie.component.css',
+  styleUrls: ['./categorie.component.css'],
 })
-export class CategorieComponent {
-  filterelement($event: Event) {
-    throw new Error('Method not implemented.');
-  }
-  modifiercategorie(id: number): void {
-    this.categorieService.getcategorie(id).subscribe((categorie) => {
-      const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
-        height: '650px',
-        panelClass: 'custom-dialog-container',
-        data: {
-          categorie: categorie,
-        },
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
-        // Handle any result from the dialog here
-      });
-    });
-  }
-  supprimercategorie(id: number): void {
-    if (confirm('Voulez vous supprimer cette catégorie')) {
-      this.categorieService.supprimercategorie(id).subscribe(() => {});
-    }
-  }
-  categorie: Categorie[] = [];
-  displayedColumns: string[] = ['id', 'nom', 'SousCategorie', 'Action'];
+export class CategorieComponent implements OnInit {
+  categories: Categorie[] = [];
+  selectedSousCategorie: any;
+  displayedColumns: string[] = ['id', 'nom', 'sousCategorie', 'action'];
   dataSource: Categorie[] = [];
   isLoadingResults = true;
 
   constructor(
     private dialog: MatDialog,
-    private categorieService: CategorieService
-  ) {}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+    private categorieService: CategorieService,
+    private sousCategorieService: SousCategorieService
+  ) { }
+  
+  
+  ngOnInit(): void {
+    this.loadCategories();
   }
 
-  applyFilter($event: KeyboardEvent) {
-    throw new Error('Method not implemented.');
+  loadCategories(): void {
+    this.categorieService.getCategories().subscribe((data: Categorie[]) => {
+      this.categories = data;
+      this.dataSource = data; // Ensure dataSource is updated
+      this.isLoadingResults = false;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource = this.categories.filter((categorie) =>
+      categorie.libelle.toLowerCase().includes(filterValue.toLowerCase())
+    );
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
-      height: '650px',
+      height: '50%',
       panelClass: 'custom-dialog-container',
-      data: {
-        /* any data you want to pass to the dialog */
-      },
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      // Handle any result from the dialog here
+      if (result) {
+        // Add new category to the list immediately
+        this.categories.push(result);
+        this.dataSource = [...this.categories]; // Update dataSource
+      }
     });
+  }
+
+  modifiercategorie(id: number): void {
+    this.categorieService.getCategorie(id).subscribe((categorie) => {
+      const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
+        height: '50%',
+        panelClass: 'custom-dialog-container',
+        data: { categorie: categorie },
+      });
+
+      dialogRef.afterClosed().subscribe((updatedCategorie) => {
+        if (updatedCategorie) {
+          // Update the category in the list
+          const index = this.categories.findIndex(
+            (c) => c.id === updatedCategorie.id
+          );
+          if (index !== -1) {
+            this.categories[index] = updatedCategorie;
+            this.dataSource = [...this.categories]; // Update dataSource
+          }
+        }
+      });
+    });
+  }
+
+  supprimercategorie(id: number): void {
+    if (confirm('Voulez-vous supprimer cette catégorie')) {
+      this.categorieService.deleteCategorie(id).subscribe(() => {
+        // Remove the category from the list immediately
+        this.categories = this.categories.filter((c) => c.id !== id);
+        this.dataSource = [...this.categories]; // Update dataSource
+      });
+    }
   }
 }

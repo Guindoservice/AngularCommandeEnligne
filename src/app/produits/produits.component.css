@@ -84,7 +84,7 @@ tr:nth-child(even) {
   color: #673ab7;
 }
 
-.delete-icon {
+button{
   color: #f44336;
 }
 
@@ -225,4 +225,8 @@ tr:nth-child(even) {
 .pagination {
   color: black;
   background-color: white;
+}
+
+mat-icon{
+  font-size: 12px;
 }

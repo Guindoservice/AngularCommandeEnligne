@@ -14,6 +14,7 @@ mat-dialog-content {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  font-size: 18px;
 }
 
 

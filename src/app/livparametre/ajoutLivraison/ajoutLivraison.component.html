@@ -4,7 +4,7 @@
   <mat-icon mat-button (click)="onNoClick()" class="btn_close">close</mat-icon>
 </h5>
 <mat-dialog-content class="mat-typography">
-  <form [formGroup]="categorieForm" class="popup">
+  <form [formGroup]="livraisonForm" class="popup">
     <!-- <mat-form-field class="full-width">
       <input matInput placeholder="Id" formControlName="Id" />
     </mat-form-field> -->
@@ -14,6 +14,14 @@
       </mat-form-field>
       <mat-form-field class="full-width">
         <input matInput placeholder="Libelle" formControlName="libelle" />
+      </mat-form-field>
+      <!--  -->
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Prix" formControlName="prix" />
+      </mat-form-field>
+      <!--  -->
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Details" formControlName="detail" />
       </mat-form-field>
     </div>
 

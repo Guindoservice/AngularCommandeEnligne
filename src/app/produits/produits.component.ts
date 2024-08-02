@@ -38,10 +38,11 @@ interface Product {
   styleUrls: ['./produits.component.css'],
 })
 export class ProduitsComponent implements OnInit, AfterViewInit {
+displayedColumns: any;
   filterelement($event: Event) {
     throw new Error('Method not implemented.');
   }
-  products: any[] = [];
+  produits: any[] = [];
 
   constructor(
     private dialog: MatDialog,
@@ -61,12 +62,12 @@ export class ProduitsComponent implements OnInit, AfterViewInit {
   fetchProducts() {
     this.productService.getProducts().subscribe((data) => {
       //
-      this.products = data.map((product, index) => ({
+      this.produits = data.map((product, index) => ({
         ...product,
         id: index + 1,
       }));
       console.log(data);
-      this.products = data;
+      this.produits = data;
       this.initializeDataTable();
     });
   }
@@ -96,22 +97,24 @@ export class ProduitsComponent implements OnInit, AfterViewInit {
             last: '>>',
           },
         },
-        data: this.products,
+        data: this.produits,
         columns: [
           { data: 'id' }, // Column 0: Numéro
           { data: 'nom' }, // Column 1: Nom de Produit
-          { data: 'prix' }, // Column 2: Prix
-          { data: 'quantite' }, // Column 3: Quantite
-          { data: 'categorie' }, // Column 4: Categorie
-          { data: 'SousCategorie' }, // Column 5: SousCategorie
+          {data: 'description'}, // Column 2: Description
+          { data: 'prix' }, // Column 3: Prix
+          { data: 'quantite' }, // Column 4: Quantite
+          { data: 'category' }, // Column 5: Categorie
+          { data: 'sousCategory' }, // Column 6: SousCategorie
         ],
         columnDefs: [
           {
             targets: 6,
             data: null,
           },
-        ],
+        ]
       });
+    
     });
   }
 

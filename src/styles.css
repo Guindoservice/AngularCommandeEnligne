@@ -40,6 +40,7 @@ body {
 }
 
 /* ------------------------------paramètres global style */
+
 .mat-mdc-tab-labels {
   display: flex;
   flex: 1 0 auto;
@@ -49,4 +50,11 @@ body {
   color: rgb(19, 18, 18);
   display: inline-flex;
   align-items: center;
+}
+/* ------------------------------header style */
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+    background: none;
+}
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple:hover {
+    background: none;
 }

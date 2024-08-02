@@ -1,45 +1,60 @@
 <h5 mat-dialog-title class="mat-title">
   {{ data.numero ? "Edit Product" : "Ajout de produit" }}
-
   <mat-icon mat-icon-button (click)="onNoClick()" class="close-button"
     >close</mat-icon
   >
 </h5>
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="productForm" class="popup">
-    <!-- <mat-form-field class="full-width">
-      <input matInput placeholder="Id" formControlName="Id" />
-    </mat-form-field> -->
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Nom" formControlName="nom" />
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Prix" formControlName="prix" />
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Quantité" formControlName="quantite" />
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-label>Categorie</mat-label>
-      <mat-select
-        formControlName="categorie"
-        (selectionChange)="onCategoryChange()"
-      >
-        <mat-option *ngFor="let cat of categories" [value]="cat">{{
-          cat
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="full-width" *ngIf="showSousCategorie">
-      <mat-label>SousCategorie</mat-label>
-      <mat-select formControlName="SousCategorie">
-        <mat-option *ngFor="let sousCat of SousCategories" [value]="sousCat">{{
-          sousCat
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- Variants Section -->
+    <div class="first">
+      <div class="imgProduit">
+        <div id="display"></div>
+        <input type="file" id="imageInput" accept="image/png, image/jpg" />
+      </div>
+      <div class="int">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Nom" formControlName="nom" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Description"
+            formControlName="description"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="second">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Prix" formControlName="prix" />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Quantité" formControlName="quantite" />
+      </mat-form-field>
+    </div>
+    <div class="third">
+      <mat-form-field class="full-width">
+        <mat-label>Categorie</mat-label>
+        <mat-select
+          formControlName="categorie"
+          (selectionChange)="onCategoryChange()"
+        >
+          <mat-option *ngFor="let category of categories" [value]="category">{{
+            category
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="full-width" *ngIf="showSousCategorie">
+        <mat-label>SousCategorie</mat-label>
+        <mat-select formControlName="sousCategorie">
+          <mat-option
+            *ngFor="let sousCat of SousCategories"
+            [value]="SousCategories"
+            >{{ SousCategories }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
     <div class="containerV">
       <div *ngIf="showVariant1" class="var var1">
         <label>{{ variant1Label }}</label>

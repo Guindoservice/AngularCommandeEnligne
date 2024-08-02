@@ -36,7 +36,21 @@ import { MatMenuModule } from '@angular/material/menu';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  
+
+  logout() {
+    this.logIN = false;
+    throw new Error('Method not implemented.');
+  }
+
+
+
   constructor(private router: Router, private el: ElementRef) {
+    // This is just a mockup. Replace it with your actual authentication logic
+    // ------------------------------------------------------------------------------------------------
+   
+    // ------------------------------------------------------
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = this.router.url;
@@ -52,6 +66,7 @@ export class AppComponent implements OnInit {
           'utilisateurs',
           'stock',
           'parametres',
+          'souscategories',
         ]; // Add all your routes here
 
         items.forEach((item) => {
@@ -68,7 +83,7 @@ export class AppComponent implements OnInit {
   }
 
   title = 'mirashop';
-  logIN: boolean = true;
+  logIN: boolean = false;
 
   ngOnInit(): void {
     let auth = localStorage.getItem('authToken');

@@ -46,17 +46,9 @@ export class AjoutModifeProduitComponent {
   variant2Options: any;
 
   productForm: FormGroup;
-  categories: string[] = ['Categorie 1', 'Categorie 2', 'Categorie 3'];
+  categories: string[] = [];
   SousCategories: string[] = [];
-  allSousCategories: { [key: string]: string[] } = {
-    'Categorie 1': [
-      'SousCategorie 1.1',
-      'SousCategorie 1.2',
-      'SousCategorie 1.3',
-    ],
-    'Categorie 2': ['SousCategorie 2.1', 'SousCategorie 2.2'],
-    'Categorie 3': ['SousCategorie 3.1'],
-  };
+  allSousCategories: { [key: string]: string[] } = {};
   showSousCategorie: boolean = false;
   showVariant2: any;
   showVariant1: any;
@@ -70,19 +62,61 @@ export class AjoutModifeProduitComponent {
     private http: HttpClient
   ) {
     this.productForm = this.fb.group({
-      id:[data.id ||'', Validators.required],
+      id: [data.id || ''],
       nom: [data.nom || '', Validators.required],
+      description: [data.description || '', Validators.required],
       prix: [data.prix || '', Validators.required],
       quantite: [data.quantite || '', Validators.required],
-      categorie: [data.categorie || '', Validators.required],
-      SousCategorie: [data.sousCategorie || '', Validators.required],
+      categorie: [data.categorie || ''],
+      sousCategorie: [data.sousCategorie || '', Validators.required],
     });
 
     if (data.categorie) {
       this.onCategoryChange();
     }
   }
+  ngOnInit(): void {
+    this.fetchCategories();
+  }
 
+  // ----------------------------------------------------------------
+  fetchCategories(): void {
+    this.http
+      .get<{ id: number; libelle: string }[]>(
+        'http://localhost:8080/admin/categories'
+      )
+      .subscribe(
+        (response) => {
+          this.categories = response.map((category) => category.libelle);
+          this.categories.forEach((category) => {
+            this.fetchSousCategories(category);
+          });
+        },
+        (error) => {
+          console.error('Error fetching categories:', error);
+        }
+      );
+  }
+
+  fetchSousCategories(category: string): void {
+    this.http
+      .get<{ id: number; libelle: string }[]>(
+        `
+        http://localhost:8080/admin/${category}/sous-categorie`
+      )
+      .subscribe(
+        (response) => {
+          this.allSousCategories[category] = response.map(
+            (sousCategory) => sousCategory.libelle
+          );
+        },
+        (error) => {
+          console.error('Error fetching subcategories:', error);
+        }
+      );
+  }
+
+  // ------------------------------------------------------------------------------------------------
   onCategoryChange(): void {
     const selectedCategory: string = this.productForm.get('categorie')?.value;
     this.SousCategories = this.allSousCategories[selectedCategory] || [];
@@ -92,19 +126,33 @@ export class AjoutModifeProduitComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  // ----------------------------------------------------------------
 
   onSave(): void {
     if (this.productForm.valid) {
       const newProduct = {
         ...this.productForm.value,
-        id: this.data.id,
+        id: this.data.id || this.generateId(),
       };
+      console.log('Submitting product:', newProduct); // Debug log
       this.http
-        .post('http://localhost:3000/products', newProduct)
-        .subscribe(() => {
-          this.dialogRef.close(newProduct);
-        });
+        .post('http://localhost:8080/admin/listesProduit', newProduct)
+        .subscribe(
+          (response) => {
+            console.log('Submission response:', response); // Debug log
+            this.dialogRef.close(newProduct);
+          },
+          (error) => {
+            console.error('Submission error:', error); // Debug log
+          }
+        );
+    } else {
+      console.log('Form is invalid:', this.productForm); // Debug log
     }
+  }
+
+  generateId(): number {
+    return Math.floor(Math.random() * 1000);
   }
 
   onReset(): void {
@@ -123,6 +171,7 @@ export class AjoutModifeProduitComponent {
   onVariant2Change($event: MatRadioChange) {
     throw new Error('Method not implemented.');
   }
+
   onVariant1Change($event: MatCheckboxChange) {
     throw new Error('Method not implemented.');
   }

@@ -1,6 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { MatOption } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
 
 declare var $: any;  // Déclaration pour utiliser jQuery dans Angular
 
@@ -11,7 +13,9 @@ declare var $: any;  // Déclaration pour utiliser jQuery dans Angular
   standalone: true,  // Important pour Angular 13 et supérieur
   imports: [
     MatIconModule,
-    MatPaginator
+    MatPaginator,
+    MatOption,
+    MatSelect
   ],
 })
 export class CommandesComponent implements AfterViewInit {

@@ -1,13 +1,10 @@
 <h5 mat-dialog-title class="mat-title">
-  {{ data.numero ? "Edit Categorie" : "Ajout de Categorie" }}
+  {{ data.numero ? "Edit Sous Categorie" : "Ajout de SousCategorie" }}
 
   <mat-icon mat-button (click)="onNoClick()" class="btn_close">close</mat-icon>
 </h5>
 <mat-dialog-content class="mat-typography">
-  <form [formGroup]="categorieForm" class="popup">
-    <!-- <mat-form-field class="full-width">
-      <input matInput placeholder="Id" formControlName="Id" />
-    </mat-form-field> -->
+  <form [formGroup]="ajSForm" class="popup">
     <div class="Categorie-container">
       <mat-form-field class="full-width">
         <input matInput placeholder="Id" formControlName="id" />

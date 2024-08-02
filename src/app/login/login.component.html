@@ -1,7 +1,5 @@
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-/>
+<!-- login.component.html -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <div class="container-login">
   <div class="headerBar">
     <div class="left">
@@ -14,14 +12,10 @@
       <button>x</button>
     </div>
   </div>
-  <!-- ------------------------ -->
   <div class="logoImg">
     <img src="assets/mariame.png" alt="logo" width="400px" />
-
     <p class="text-foote">Mira Shop - CopyRight reserved | 2024</p>
   </div>
-  <!-- -------------------------- -->
-  <!-- -------------------------- -->
   <div class="loginForm">
     <div class="container">
       <h3 class="text-center">Bienvenue sur MiraShop</h3>
@@ -29,72 +23,34 @@
         S’il vous plait entrer vos identifications pour vous connecter
       </p>
     </div>
-    <!-- -------------------------- -->
     <div class="formulaire">
-      <form action="#!">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="row gy-2 overflow-hidden">
           <div class="col-10">
             <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                name="email"
-                id="email"
-                placeholder="name@example.com"
-                required
-              />
-              <label for="email" class="form-label">Email</label>
+              <input type="email" formControlName="username" class="form-control" placeholder="name@example.com" required />
+              <label for="email" class="form-label">Email:</label>
             </div>
-            <!-- ----------- -->
           </div>
           <div class="col-10">
             <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                name="password"
-                id="password"
-                value=""
-                placeholder="Password"
-                required
-              />
+              <input type="password" formControlName="password" class="form-control" placeholder="Password" required />
               <label for="password" class="form-label">Mot de passe</label>
             </div>
           </div>
-          <!-- --------------------------- -->
           <div class="col-10">
             <div class="d-flex gap-5 justify-content-between">
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  name="rememberMe"
-                  id="rememberMe"
-                />
-                <label class="form-check-label text-secondary" for="rememberMe">
-                  Se souvenir de moi
-                </label>
+                <input class="form-check-input" type="checkbox" value="" name="rememberMe" id="rememberMe" />
+                <label class="form-check-label text-secondary" for="rememberMe">Se souvenir de moi</label>
               </div>
-              <!-- <a href="#!" class="link-primary text-decoration-none"
-                >Mot de passe oublié?</a
-              > -->
             </div>
           </div>
-          <!-- --------------- -->
-          <div class="col-10 m-2 " >
-            <div class="d-grid my-4 " >
-              <button class="btn btn-primary btn-lg" type="submit">
-                Connexion
-              </button>
+          <div class="col-10 m-2">
+            <div class="d-grid my-4">
+              <button class="btn btn-primary btn-lg" type="submit">Connexion</button>
             </div>
           </div>
-          <!-- <div class="col-10">
-            <p class="m-0 text-secondary text-center">
-              Vous n'avez pas de compte
-              <a href="#!" class="link-primary text-decoration-none">Creer un!</a>
-            </p>
-          </div> -->
         </div>
       </form>
     </div>

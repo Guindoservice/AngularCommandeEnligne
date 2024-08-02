@@ -15,9 +15,6 @@ mat-dialog-content {
   align-items: center;
   gap: 10px;
 }
-
-
-/* ---------- */
 .btn_close {
   color: #e22424;
   cursor: pointer;
@@ -36,7 +33,7 @@ mat-dialog-content {
   background: #ee4d2d;
   color: #fff;
 }
-/* -----------button */
+
 
 .mat-mdc-dialog-surface {
   background: #e22424;
