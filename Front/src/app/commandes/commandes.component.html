@@ -1,0 +1,72 @@
+<div class="table-container mat-elevation-z3">
+  <div class="caption">
+    <div class="leftS"><h5>Liste des Commandes |</h5></div>
+
+    <div class="rightS">
+      <!--  -->
+      <div class="searchetajout">
+        <!--  -->
+        <div class="search-box">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+          <input
+            matInput
+            (input)="filterelement($event)"
+            placeholder="Search"
+            class="input-search"
+          />
+        </div>
+        <!--  
+        <button class="btn add-user-btn" (click)="openDialog()">
+          <mat-icon>add</mat-icon>Ajouter Catégorie
+        </button>-->
+      </div>
+    </div>
+  </div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+
+  <div class="tablecontainer">
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>N°Commande</th>
+          <th>Date</th>
+          <th>Nom du client</th>
+          <th>Contact client</th>
+          <th>Total Commande</th>
+          <th>Statut Commande</th>
+        </tr>
+      </thead>
+      <!--  -->
+      <tbody>
+        <tr>
+          <!-- <td>{{ commande.id }}</td>*ngFor="let commande of commande"
+            <td>{{ commande.date }}</td>
+            <td>{{ categorie.souscategorie }}</td> -->
+          <td>2</td>
+          <td>1/03/2023</td>
+          <td>Hamidou Diallo</td>
+          <td>80000090</td>
+          <td>100000 F</td>
+          <td>
+            <select class="custom-select">
+              <option value="Default" class="default">Default</option>
+              <option value="Livré" class="livré">Livré</option>
+              <option value="En Cours" class="encours">En Cours</option>
+              <option value="Expedié" class="expedié">Expedié</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+      <!--  -->
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
+</div>

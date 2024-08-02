@@ -1,0 +1,47 @@
+<h5 mat-dialog-title class="mat-title">
+  {{ isEditMode ? "Modifier Produit" : "Ajout de produit" }}
+
+  <mat-icon mat-icon-button (click)="onNoClick()" class="close-button"
+    >close</mat-icon
+  >
+</h5>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="productForm" class="popup">
+    <!-- <mat-form-field class="full-width">
+      <input matInput placeholder="Id" formControlName="Id" />
+    </mat-form-field> -->
+    <mat-form-field class="full-width">
+      <input matInput placeholder="description" formControlName="description" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Prix" formControlName="prix" type="number" step="any"/>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Quantité" formControlName="quantite" type="number"/>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="libelle" formControlName="libelle" />
+    </mat-form-field>
+    <mat-form-field class="full-width" *ngIf="SousCategories.length > 0">
+      <mat-label>Categorie</mat-label>
+      <mat-select formControlName="Categorie" (selectionChange)="onCategoryChange($event)">
+        <mat-option *ngFor="let sousCat of categories" [value]="sousCat.id">{{ sousCat.libelle }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width" *ngIf="SousCategories.length > 0">
+      <mat-label>SousCategorie</mat-label>
+      <mat-select formControlName="sousCategorie">
+        <mat-option *ngFor="let sousCat of filteredSousCategories" [value]="sousCat.id">{{ sousCat.libelle }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button (click)="onReset()" class="btn reset">Reset</button>
+  <button mat-raised-button color="primary" (click)="onSave()" class="btn submit">
+    {{ isEditMode ? "Modifier Produit" : "Ajout de produit" }}
+  </button>
+</mat-dialog-actions>
+
+<!--Modification-->
+

@@ -1,0 +1,62 @@
+.example-tab-icon {
+  margin: 18px;
+}
+.main-container {
+  width: 98%;
+  height: 80vh;
+  background: #fff;
+  margin: 5px;
+  border-radius: 8px;
+}
+ng-template {
+  color: #050303;
+}
+.formPro {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  height: 70%;
+}
+.form-row {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-areas: "one two";
+  flex-direction: row;
+  gap: 65px;
+  width: 100%;
+}
+
+.btn {
+  background-color: #ee4d2d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 150px;
+}
+.formSec {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  padding: 20px;
+  justify-content: end;
+}
+.btn_submit {
+  align-items: end;
+}
+mat-icon {
+  color: #ee4d2d;
+}
+span {
+  color: black;
+}
+span {
+  color: #1d1c1c;
+}

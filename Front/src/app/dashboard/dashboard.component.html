@@ -1,0 +1,119 @@
+<main>
+  <div class="conteneurprincipal">
+    <div class="selectjour">
+      <form>
+        <select id="date">
+          <option value="">Sélectionnez une date</option>
+          <option value="2024-07-17">Mardi, 17 Juillet 2024</option>
+          <option value="2024-07-18">Mercredi, 18 Juillet 2024</option>
+          <option value="2024-07-19">Jeudi, 19 Juillet 2024</option>
+          <option value="2024-07-20">Vendredi, 20 Juillet 2024</option>
+          <option value="2024-07-21">Samedi, 21 Juillet 2024</option>
+          <option value="2024-07-22">Dimanche, 22 Juillet 2024</option>
+          <option value="2024-07-23">Lundi, 23 Juillet 2024</option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <div id="carteconteneur">
+    <app-icon-card 
+      *ngFor="let stat of [
+        {
+          nombre: 178,
+          titre: 'Commandes aux panier',
+          icon: 'fa-solid fa-heart',
+          style: { 'color': '#5B93FF', 'font-size': '20px' },
+          style_bg: { 'background-color': '#5b92ff1e' }
+        },
+        {
+          nombre: 2000,
+          titre: 'Commandes',
+          icon: 'fa-solid fa-heart',
+          style: { 'color': '#FFC327', 'font-size': '20px' },
+          style_bg: { 'background-color': 'rgba(255, 187, 15, 0.15)' }
+        },
+        {
+          nombre: 4900,
+          titre: 'Produits vendus',
+          icon: 'fa-solid fa-bag-shopping',
+          style: { 'color': '#FF8F6B', 'font-size': '20px' },
+          style_bg: { 'background-color': '#ff906b21' }
+        },
+        {
+          nombre: 1200,
+          titre: 'Utilisateurs',
+          icon: 'fa-solid fa-users',
+          style: { 'color': '#65558F', 'font-size': '20px' },
+          style_bg: { 'background-color': '#65558f27' }
+        }
+      ]" 
+      [stat]="stat">
+    </app-icon-card>
+  </div>
+
+  <section class="section1">
+    <div class="bigCard">
+      <canvasjs-chart 
+        class="graph" 
+        [options]="{
+          theme: 'light2',
+          height: 300,
+          animationEnabled: true,
+          data: [{
+            type: 'spline',
+            showInLegend: true,
+            name: 'Rapport',
+            dataPoints: [
+              { label: 'Jan', y: 372 },
+              { label: 'Feb', y: 412 },
+              { label: 'Mar', y: 572 },
+              { label: 'Apr', y: 224 },
+              { label: 'May', y: 246 },
+              { label: 'Jun', y: 601 },
+              { label: 'Jul', y: 642 },
+              { label: 'Aug', y: 590 },
+              { label: 'Sep', y: 527 },
+              { label: 'Oct', y: 273 },
+              { label: 'Nov', y: 251 },
+              { label: 'Dec', y: 331 }
+            ]
+          }]
+        }">
+      </canvasjs-chart>
+    </div>
+    <div class="cardSmall">
+      <canvasjs-chart 
+        class="graph" 
+        [options]="{
+          animationEnabled: true,
+          title: { text: 'Analyse' },
+          height: 300,
+          data: [{
+            type: 'doughnut',
+            yValueFormatString: '#,###.##\'%\'',
+            indexLabel: '{name}',
+            dataPoints: [
+              { y: 28, name: '' },
+              { y: 10, name: '' },
+              { y: 20, name: '' },
+              { y: 15, name: '' },
+              { y: 23, name: '' },
+              { y: 17, name: '' },
+              { y: 12, name: '' }
+            ]
+          }]
+        }">
+      </canvasjs-chart>
+    </div>
+  </section>
+  <section class="section2">
+    <div class="commande">
+      <p>Commandes recentes</p>
+    </div>
+    <div class="produit">
+      <p>Meilleur ventes</p>
+      <app-product-tile *ngFor="let i of [1, 2, 3]"></app-product-tile>
+    </div>
+  </section>
+</main>
