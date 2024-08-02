@@ -1,0 +1,107 @@
+:root {
+  --select-border: #ee4d2d;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+}
+
+
+
+.table-container{
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 20px; 
+    text-align: left;/* Marge extérieure à droite et à gauche */
+  }
+ th{
+    border-bottom: 2px solid #616161;
+    font-size: 12px;
+    color: #0000009f;
+  }
+  
+  #example {
+    border: none; /* Supprimer la bordure de la table */
+  }
+  
+ #example td {
+    border: none;
+    background: #ffffff;
+     /* Supprimer la bordure des cellules */
+  }
+  
+  #example tbody tr {
+    border: none; /* Supprimer la bordure des lignes du corps de table */
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button,
+  .dataTables_wrapper .dataTables_filter input,
+  .dataTables_wrapper .dataTables_info {
+    border: none; /* Supprimer les bordures des éléments DataTables */
+  }
+  h5{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .caption{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px auto;
+  }
+  .search{
+    color: #EE4D2D;
+    cursor: pointer;
+    align-self: center;
+    font-size: 24px;
+  }
+  
+.rightS{
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  gap: 2px;
+}
+.btn {
+  display: table-cell;
+  max-width: 600px;
+  background: none;
+  max-height: 40px;
+  border: 1px solid #EE4D2D;
+  display: flex;
+}
+
+.acttion-btn{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #EE4D2D;
+}
+
+select{
+  width: 150px;
+  min-width: 15ch;
+  max-width: 30ch;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+select:focus{
+  border: 2px solid #ee4d2d;
+  border-radius: .25em;
+}
+
+  select option .default:hover {
+    background-color: lightgray;
+  }
+  option .livre:hover {
+    background-color: limegreen;
+  }
+  option .encours:hover {
+    background-color: rgb(228, 178, 15);
+  }
+  option .expedié:hover{
+    background-color: #EE4D2D;
+  }

@@ -1,0 +1,245 @@
+:root {
+  --degraderblue: #0085ff;
+  --degraderblanc: #e3f1ff;
+  --Orangefort: #eb4028;
+  --violet: #eb2891;
+  --bluefort: #9747ff;
+  --mainColor: #ee4d2d;
+  --secondColor: #8c21ff;
+  --activeColor: #f4f8fa;
+  --gradientColor: linear-gradient(var(--mainColor), var(--secondColor));
+}
+
+/* .Login{
+padding: 50px;
+  background-image:linear-gradient(-90deg,#ee4d2d, #8c21ff);
+  height: 100vh;
+  width: 100vw;
+}
+.contente{
+  background-color: rgb(32, 21, 190);
+  height:550px;
+  border-radius: 10px;
+  color: black;
+}
+.imag{
+  margin-top: 50px;
+  background-color: #e911a8;
+  height: 50%;
+}
+.rightside{
+  background-color: rgb(47, 235, 0);
+  margin-top: 50px;
+  height: 100%;
+}
+.contain{
+  margin-left: 70px;
+  margin-top: 50px;
+  align-content: center;
+  width: 450px;
+  background: #0085FF;
+}
+.contain h3{
+  font-weight: bold;
+}
+
+.borderall{
+  border: 1px solid var(--Orangefort);
+}
+.btns{
+  background-color: white;
+  color: var(--Orangefort);
+  font-size: 20px;
+  border-radius: 4px;
+  border:  1px solid var(--Orangefort);
+}
+.btncolor{
+  background-color: var(--Orangefort);
+  color: white;
+  font-size: 20px;
+}
+.text-foote{
+  color: white;
+  text-align: center;
+  margin-top: 120px;
+}
+.forget a{
+  font-size: 12px;
+margin-left: 130px;
+  color: var(--Orangefort);
+} */
+/* -----------------GlobalCSS---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------- */
+
+.container-login {
+  margin: 50px auto;
+  width: 90vw;
+  height: 90vh;
+  border-radius: 5px;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "logoImg loginForm"
+    "logoImg loginForm";
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  grid-template-rows: 58px 1fr 2fr;
+}
+
+/* ------------------------------------- */
+.headerBar {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #424345;
+  grid-area: header;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 8px;
+}
+.left {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  column-gap: 5px;
+}
+.dot {
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 100%;
+}
+.right {
+  padding: 3px 25px 0;
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  font-size: 14px;
+  column-gap: 15px;
+}
+button {
+  height: 15px;
+  border: none;
+  background: none;
+  color: white;
+}
+/* ----------------------------- */
+.logoImg {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  grid-area: logoImg;
+  background: #ee4d2d;
+  border-bottom-left-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  row-gap: 50px;
+}
+.text-foote {
+  color: #fff;
+}
+
+/*  ----------------------------------------------*/
+.loginForm {
+  grid-area: loginForm;
+  background: #fff;
+  border-bottom-right-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-wrap: nowrap;
+}
+.formulaire {
+  margin: 20px;
+}
+.btn {
+  height: 45px;
+  border: 1px solid #eb4028;
+  color: #ee4d2d;
+}
+.btn:hover {
+  background: #ee4d2d;
+  color: #fff;
+  border: none;
+}
+.link-primary {
+  color: var(--secondColor);
+}
+input:hover {
+  outline: solid 2px #8c21ff;
+  outline-offset: -2px;
+}
+
+@media screen and (max-width: 600px) {
+  .container-login {
+    margin: 50px auto;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "loginorm loginForm"
+      "logoImg logoImg";
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    grid-template-rows: 64px 488px 50px;
+  }
+  /* ------------------------------------- */
+  .headerBar {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: #424345;
+    grid-area: header;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 8px;
+  }
+
+  /* ----------------------------- */
+  .logoImg {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    grid-area: logoImg;
+    background: #ee4d2d;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+  img {
+    width: 100px;
+  }
+  /*  ----------------------------------------------*/
+  .loginForm {
+    grid-area: loginForm;
+    background: #fff;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .formulaire {
+    width: 100%;
+    justify-content: center;
+    margin-left: 40px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-wrap: nowrap;
+  }
+}

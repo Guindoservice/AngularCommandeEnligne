@@ -1,0 +1,95 @@
+<div class="user-table-container">
+  <!-- Bouton pour afficher le formulaire d'ajout d'utilisateur -->
+  <button class="add-user-btn" (click)="showContainer()">
+    Ajouter Utilisateur
+  </button>
+
+  <!-- Tableau des utilisateurs avec Angular Material Table -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 user-table">
+    <!-- Colonne pour l'ID de l'utilisateur -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le nom de l'utilisateur -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let user">{{ user.nom }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le prénom de l'utilisateur -->
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef>Prénom</th>
+      <td mat-cell *matCellDef="let user">{{ user.prenom }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le nom d'utilisateur -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le mot de passe -->
+    <ng-container matColumnDef="motDePasse">
+      <th mat-header-cell *matHeaderCellDef>Mot de passe</th>
+      <td mat-cell *matCellDef="let user">{{ maskPassword(user.motDePasse) }}</td>
+    </ng-container>
+
+    <!-- Colonne pour le rôle de l'utilisateur -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Rôle</th>
+      <td mat-cell *matCellDef="let user">{{ user.roletype }}</td>
+    </ng-container>
+
+    <!-- Colonne pour les actions (supprimer) -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user">
+        <!-- Icône pour supprimer l'utilisateur -->
+        <i class="fa-solid fa-trash delete-icon" (click)="deleteUser(user)"></i>
+      </td>
+    </ng-container>
+
+    <!-- Ligne d'en-tête du tableau -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- Lignes du tableau -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<!-- Formulaire pour ajouter un utilisateur, affiché conditionnellement -->
+<div *ngIf="isContainerVisible" class="user-form-container">
+  <div class="formulaire">
+    <!-- Formulaire avec soumission -->
+    <form (ngSubmit)="addUser()">
+      <!-- Icône pour fermer le formulaire -->
+      <i id="span1" (click)="hideContainer()" class="fa-solid fa-x close-icon"></i>
+
+      <!-- Champ pour le nom -->
+      <input type="text" [(ngModel)]="newUser.nom" name="nom" placeholder="Nom" required />
+
+      <!-- Champ pour le prénom -->
+      <input type="text" [(ngModel)]="newUser.prenom" name="prenom" placeholder="Prénom" required />
+
+      <!-- Champ pour le nom d'utilisateur -->
+      <input type="text" [(ngModel)]="newUser.username" name="username" placeholder="Username" required />
+
+      <!-- Champ pour le mot de passe -->
+      <input type="password" [(ngModel)]="newUser.motDePasse" name="motDePasse" placeholder="Password" required />
+
+      <!-- Sélecteur pour le rôle -->
+      <select [(ngModel)]="newUser.roleType" name="role" required>
+        <option value="" disabled selected>Role</option>
+        <option value="admin">Admin</option>
+        <option value="personnel">Personnel</option>
+        <option value="client">Client</option>
+      </select>
+
+      <!-- Bouton de soumission -->
+      <button type="submit">Ajouter</button>
+    </form>
+    <!-- Message d'erreur affiché conditionnellement -->
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+</div>

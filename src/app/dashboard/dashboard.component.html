@@ -1,0 +1,40 @@
+<main>
+    <div class="conteneurprincipal">
+        <div class="selectjour">
+            <form>
+                <select id="date">
+                    <option value="">Sélectionnez une date</option>
+                    <option value="2024-07-17">Mardi, 17 Juillet 2024</option>
+                    <option value="2024-07-18">Mercredi, 18 Juillet 2024</option>
+                    <option value="2024-07-19">Jeudi, 19 Juillet 2024</option>
+                    <option value="2024-07-20">Vendredi, 20 Juillet 2024</option>
+                    <option value="2024-07-21">Samedi, 21 Juillet 2024</option>
+                    <option value="2024-07-22">Dimanche, 22 Juillet 2024</option>
+                    <option value="2024-07-23">Lundi, 23 Juillet 2024</option>
+                </select>
+            </form>
+        </div> 
+    </div>
+    
+    <div id="carteconteneur">
+        <app-icon-card *ngFor="let stat of statList" [stat]="stat"></app-icon-card>
+    </div>
+
+    <section class="section1">
+        <div class="bigCard">
+            <canvasjs-chart class="graph" [options]="chartOptions"></canvasjs-chart>
+        </div>
+        <div class="cardSmall">
+            <canvasjs-chart class="graph" [options]="chartOption"></canvasjs-chart>
+        </div>
+    </section>
+    <section class="section2">
+        <div class="commande">
+            <p>Commandes recentes</p>
+        </div>
+        <div class="produit">
+            <p>Meilleur ventes</p>
+            <app-product-tile *ngFor="let i of [1, 2, 3]"></app-product-tile>
+        </div>
+    </section>
+</main>

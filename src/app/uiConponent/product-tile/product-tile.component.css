@@ -1,0 +1,23 @@
+.main {
+    display: flex;
+    padding: 10px;
+}
+.photo{
+    height: 70px;
+    width: 90px;
+    margin-right: 10px;
+    background-color: bisque;
+    border-radius: 12px;
+}
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+}
+.data p{
+    font-weight: 600;
+}
+.data span{
+    font-size: 13px;
+}
