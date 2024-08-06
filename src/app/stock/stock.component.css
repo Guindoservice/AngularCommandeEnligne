@@ -1,0 +1,40 @@
+.table-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 20px; /* Marge extérieure à droite et à gauche */
+}
+
+
+#example {
+  border: none; /* Supprimer la bordure de la table */
+}
+
+#example td {
+  background: #fff;
+  border: none; /* Supprimer la bordure des cellules */
+}
+
+#example tbody tr {
+  border: none; /* Supprimer la bordure des lignes du corps de table */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_info {
+  border: none; /* Supprimer les bordures des éléments DataTables */
+}
+h5{
+  font-size: 14px;
+  font-weight: 500;
+}
+.btns{
+
+  color: #EB4028;
+}
+.delete{
+  background-color: white;
+  border: 1px solid #EB4028;
+  border-radius: 3px;
+}

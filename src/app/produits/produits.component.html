@@ -1,0 +1,86 @@
+
+
+
+<div class="table-container mat-elevation-z3">
+  <div class="caption">
+    <div class="leftS"><h5>Liste des Produits |</h5></div>
+
+    <div class="rightS">
+      <!--  -->
+      <div class="searchetajout">
+        <!--  -->
+        <div class="search-box">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+          <input
+            matInput
+            (input)="filterelement($event)"
+            placeholder="Search"
+            class="input-search"
+          />
+        </div>
+        <!--  -->
+        <button class="btn add-user-btn" (click)="openDialog()">
+          <mat-icon>add</mat-icon>Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+
+  <div class="tablecontainer">
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th>Nom de Produit</th>
+          <th>Prix</th>
+          <th>Quantite</th>
+          <th>Date</th>
+          <th>description</th>
+          <th>sousCategory</th>
+          <th>Ajouter par</th>
+          <th>action</th>
+        </tr>
+      </thead>
+      <!--  -->
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.libelle }}</td>
+          <td>{{ product.prix }}</td>
+          <td>{{ product.quantite }}</td>
+          <td>{{ product.date }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.sousCategory.libelle }}</td>
+          <td>{{ product.utilisateur.username}}
+          <td>
+            <button mat-icon-button (click)="showDeleteConfirmation(product)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openEditDialog(product)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <!--  -->
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
+
+  <div *ngIf="isDeleteConfirmationVisible" class="confirmation-container">
+    <h3>Confirmer la suppression</h3>
+    <p>Êtes-vous sûr de vouloir supprimer le produit "{{ produit.libelle }}" ?</p>
+    <button mat-button color="warn" (click)="confirmDelete()">Supprimer</button>
+    <button mat-button (click)="cancelDelete()">Annuler</button>
+  </div>
+
+</div>

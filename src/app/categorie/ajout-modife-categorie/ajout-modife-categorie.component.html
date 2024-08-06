@@ -1,0 +1,41 @@
+<h5 mat-dialog-title class="mat-title">
+  {{ data.numero ? "Edit Categorie" : "Ajout de Categorie" }}
+
+  <mat-icon mat-button (click)="onNoClick()" class="btn_close">close</mat-icon>
+
+</h5>
+<mat-dialog-content class="mat-typography ajoutCategorie">
+  <form [formGroup]="categorieForm" class="popup">
+    <!-- <mat-form-field class="full-width">
+      <input matInput placeholder="Id" formControlName="Id" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Id" formControlName="id" />
+    </mat-form-field>-->
+    <mat-form-field class="full-width">
+      <input matInput placeholder="libelle" formControlName="libelle" />
+    </mat-form-field>
+    <!-- <mat-form-field class="full-width">
+       <input matInput placeholder="SousCategorie" formControlName="sousCategorie" />
+     </mat-form-field>-->
+
+     <!-- Variants Section -->
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button (click)="onReset()" class="btn reset">Reset</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSave()"
+    class="btn submit"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>
+
+
+
+
+

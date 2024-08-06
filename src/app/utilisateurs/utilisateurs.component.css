@@ -1,0 +1,319 @@
+/* Add user button */
+.add-user-btn {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 20px;
+}
+
+.add-user-btn:hover {
+  background-color: #e64a19;
+}
+
+/* Table container */
+.user-table-container {
+  padding: 20px;
+  margin: 20px; /* Ajouter du margin pour éloigner le tableau des bords */
+  background-color: #f7f8fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #333; /* Texte en noir foncé pour une meilleure visibilité */
+}
+
+thead {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  color: #333; /* Assurez-vous que le texte est noir foncé */
+}
+
+th {
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e3f1ff;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.edit-icon {
+  color: #673ab7;
+}
+
+.delete-icon {
+  color: #f44336;
+}
+
+/* User form container */
+.user-form-container {
+  position: absolute;
+  min-width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px; /* Ajuster la largeur selon vos besoins */
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.user-form-container .formulaire {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrer les éléments */
+}
+
+.user-form-container .formulaire p {
+  font-size: 24px; /* Taille de police pour le titre */
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-form-container .formulaire input,
+.user-form-container .formulaire select {
+  width: 80%; 
+  gap: 20px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.user-form-container .formulaire button {
+  width: 80%;
+  padding: 10px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-form-container .formulaire button:hover {
+  background-color: #e64a19;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  width: 80%;
+  text-align: left; /* Alignement du texte des messages d'erreur */
+}
+
+/* Style pour le bouton de recherche et autres détails */
+
+/* Close icon */
+.close-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+}
+
+.searchetajout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  justify-content: right;
+}
+
+.searchetajout .add-user-btn {
+  margin-left: 10px;
+}
+
+.search-box {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+.input-search {
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+  background-color: whitesmoke;
+  padding-right: 40px;
+  color: #fff;
+}
+.input-search::placeholder {
+  color: rgb(15, 12, 12);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+
+.btn-search i {
+  color: #e64a19;
+  font-size: larger;
+}
+
+.btn-search {
+  width: 50px;
+  height: 50px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  color: #ffffff;
+  background-color: transparent;
+  pointer-events: painted;
+}
+.btn-search:focus ~ .input-search {
+  width: 300px;
+  border-radius: 0px;
+  /* background-color: transparent; 
+  border-bottom:1px solid rgba(255,255,255,.5);  */
+  border: 1px solid #e64a19;
+  color: black;
+  transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
+}
+.input-search:focus {
+  width: 300px;
+  border: 1px solid #e64a19;
+  border-radius: 0px;
+  color: rgba(0, 0, 0, 0.699);
+  background-color: transparent;
+  /* border-bottom:1px solid rgba(255,255,255,.5);  */
+  transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
+}
+
+#mat-paginator-page-size-label-0 {
+  color: red;
+  display: none;
+}
+
+.pagination {
+  color: black;
+  background-color: white;
+}
+
+/* Fixer le header du tableau */
+.mat-header-cell {
+  
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2; /* Assurez-vous que la couleur de fond couvre le contenu en dessous */
+  z-index: 1; /* Assurez-vous que le header est au-dessus des autres éléments */
+}
+
+/* Fixer le bouton de recherche */
+.btn-search {
+  position: sticky;
+  top: 20px; /* Ajustez selon votre mise en page */
+  z-index: 10; /* Assurez-vous que le bouton est au-dessus des autres éléments */
+}
+
+/* Fixer le bouton d'ajout d'utilisateur */
+.add-user-btn {
+  position: sticky;
+  top: 20px; /* Ajustez selon votre mise en page */
+  right: 20px; /* Ajustez selon votre mise en page */
+  z-index: 10; /* Assurez-vous que le bouton est au-dessus des autres éléments */
+}
+
+/* Exemple pour le conteneur de recherche et ajout utilisateur */
+.searchetajout {
+  position: sticky;
+  top: 0; /* Fixez le conteneur en haut de la page */
+  background-color: #f7f8fa; /* Couleur de fond pour couvrir le contenu en dessous */
+  z-index: 2; /* Assurez-vous que le conteneur est au-dessus du tableau */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Autres ajustements pour garantir que les éléments restent visibles et bien placés */
+.user-table-container {
+  margin-top: 100px; /* Espace en haut pour éviter que le contenu soit couvert par les éléments fixes */
+}
+
+
+#titreformulaire{
+  font-size: 20px;
+  font-weight: 600;
+
+}
+
+
+
+.div3{
+  margin-top: 80px;
+}
+
+@media  screen and (max-width:760px)  {
+
+.div1{
+  display: flex;
+  flex-direction: column;
+}
+
+.div2{
+  display: flex;
+  flex-direction: column;
+}
+
+.user-form-container{
+  min-width: 250px;
+}
+
+.user-form-container .formulaire input,
+.user-form-container .formulaire select{
+  width: 100%;
+}
+
+
+
+}

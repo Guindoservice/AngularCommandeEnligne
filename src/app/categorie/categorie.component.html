@@ -1,0 +1,72 @@
+<div class="table-container mat-elevation-z3">
+  <div class="caption">
+  <div class="leftS"><h5>Liste des Catégorie |</h5></div>
+
+  <div class="rightS">
+    <!--  -->
+    <div class="searchetajout">
+      <!--  -->
+      <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input
+          matInput
+          (input)="filterelement($event)"
+          placeholder="Search"
+          class="input-search"
+        />
+      </div>
+      <!--  -->
+      <button class="btn add-user-btn" (click)="openDialog()">
+        <mat-icon>add</mat-icon>Ajouter
+      </button>
+    </div>
+  </div>
+</div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+
+  <div class="tablecontainer">
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th>Nom catégorie</th>
+          <!-- <th>Sous catégorie</th>-->
+           <th>Action</th>
+         </tr>
+       </thead>
+       <!--  -->
+      <tbody>
+        <tr *ngFor="let catagorie of catagories; let i = index">
+          <td>{{catagorie?.id }}</td>
+          <td>{{catagorie?.libelle}}</td>
+          <!-- <td>{{ souscats[i]?.libelle}}</td>-->
+           <td>
+             <button mat-icon-button  [routerLink]="['/sousCategories', catagorie?.id]"
+                     id="sousCategoriesItem">
+               <i class="fa-regular fa-add edit-icon" ></i>
+             </button>
+             <i
+               class="fa-regular fa-pen-to-square edit-icon" ></i>
+             <button mat-icon-button (click)="deleteCategory(catagorie.id)" >
+             <!--<i class="fa-solid fa-trash delete-icon" (click)="deleteUser(user)"</i>-->
+            <i class="fa-solid fa-trash delete-icon"  ></i>
+             </button>
+          </td>
+        </tr>
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+
+
+
+
