@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": "1722319064740",
+      "nom": "Iphone",
+      "prix": "200000",
+      "quantite": "2",
+      "categorie": "Categorie 2",
+      "SousCategorie": "SousCategorie 2.2"
+    },
+    {
+      "id": "1722319064740",
+      "nom": "Iphone",
+      "prix": "200000",
+      "quantite": "2",
+      "categorie": "Categorie 1",
+      "SousCategorie": "SousCategorie 1.3"
+    },
+    {
+      "id": "1722320734240",
+      "nom": "ss",
+      "prix": "ss",
+      "quantite": "ss",
+      "categorie": "Categorie 2",
+      "SousCategorie": "SousCategorie 2.2"
+    }
+  ]
+}

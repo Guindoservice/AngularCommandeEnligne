@@ -1,0 +1,64 @@
+<div class="table-container mat-elevation-z3">
+  <div class="caption">
+    <div class="leftS"><h5>Liste du Personnel |</h5></div>
+
+    <div class="rightS">
+      <!--  -->
+      <div class="searchetajout">
+        <!--  -->
+        <div class="search-box">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+          <input
+            matInput
+            (input)="filterelement($event)"
+            placeholder="Search"
+            class="input-search"
+          />
+        </div>
+        <!--  
+        <button class="btn add-user-btn" (click)="openDialog()">
+          <mat-icon>add</mat-icon>Ajouter Catégorie
+        </button>-->
+      </div>
+    </div>
+  </div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+
+  <div class="tablecontainer">
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th>Nom prénom</th>
+          <th>Mot de passe</th>
+          <th>Téléphone</th>
+          <th>ََActions</th>
+        </tr>
+      </thead>
+      <!--  -->
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Adama Diarra</td>
+          <td>******</td>
+          <td>99 44 32 44</td>
+
+          <td class="displayT">
+            <a class="btn optionbtn btns">Desactif</a>&nbsp;
+                <mat-icon style="color: #ee4d2d;">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+      <!--  -->
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
+</div>
