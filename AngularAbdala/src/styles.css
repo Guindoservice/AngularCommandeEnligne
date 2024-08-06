@@ -1,0 +1,53 @@
+You can add global styles to this file,
+and also import other style files
+ :root {
+  --degraderblue: #0085ff;
+  --degraderblanc: #e3f1ff;
+  --Orangefort: #eb4028;
+  --violet: #eb2891;
+  --bluefort: #9747ff;
+  --mainColor: #ee4d2d;
+  --secondColor: #8c21ff;
+  --activeColor: #f4f8fa;
+  --gradientColor: linear-gradient(var(--mainColor), var(--secondColor));
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  box-sizing: border-box;
+  height: 120vh;
+  background-color: #e3f1ff;
+  color: black;
+  /* padding-top: 30px; */
+}
+
+.test {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-left: 10px;
+  color: #ee4d2d;
+}
+.mdc-dialog--open .mat-mdc-dialog-surface {
+  background: #fffdfd;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* ------------------------------paramètres global style */
+.mat-mdc-tab-labels {
+  display: flex;
+  flex: 1 0 auto;
+  width: 50px;
+}
+.mdc-tab__text-label {
+  color: rgb(19, 18, 18);
+  display: inline-flex;
+  align-items: center;
+}

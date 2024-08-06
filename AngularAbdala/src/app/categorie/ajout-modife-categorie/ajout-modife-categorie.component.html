@@ -1,0 +1,43 @@
+<h5 mat-dialog-title class="mat-title">
+  {{ data.numero ? "Edit Categorie" : "Ajout de Catégorie" }}
+  
+    <mat-icon mat-button (click)="onNoClick()" class="btn_close">close</mat-icon>
+  
+</h5>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+    
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Catégorie"   formControlName="libelle" class="from-control" />
+    </mat-form-field>
+    
+    <mat-dialog-actions align="center">
+        <button mat-raised-button class="btn reset"  type="submit">Enregistre</button>
+        <button mat-raised-button color="primary"  class="btn reset" > Modifier </button>
+      
+    </mat-dialog-actions>
+  </form>
+
+<!-- sousCategorir -->
+<h5 mat-dialog-title class="mat-title">
+  {{ data.numero ? "Edit Categorie" : "Ajout de SousCatégorie" }}    
+</h5>
+  <form >
+    
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Catégorie" formControlName="categorie" />
+    </mat-form-field>
+    <mat-select class="full-width">
+      
+      <mat-option value="option1">Option 1</mat-option>
+      <mat-option value="option2">Option 2</mat-option>
+      <mat-option value="option3">Option 3</mat-option>
+    </mat-select>
+  </form>
+  <mat-dialog-actions align="center">
+ 
+      <button mat-raised-button color="primary"  class="btn reset" > Submit </button>
+    
+  </mat-dialog-actions>
+</mat-dialog-content>
+

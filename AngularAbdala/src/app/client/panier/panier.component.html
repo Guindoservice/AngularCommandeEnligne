@@ -1,0 +1,63 @@
+<div class="table-container mat-elevation-z3">
+    <div class="caption">
+      <div class="leftS"><h5>Liste information du panier d'un client |</h5></div>
+  
+      <div class="rightS">
+        <!--  -->
+        <div class="searchetajout">
+          <!--  -->
+          <div class="search-box">
+           
+            <!-- <input
+              matInput
+              (input)="filterelement($event)"
+              placeholder="Search"
+              class="input-search"
+            /> -->
+          </div>
+          <!--  
+          <button class="btn add-user-btn" (click)="openDialog()">
+            <mat-icon>add</mat-icon>Ajouter Catégorie
+          </button>-->
+        </div>
+      </div>
+    </div>
+    <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+  
+    <div class="tablecontainer">
+      <!--  -->
+      <table class="mat-elevation-z8 user-table tableS">
+        <!--  -->
+        <thead role="rowgroup">
+          <tr>
+            <th>Id</th>           
+            <th>Produit</th>
+            <th>Prix</th>
+            
+          </tr>
+        </thead>
+        <!--  -->
+        <tbody>    
+          @for (panier of listePanier; track $index) { 
+              <tr>
+                <td>{{panier.id}}</td>
+                <td>{{panier.libelle}}</td>
+                <td>{{panier.prix}}</td>
+                
+             
+            </tr>
+          }
+         
+        </tbody>
+        <!--  -->
+      </table>
+      <mat-paginator
+        [length]="100"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        class="pagination"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  

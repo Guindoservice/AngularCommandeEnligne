@@ -1,0 +1,79 @@
+<div class="main-container mat-elevation-z3">
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">person_pin</mat-icon>
+        <span>Modifier Profil</span>
+      </ng-template>
+      <!-- -----content-------------- -->
+      <form class="formPro">
+        <div class="form-row">
+          <div class="form-column">
+            <div class="form-group">
+              <label for="nouveauMotDePasse">Prénom :</label>
+              <input
+                type="password"
+                class="form-control"
+                id="nouveauMotDePasse"
+                name="nouveauMotDePasse"
+              />
+            </div>
+            <div class="form-group">
+              <label for="nom">Nom:</label>
+              <input type="text" class="form-control" id="nom" name="nom" />
+            </div>
+          </div>
+          <div class="form-column">
+            <div class="form-group">
+              <label for="Adresse">Mot de passe :</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact">Contact :</label>
+              <input
+                type="text"
+                class="form-control"
+                id="contact"
+                name="contact"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="btn">Enregistrer</button>
+        </div>
+      </form>
+    </mat-tab>
+    <!-- ----------------------------- -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">https</mat-icon>
+        <span>Sécurité</span>
+      </ng-template>
+      <!-- ------------------------------ -->
+      <form action="" class="formSec">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de Passe:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+          />
+        </div>
+        <div class="button-container">
+          <button type="submit" class="btn btn_submit">Enregistrer</button>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

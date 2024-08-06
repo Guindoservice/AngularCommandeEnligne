@@ -1,0 +1,65 @@
+<h5 mat-dialog-title class="mat-title">
+  {{ data.numero ? "Edit Product" : "Ajout de produit" }}
+
+  <mat-icon mat-icon-button  class="close-button"
+    >close</mat-icon
+  >
+</h5>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="productForm" class="popup" #produitFrom="ngForm">
+  
+    <div class="row">
+      <div class="col-4">
+        
+      </div>
+      <div class="col-8">
+        <mat-form-field appearance="outline" class="full-width">
+          <input placeholder="Nom" formControlName="Libelle"type="text" [(ngModel)]="Product.libelle" />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline" >
+          <input matInput placeholder="Description" formControlName="description"  [(ngModel)]="Product.description" />
+        </mat-form-field>
+      </div>
+      <div class="row fieldxidth" >
+        <div class="col-6">
+        <mat-form-field class="full-width" appearance="outline" >
+          <input matInput placeholder="prix" formControlName="prix" type="number" required maxlength="5" #prixRef  [(ngModel)]="Product.prix"/>
+         
+        </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width" appearance="outline" >
+            <input matInput placeholder="quantité" formControlName="quantité" type="number"  required maxlength="10"  [(ngModel)]="Product.quantite"/>
+          </mat-form-field>
+        </div>
+        
+        <mat-form-field class="full-width" appearance="outline" >
+          <input matInput placeholder="Catégories" formControlName="Catégories"  />
+        </mat-form-field>
+        
+        <mat-form-field>
+          <h6 class="text-dark">Sous-categorie</h6>
+          
+          <select matNativeControl required class="" >
+            <mat-option *ngFor="let souscat of souscate">{{souscat.lebelle}}</mat-option>
+          </select>
+        
+        </mat-form-field>
+      </div>
+    </div>
+   
+
+   
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions >
+  <div class="row fieldxidth" >
+    <div class="col-6 ">
+      <button mat-raised-button  class="btn reset ">Réinitialiser</button>
+
+    </div>
+    <div class="col-6 ">
+      <button mat-raised-button (click)="onSubmite()"  class="btn submit "> Enregistre</button>
+    </div>
+  </div>
+</mat-dialog-actions>

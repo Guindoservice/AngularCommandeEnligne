@@ -1,0 +1,54 @@
+:is(mat-form-field, mat-dialog-content, input) {
+  width: 100%;
+}
+mat-dialog-content {
+  background: #fff;
+}
+
+.mat-title {
+  margin-top: 25px;
+  text-align: center;
+  color: rgb(66, 66, 65);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.btn_close {
+  color: #e22424;
+  cursor: pointer;
+}
+
+.btn {
+  width: 100%;
+}
+.reset {
+  background: #fff;
+  color: #ee4d2d;
+  border: 1px solid #ee4d2d;
+}
+.reset:hover {
+  background: #ee4d2d;
+  color: #fff;
+}
+.submit:hover {
+  outline-offset: 2px solid #0ba72d;
+}
+.submit {
+  background: #049423;
+  color: #fff;
+}
+.mat-mdc-dialog-surface {
+  background: #e22424;
+}
+mat-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5px;
+  width: 90%;
+}
+.mdc-text-field--filled {
+  background-color: red;
+}
