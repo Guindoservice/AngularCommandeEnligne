@@ -1,24 +1,40 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-declare var $: any; // Déclaration pour utiliser jQuery dans Angular
+import {  Component, OnInit } from '@angular/core';
+import { Stock, StockServiceService } from '../Services/stock-service.service';
+
+
 @Component({
   selector: 'app-stock',
   standalone: true,
-  imports: [MatIconModule, MatPaginatorModule],
+  imports: [],
   templateUrl: './stock.component.html',
-  styleUrl: './stock.component.css',
+  styleUrl: './stock.component.css'
 })
-export class StockComponent implements AfterViewInit {
-  filterelement($event: Event) {
-    throw new Error('Method not implemented.');
+export class StockComponent implements OnInit {
+
+ListStock: Stock[]=[];
+constructor(private stockservice: StockServiceService){}
+
+  ngOnInit(): void {
+    this.getListStock();
   }
-  stcok: any;
-  editStock(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
-  deleteStock(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
-  ngAfterViewInit() {}
+
+getListStock(){
+  this.stockservice.getListStock().subscribe(
+    (data)=>{
+      this.ListStock= data;
+    },
+    (error)=>{
+      console.log("Erreur lors d'affichage du produit dans stock",error)
+    });
+    }
+    deleteStock(id: number){
+      this.stockservice.deleteStock(id).subscribe(
+        ()=>{
+          console.log(`Stocke avec Id ${id} supprimer avec succès `);
+          this.getListStock();
+        },
+        (error)=>{  
+          console.log(`Erreur de supprission ${id}`,error)
+        }
+      )      }
 }

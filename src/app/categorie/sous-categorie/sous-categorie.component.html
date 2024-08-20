@@ -1,0 +1,69 @@
+<div class="table-container mat-elevation-z3">
+  <div class="caption">
+    <div class="leftS" *ngIf="cate && cate.length > 0">
+      <div class="one">
+        <button mat-icon-button id="categorieItem" routerLink="/categorie">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </div>
+      <div class="two">
+        <h5>{{ cate[0]?.category.libelle }}</h5>
+      </div>
+    </div>
+
+    <div class="rightS">
+      <div class="searchetajout">
+        <div class="search-box">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+          <input
+            matInput
+            (input)="filterelement($event)"
+            placeholder="Search"
+            class="input-search"
+          />
+        </div>
+        <button class="btn add-user-btn" (click)="openDialog()">
+          Ajouter SousCategorie
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
+
+  <div class="tablecontainer">
+    <table class="mat-elevation-z8 user-table tableS">
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th>Sous Catégorie</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sousCategorie of cate; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ sousCategorie.libelle }}</td>
+          <td>
+            <button
+              mat-icon-button
+              (click)="editSousCategory(sousCategorie.id)"
+            >
+              <i class="fa-regular fa-pen-to-square edit-icon"></i>
+            </button>
+            <button mat-icon-button (click)="delSouscat(sousCategorie.id)">
+              <i class="fa-solid fa-trash delete-icon"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pagination"
+    >
+    </mat-paginator>
+  </div>
+</div>

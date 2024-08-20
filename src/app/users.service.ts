@@ -1,33 +1,73 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from './utilisateurs/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
+  private baseUrl = 'http://localhost:8080/admin'; // Ajustez selon votre configuration
+  private username = 'samake'; // Nom d'utilisateur
+  private password = 'samake'; // Mot de passe
 
-  private baseUrl: string;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient){
-    this.baseUrl = 'http://localhost:8080/admin/liste_utilisateurs'
+  private getAuthorizationHeader(): string {
+    const credentials = btoa(`${this.username}:${this.password}`);
+    return `Basic ${credentials}`;
   }
 
-  public findAll(token: string):Observable<any[]>{
-    return this.http.get<any[]>(this.baseUrl, {
-      headers: new HttpHeaders(
-        
+  public findAll(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/liste_utilisateurs`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: this.getAuthorizationHeader(),
+      }),
+    });
+  }
+
+  public addAdmin(user: User): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(
+      `${this.baseUrl}/creeradmin`,
+      user,
       {
-        'content-Type': 'application/json',
-        'Authorization': token,
-
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: this.getAuthorizationHeader(),
+        }),
+        observe: 'response',
+        responseType: 'text' as 'json',
       }
-    )
-
-    })
-      
-    
-
+    );
   }
 
+  public addPersonnel(user: User): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(
+      `${this.baseUrl}/Creerpersonnel`,
+      user,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: this.getAuthorizationHeader(),
+        }),
+        observe: 'response',
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+
+  public deleteUser(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete<HttpResponse<any>>(
+      `${this.baseUrl}/supprimerutilisateur/${id}`,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: this.getAuthorizationHeader(),
+        }),
+        observe: 'response',
+        responseType: 'text' as 'json',
+      }
+    );
+  }
 }

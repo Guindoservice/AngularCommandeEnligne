@@ -1,23 +1,24 @@
-<h5 mat-dialog-title class="mat-title">
+<h6 mat-dialog-title class="mat-title">
   {{ data.numero ? "Edit Categorie" : "Ajout de Categorie" }}
-
   <mat-icon mat-button (click)="onNoClick()" class="btn_close">close</mat-icon>
-</h5>
-<mat-dialog-content class="mat-typography">
+</h6>
+<mat-dialog-content class="mat-typography ajoutCategorie">
   <form [formGroup]="categorieForm" class="popup">
-    <!-- <mat-form-field class="full-width">
-      <input matInput placeholder="Id" formControlName="Id" />
-    </mat-form-field> -->
-    <div class="Categorie-container">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Id" formControlName="id" />
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Libelle" formControlName="libelle" />
-      </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Libelle</mat-label>
+      <input matInput placeholder="libelle" formControlName="libelle" />
+    </mat-form-field>
+   <!-- Uploader Image -->
+    <div class="image-upload">
+      <label for="file">Image</label>
+      <input
+        type="file"
+        id="file"
+        (change)="  onFileSelected($event)"
+        formControlName="image"
+        accept="image/*"
+      />
     </div>
-
-    <!-- Variants Section -->
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
@@ -28,6 +29,6 @@
     (click)="onSave()"
     class="btn submit"
   >
-    Submit
+    {{ isEditMode ? "Modifier" : "Ajouter" }}
   </button>
 </mat-dialog-actions>

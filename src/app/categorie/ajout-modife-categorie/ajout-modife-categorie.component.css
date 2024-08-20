@@ -1,6 +1,10 @@
-:is(mat-form-field, mat-dialog-content, input) {
+:is(mat-form-field, mat-dialog-content, input),mat-select {
   width: 100%;
+   color: #374151;
+   font-weight: bold;
+   caret-color: #292828;
 }
+
 mat-dialog-content {
   background: #fff;
 }
@@ -13,11 +17,8 @@ mat-dialog-content {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
-
-
-/* ---------- */
 .btn_close {
   color: #e22424;
   cursor: pointer;
@@ -26,17 +27,17 @@ mat-dialog-content {
 .btn {
   width: 40%;
 }
-.reset, .submit {
+.reset,
+.submit {
   background: #fff;
   color: #ee4d2d;
   border: 1px solid #ee4d2d;
 }
-
-.reset:hover, .submit:hover {
+.reset:hover,
+.submit:hover {
   background: #ee4d2d;
   color: #fff;
 }
-/* -----------button */
 
 .mat-mdc-dialog-surface {
   background: #e22424;
@@ -51,8 +52,16 @@ mat-dialog-actions {
 .mdc-text-field--filled {
   background-color: red;
 }
-.Categorie-container{
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/*-----------------------------------*/
+
+mat-label {
+  color: #292828;
+}
+input{
+  font-size: 24px;
+  color: #292828;
+}
+mat-option{
+  font-size: 14px;
+  color: #292828;
 }

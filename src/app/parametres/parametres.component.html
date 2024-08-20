@@ -1,79 +1,35 @@
-<div class="main-container mat-elevation-z3">
-  <mat-tab-group>
-    <!--<mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">person_pin</mat-icon>
-        <span>Modifier Profil</span>
-      </ng-template>
-     -----content-------------- 
-      <form class="formPro">
-        <div class="form-row">
-          <div class="form-column">
-            <div class="form-group">
-              <label for="nouveauMotDePasse">Prénom :</label>
-              <input
-                type="password"
-                class="form-control"
-                id="nouveauMotDePasse"
-                name="nouveauMotDePasse"
-              />
+
+<!-- parametres.component.html -->
+<div class="container">
+    <nav>
+        <ul class="nav-list">
+            <li><a href="#modifier" class="btn btn">Modifier Profil</a></li>
+            <!-- <li><a href="/securite" class="btn btn-info">Sécurité</a></li> -->
+        </ul>
+        <div id="nav-separator" class="nav-separator"></div>
+    </nav>
+
+    <div id="modifier" class="section">
+        <form (ngSubmit)="updateCurrentUser()">
+            <div class="form-row">
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="nouveauMotDePasse"> Mot de Passe :</label>
+                        <input type="password" class="form-control" id="nouveauMotDePasse" 
+                            [(ngModel)]="currentUser. password" name="nouveauMotDePasse">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nouveauEmail">username :</label>
+                        <input type="email" class="form-control" id="nouveauEmail" 
+                            [(ngModel)]="currentUser.username" name="nouveauEmail">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="nom">Nom:</label>
-              <input type="text" class="form-control" id="nom" name="nom" />
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
             </div>
-          </div>
-          <div class="form-column">
-            <div class="form-group">
-              <label for="Adresse">Mot de passe :</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-              />
-            </div>
-            <div class="form-group">
-              <label for="contact">Contact :</label>
-              <input
-                type="text"
-                class="form-control"
-                id="contact"
-                name="contact"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="button-container">
-          <button type="submit" class="btn">Enregistrer</button>
-        </div>
-      </form>
-    </mat-tab>
-     ----------------------------- -->
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">person_pin</mat-icon>
-        <span>Mon Profile</span>
-      </ng-template>
-      <!-- ------------------------------ -->
-      <form action="" class="formSec">
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" class="form-control" id="email" name="email" />
-        </div>
-        <div class="form-group">
-          <label for="password">Mot de Passe:</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-          />
-        </div>
-        <div class="button-container">
-          <button type="submit" class="btn btn_submit">Enregistrer</button>
-        </div>
-      </form>
-    </mat-tab>
-  </mat-tab-group>
+        </form>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </div>
 </div>

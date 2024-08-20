@@ -5,24 +5,30 @@ import { CommonModule, NgFor, NgStyle } from '@angular/common';
 import { StatsI } from '../interfaces/stats-i';
 import { ProductTileComponent } from '../uiConponent/product-tile/product-tile.component';
 import { CommandeServiceService } from '../Services/commande-service.service';
+import { CommandesComponent } from "../commandes/commandes.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [IconCardComponent, ProductTileComponent, CommonModule, NgFor, NgStyle, CanvasJSAngularChartsModule],
+  imports: [IconCardComponent, ProductTileComponent, CommonModule, NgFor, NgStyle, CanvasJSAngularChartsModule, CommandesComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
 
+nombreCommande!: number;
 constructor(private commandeServiceService:CommandeServiceService) {
 }
 
   ngOnInit(): void {
-    //this.commandeServiceService.findAll().subscribe(data => {
-      //console.log(data);
-
-    //});;
+    let token = localStorage.getItem('authToken');
+    if (token) {
+      this.commandeServiceService.getNombreCommandes(token).subscribe({
+        next: (res) => this.nombreCommande = res,
+        error: (er) => console.log(er)
+        
+      });
+    }
   }
 
   chartOptions = {
@@ -74,7 +80,7 @@ constructor(private commandeServiceService:CommandeServiceService) {
 
   statList: StatsI[] = [
     {
-      nombre: 178,
+      nombre: this.nombreCommande,
       titre: "Commandes aux panier",
       icon: "fa-solid fa-heart",
       style: {

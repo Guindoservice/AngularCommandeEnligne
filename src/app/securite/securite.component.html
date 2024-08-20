@@ -23,8 +23,9 @@
                 <div class="form-row">
                     <div class="form-column">
                         <div class="form-group">
-                            <label for="nouveauMotDePasse">Ancien Mot de Passe :</label>
-                            <input type="password" class="form-control" id="nouveauMotDePasse" name="nouveauMotDePasse">
+                            <label for="nouveauMotDePasse"> Mot de Passe :</label>
+                            <input type="password" class="form-control" id="nouveauMotDePasse" 
+                                   [(ngModel)]="currentUser. password" name="nouveauMotDePasse">
                         </div>
                        
                         <div class="form-group">

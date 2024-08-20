@@ -33,25 +33,21 @@
           <th>N°Payement</th>
           <th>Date</th>
           <th>Total </th>
-          <th>Option</th>
+          
         </tr>
       </thead>
       <!--  -->
       <tbody>
-        <tr>
-          <!-- <td>{{ commande.id }}</td>*ngFor="let commande of commande"
-            <td>{{ commande.date }}</td>
-            <td>{{ categorie.souscategorie }}</td> -->
-          <td>1</td>
-          <td>12/03/2023</td>
-          <td>100000 F</td>
+        <tr *ngFor="let payement of payement">
+          <td>{{payement.id }}</td>
+          <td>{{payement.date }}</td>
+          <td>{{payement.montant }}</td>
+
+          
+           <!-- Statut Commande Column -->
+           
           <td>
-            <select>
-              <option value="livré">Etat de la commande</option>
-              <option value="livré">Livré</option>
-              <option value="en cours">En cours</option>
-              <option value="expédié">Expédié</option>
-            </select>
+           
           </td>
         </tr>
       </tbody>

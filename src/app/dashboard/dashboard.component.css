@@ -51,12 +51,15 @@ p {
 
 .bigCard,
 .cardSmall,
-.commande,
 .produit {
   background-color: white;
   margin: 10px 5px;
   border-radius: 5px;
   padding: 1px;
+}
+.commande{
+  overflow-y: scroll;
+  margin: 10px 5px;
 }
 
 .section1,

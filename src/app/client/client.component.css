@@ -253,3 +253,13 @@ select:focus {
 mat-icon {
   font-size: 18px;
 }
+.panier{
+  width: 100%;
+  background-color: #ddd;;
+}
+.btns {
+  color: #e64a19;
+  font-size: larger;
+  border: none;
+  background-color: white;
+}

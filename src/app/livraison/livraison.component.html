@@ -1,6 +1,79 @@
+<div class="container">
+  <h2 class="Tableau">Tableau des Livraisons</h2>
+  <div class="">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8 tableContianer">
+      <!-- Numéro de Commande Column -->
+      <ng-container matColumnDef="numeroCommande">
+        <mat-header-cell *matHeaderCellDef class="en-tête">
+          N°Commande
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="cellule">
+          {{ element.numeroCommande }}
+        </mat-cell>
+      </ng-container>
 
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef class="en-tête">
+          Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="cellule">
+          {{ element.date}}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Nom du Client Column -->
+      <ng-container matColumnDef="nomClient">
+        <mat-header-cell *matHeaderCellDef class="en-tête">
+          Nom du client
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="cellule">
+          {{ element.nomClient }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Contact Client Column -->
+      <ng-container matColumnDef="contactClient">
+        <mat-header-cell *matHeaderCellDef class="en-tête">
+          Contact client
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="cellule">
+          {{ element.contactClient }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Total Commande Column -->
+      <ng-container matColumnDef="totalCommande">
+        <mat-header-cell *matHeaderCellDef class="en-tête">
+          Total Commande
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="cellule">
+          {{ element.totalCommande }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Option Column -->
+      <ng-container matColumnDef="option">
+        <mat-header-cell *matHeaderCellDef class="en-tête">
+          Option
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="cellule">
+          <mat-select class="cellule">
+            <mat-option value="etatCommande">Etat de la commande</mat-option>
+            <mat-option value="livre">Livré</mat-option>
+            <mat-option value="enCours">En cours</mat-option>
+            <mat-option value="expedie">Expédié</mat-option>
+          </mat-select>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+</div>
 <!-- livraison.component.html -->
-<!-- <div class="livraison-container">
+<div class="livraison-container">
   <div class="stat-box">
     <h3 class="Tableau">Statistique</h3>
     <div class="stat-item">
@@ -20,122 +93,5 @@
     <h3 class="Tableau">Livraison de la sémaine</h3>
 
     <div class="line" [chart]="lineChart"></div>
-  </div>
-</div> -->
-<!-- ------------------TABLES------------------ -->
-
-<div class="table-container mat-elevation-z3">
-  <div class="caption">
-    <div class="leftS"><h5>Tableau des Livraisons|</h5></div>
-
-    <div class="rightS">
-      <div class="searchetajout">
-        <div class="search-box">
-          <button class="btn-search"><i class="fas fa-search"></i></button>
-          <input
-            matInput
-            (input)="filterelement($event)"
-            placeholder="Search"
-            class="input-search"
-          />
-        </div>
-       <!--  <button class="btn add-user-btn" disableRipple="true">
-          <mat-icon>add</mat-icon> 
-          <span>Ajouter</span>
-        </button>-->
-      </div>
-    </div>
-  </div>
-
-  <div class="tablecontainer">
-    <table class="mat-elevation-z8 user-table tableS">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-      </ng-container>
-      <thead role="rowgroup">
-        <tr>
-          <th>N°Commande</th>
-          <th>Nom du client</th>
-          <th>Contact client</th>
-          <th>Total Commande</th>
-          <th>Type de Livraison</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <!-- Numéro de Commande Column -->
-            <ng-container matColumnDef="numeroCommande">
-              <mat-header-cell *matHeaderCellDef class="en-tête">
-                N°Commande
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="cellule">
-                {{ element.numeroCommande }}
-              </mat-cell>
-            </ng-container>
-          </td>
-          <td>
-            <!-- Nom du Client -->
-            <ng-container matColumnDef="nomClient">
-              <mat-header-cell *matHeaderCellDef class="en-tête">
-                Nom du client
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="cellule">
-                {{ element.nomClient }}
-              </mat-cell>
-            </ng-container>
-          </td>
-          <td>
-            <!-- Contact Client Column -->
-            <ng-container matColumnDef="contactClient">
-              <mat-header-cell *matHeaderCellDef class="en-tête">
-                Contact client
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="cellule">
-                {{ element.contactClient }}
-              </mat-cell>
-            </ng-container>
-          </td>
-          <td>
-            <!-- Total Commande Column -->
-            <ng-container matColumnDef="totalCommande">
-              <mat-header-cell *matHeaderCellDef class="en-tête">
-                Total Commande
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="cellule">
-                {{ element.totalCommande }}
-              </mat-cell>
-            </ng-container>
-          </td>
-          <td>
-            <ng-container matColumnDef="option">
-              <mat-header-cell *matHeaderCellDef class="en-tête">
-                Type de Livraison
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element" class="cellule">
-                <mat-select class="cellule">
-                  <mat-option value="etatCommande"
-                    >Etat de la commande</mat-option
-                  >
-                  <mat-option value="livre">Livré</mat-option>
-                  <mat-option value="enCours">En cours</mat-option>
-                  <mat-option value="expedie">Expédié</mat-option>
-                </mat-select>
-              </mat-cell>
-            </ng-container>
-          </td>
-        </tr>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </tbody>
-    </table>
-    <mat-paginator
-      [length]="100"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]"
-      class="pagination"
-    ></mat-paginator>
   </div>
 </div>

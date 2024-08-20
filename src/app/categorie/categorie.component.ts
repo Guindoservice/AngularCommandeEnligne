@@ -17,22 +17,26 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CategorieService } from '../Services/categorie.service';
-import { SousCategorieService } from '../Services/sous-categorie.service';
 import { AjoutModifeCategorieComponent } from '../categorie/ajout-modife-categorie/ajout-modife-categorie.component';
-import { Router, RouterLink } from '@angular/router';
-import { SousCategorieComponent } from './sousCategorie/sous-categorie.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-
-export interface Categorie { 
+interface Categorie {
   id: number;
+  imagePath: string;
   libelle: string;
+  souscategorie: string[];
+  Action: '';
 }
+
+declare var $: any;
 
 @Component({
   selector: 'app-categorie',
   standalone: true,
   imports: [
-    RouterLink,
     MatDialogModule,
     MatMenuModule,
     MatSelectModule,
@@ -51,40 +55,58 @@ export interface Categorie {
     MatInputModule,
     MatCardModule,
     MatSortModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    RouterLinkActive,
+    MatTooltip,
+    MatButtonModule,
   ],
   templateUrl: './categorie.component.html',
-  styleUrls: ['./categorie.component.css'],
+  styleUrl: './categorie.component.css',
 })
 export class CategorieComponent implements OnInit {
-  categories: Categorie[] = [];
-  selectedSousCategorie: any;
-  displayedColumns: string[] = ['id', 'nom', 'sousCategorie', 'action'];
-  dataSource: Categorie[] = [];
-  isLoadingResults = true;
-
   constructor(
-    private dialog: MatDialog,
     private categorieService: CategorieService,
-    private sousCategorieService: SousCategorieService
-  ) { }
-  
-  
-  ngOnInit(): void {
-    this.loadCategories();
-  }
+    private dialog: MatDialog,
+    private essai: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
-  loadCategories(): void {
-    this.categorieService.getCategories().subscribe((data: Categorie[]) => {
-      this.categories = data;
-      this.dataSource = data; // Ensure dataSource is updated
-      this.isLoadingResults = false;
+  catagories!: Categorie[];
+  // SonId!: number;
+
+  ngOnInit() {
+    this.categorieService.getAllCategories().subscribe((data) => {
+      this.catagories = data as unknown as Categorie[];
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource = this.categories.filter((categorie) =>
-      categorie.libelle.toLowerCase().includes(filterValue.toLowerCase())
+  filterelement($event: Event) {
+    const inputElement = $event.target as HTMLInputElement;
+    const filterValue = inputElement.value.toLowerCase();
+    this.catagories = this.catagories.filter((category) =>
+      category.libelle.toLowerCase().includes(filterValue)
+    );
+  }
+
+  ngAfterViewInit(): void {
+    const filterInputElement = document.querySelector(
+      '#filterInput'
+    ) as HTMLInputElement;
+    if (filterInputElement) {
+      filterInputElement.addEventListener(
+        'input',
+        this.filterelement.bind(this)
+      );
+    }
+  }
+
+  applyFilter($event: KeyboardEvent) {
+    const inputElement = $event.target as HTMLInputElement;
+    const filterValue = inputElement.value.toLowerCase();
+    this.catagories = this.catagories.filter((category) =>
+      category.libelle.toLowerCase().includes(filterValue)
     );
   }
 
@@ -94,46 +116,63 @@ export class CategorieComponent implements OnInit {
       panelClass: 'custom-dialog-container',
       data: {},
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Add new category to the list immediately
-        this.categories.push(result);
-        this.dataSource = [...this.categories]; // Update dataSource
-      }
-    });
   }
+  editCategory(id: number) {
+    this.categorieService.getCategorieById(id).subscribe({
+      next: (category) => {
+        const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
+          width: '400px',
+          data: {
+            libelle: category.libelle,
+          },
+        });
 
-  modifiercategorie(id: number): void {
-    this.categorieService.getCategorie(id).subscribe((categorie) => {
-      const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
-        height: '50%',
-        panelClass: 'custom-dialog-container',
-        data: { categorie: categorie },
-      });
-
-      dialogRef.afterClosed().subscribe((updatedCategorie) => {
-        if (updatedCategorie) {
-          // Update the category in the list
-          const index = this.categories.findIndex(
-            (c) => c.id === updatedCategorie.id
-          );
-          if (index !== -1) {
-            this.categories[index] = updatedCategorie;
-            this.dataSource = [...this.categories]; // Update dataSource
+        dialogRef.afterClosed().subscribe((result) => {
+          if (result) {
+            this.categorieService.modifierCat(id,category).subscribe({
+              next: () => {
+                this.snackBar.open('Categorie modifier', 'Fermer', {
+                  duration: 3000,
+                  horizontalPosition: 'center',
+                });
+                this.reloadData();
+              },
+              error: (err) => {
+                this.snackBar.open('Échec de la modification', 'Fermer', {
+                  duration: 3000,
+                });
+              },
+            });
           }
-        }
-      });
+        });
+      },
+      error: (err) =>
+        console.error('Échec de récupération de la catégorie', err),
     });
   }
 
-  supprimercategorie(id: number): void {
-    if (confirm('Voulez-vous supprimer cette catégorie')) {
-      this.categorieService.deleteCategorie(id).subscribe(() => {
-        // Remove the category from the list immediately
-        this.categories = this.categories.filter((c) => c.id !== id);
-        this.dataSource = [...this.categories]; // Update dataSource
-      });
-    }
+  deleteCategory(id: number): void {
+    this.categorieService.deleteCategory(id).subscribe({
+      next: () => {
+        this.snackBar.open('Categorie supprimée', 'Fermer', {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
+        this.reloadData();
+      },
+    });
   }
+
+  openDialoNg(): void {
+    const dialogRef = this.dialog.open(AjoutModifeCategorieComponent, {
+      height: '50%',
+      panelClass: 'custom-dialog-container',
+      data: {},
+    });
+  }
+
+  reloadData(): void {
+    this.ngOnInit();
+  }
+  /****************************************/
 }

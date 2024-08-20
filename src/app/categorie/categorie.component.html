@@ -1,87 +1,76 @@
 <div class="table-container mat-elevation-z3">
   <div class="caption">
-    <div class="leftS"><h5>Liste des Categories |</h5></div>
+    <div class="leftS"><h5>Liste des Catégorie</h5></div>
+
     <div class="rightS">
+      <!--  -->
       <div class="searchetajout">
+        <!--  -->
         <div class="search-box">
           <button class="btn-search"><i class="fas fa-search"></i></button>
           <input
             matInput
-            (input)="applyFilter($event)"
+            (input)="filterelement($event)"
             placeholder="Search"
             class="input-search"
           />
         </div>
+        <!--  -->
         <button class="btn add-user-btn" (click)="openDialog()">
-          Ajouter Catégorie
+          Ajouter de Categorie
         </button>
       </div>
     </div>
   </div>
+  <!-- --------------------------------------------------------TABLEAU------------------------------ -->
 
   <div class="tablecontainer">
-    <table
-      mat-table
-      [dataSource]="categories"
-      class="mat-elevation-z8 user-table tableS"
-    >
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td mat-cell *matCellDef="let categorie">{{ categorie.id }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="nom">
-        <th mat-header-cell *matHeaderCellDef>Libelle</th>
-        <td mat-cell *matCellDef="let categorie">{{ categorie.libelle }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="sousCategorie">
-        <th mat-header-cell *matHeaderCellDef>Sous catégorie</th>
-        <td mat-cell *matCellDef="let categorie">
-          <mat-form-field>
-            <mat-select
-              placeholder="Select Sous Categorie"
-              [(value)]="selectedSousCategorie"
+    <!--  -->
+    <table class="mat-elevation-z8 user-table tableS">
+      <!--  -->
+      <thead role="rowgroup">
+        <tr>
+          <th>Id</th>
+          <th align="center">Image</th>
+          <th>Nom catégorie</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <!--  -->
+      <tbody>
+        <tr *ngFor="let catagorie of catagories; let i = index">
+          <td>{{ catagorie?.id }}</td>
+          <!-- <td>{{ catagorie.imagePath}}</td> -->
+          <td>
+            <img [src]="catagorie.imagePath" alt="" class="categorieImage" />
+          </td>
+          <td>{{ catagorie?.libelle }}</td>
+          <td class="actionC">
+            <button class="btn_action"
+              mat-icon-button
+              [routerLink]="['/sousCategories', catagorie?.id]"
+              id="sousCategoriesItem"
             >
-              <mat-option
-                *ngFor="let sous of categorie.sousCategories"
-                [value]="sous"
-              >
-                {{ sous.libelle }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </ng-container>
+              <i class="fa-regular fa-add edit-icon"></i>
+            </button>
 
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let categorie">
-          <button mat-icon-button (click)="supprimercategorie(categorie.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button (click)="modifiercategorie(categorie.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            id="souscategoriesItem"
-            routerLink="/souscategories"
-          >
-            <mat-icon>add</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            <button class="btn_action" mat-icon-button (click)="editCategory(catagorie.id)">
+              <i class="fa-regular fa-pen-to-square edit-icon"></i>
+            </button>
+            <button class="btn_action" mat-icon-button (click)="deleteCategory(catagorie.id)">
+              <i class="fa-solid fa-trash delete-icon"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
 
     <mat-paginator
-      [length]="categories.length"
+      [length]="100"
       [pageSize]="10"
       [pageSizeOptions]="[5, 10, 25, 100]"
       class="pagination"
-    ></mat-paginator>
+    >
+    </mat-paginator>
   </div>
 </div>

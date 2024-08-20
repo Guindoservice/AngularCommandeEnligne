@@ -25,7 +25,9 @@ body {
   color: black;
   /* padding-top: 30px; */
 }
-
+h5 {
+  color: #fff;
+}
 .test {
   border-radius: 50%;
   height: 40px;
@@ -33,28 +35,36 @@ body {
   margin-left: 10px;
   color: #ee4d2d;
 }
+
+.mat-mdc-paginator-page-size-label {
+  display: none;
+}
+
+.p-toast {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.mat-mdc-paginator .mat-mdc-select-value {
+  color: rgb(100, 97, 97);
+}
+
+.mat-mdc-select-arrow {
+  color: rgb(66, 64, 64);
+}
 .mdc-dialog--open .mat-mdc-dialog-surface {
-  background: #fffdfd;
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background: #fff;
 }
-
-/* ------------------------------paramètres global style */
-
-.mat-mdc-tab-labels {
-  display: flex;
-  flex: 1 0 auto;
-  width: 50px;
+mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #bec9c8;
+  color: #ee4d2d;
 }
-.mdc-tab__text-label {
-  color: rgb(19, 18, 18);
-  display: inline-flex;
-  align-items: center;
+.mdc-text-field--no-label:not(.mdc-text-field--textarea)
+  .mat-mdc-form-field-input-control.mdc-text-field__input,
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  color: #292828;
 }
-/* ------------------------------header style */
-.mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
-    background: none;
-}
-.mat-mdc-icon-button .mat-mdc-button-persistent-ripple:hover {
-    background: none;
+.edit-icon {
+  color: #673ab7;
 }

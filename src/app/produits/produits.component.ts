@@ -1,25 +1,64 @@
 import { AjoutModifeProduitComponent } from './ajout-modife-produit/ajout-modife-produit.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ProductService } from '../Services/produit.service';
-import { NgFor } from '@angular/common';
+import { ProduitService } from '../Services/produit.service';
+import { NgFor, NgIf } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any;
-declare var angularComponent: any;
 
-interface Product {
+interface Produit {
   id: number;
-  nom: string;
+  images: string[];
+  libelle: string;
+  quantite: number;
+  prix: number;
+  date: string;
+  description: string;
+  utilisateur: utilisateur;
+  sousCategory: souscategories;
+}
+
+
+
+interface utilisateur {
+  id: number;
+  username: string;
+  
+}
+
+
+interface souscategories {
+  id: number;
+  libelle: string;
+  category: { id: number; libelle: string };
+}
+
+interface category {
+  id: number;
+  libelle: string;
+}
+
+interface ProduitA {
+  description: string;
   prix: number;
   quantite: number;
-  categorie: string;
-  SousCategorie: string;
-  Action: null;
+  libelle: string;
+  sousCategory: { id: number };
+}
+
+interface ProduitM {
+  id: number;
+  image: string;
+  description: string;
+  prix: number;
+  quantite: number;
+  libelle: string;
+  sousCategory: number;
 }
 
 @Component({
@@ -32,146 +71,234 @@ interface Product {
     MatDialogModule,
     MatPaginator,
     NgFor,
-    // Import other Angular Material modules here
+    NgIf,
+    // import
   ],
   templateUrl: './produits.component.html',
   styleUrls: ['./produits.component.css'],
 })
 export class ProduitsComponent implements OnInit, AfterViewInit {
-displayedColumns: any;
+  // filtre les produits
+  products: Produit[] = [];
+  dataSource = new MatTableDataSource<Produit>();
   filterelement($event: Event) {
-    throw new Error('Method not implemented.');
+    const inputElement = $event.target as HTMLInputElement;
+    const filterValue = inputElement.value.toLowerCase();
+
+    if (filterValue) {
+      this.products = this.products.filter((product) =>
+        product.libelle.toLowerCase().includes(filterValue)
+      );
+    } else {
+      this.loadAllProducts();
+    }
   }
-  produits: any[] = [];
+
+  // charger les products
+  loadAllProducts() {
+    this.produitservice.getProduit().subscribe((data) => {
+      this.products = data;
+    });
+  }
+
+  // visibilite IU
+  isContainerVisible = false;
+  isEditContainerVisible = false;
+  isDeleteContainerVisible = false;
+  isDeleteConfirmationVisible = false;
+
+  // colonne pour le tableau
+  displayedColumns: string[] = [
+    'id',
+    'fileInfo',
+    'libelle',
+    'quantite',
+    'prix',
+    'date',
+    'description',
+    'utilisateur',
+    'sousCategory',
+    'Action',
+  ];
+
+  // Structure des données du produit
+  produit: ProduitA = {
+    libelle: '',
+    quantite: 0,
+    prix: 0,
+    description: '',
+    sousCategory: { id: 0 },
+  };
+  produitModifier: ProduitM = {
+    id: 0,
+    image: '',
+    description: '',
+    prix: 0,
+    quantite: 0,
+    libelle: '',
+    sousCategory: 0,
+  };
+  produitsup: ProduitM = {
+    id: 0,
+    description: '',
+    prix: 0,
+    quantite: 0,
+    libelle: '',
+    sousCategory: 0,
+    image: '',
+  };
+
+  // Categories and subcategories
+  fileInfo: File[] = [];
+  sousCategories: souscategories[] = [];
+  filteredSousCategories: souscategories[] = [];
+  categories: category[] = [];
+  searchText: string = '';
 
   constructor(
     private dialog: MatDialog,
-    private productService: ProductService
+    private produitservice: ProduitService,
+    private snackBar: MatSnackBar,
+    private sanitizer: DomSanitizer
   ) {
     (window as any).angularComponent = this;
   }
 
-  ngAfterViewInit(): void {
-    this.initializeDataTable();
-  }
+  ngAfterViewInit(): void {}
 
   ngOnInit() {
-    this.fetchProducts();
+    this.loadProduits();
+    this.loadCategories();
   }
 
-  fetchProducts() {
-    this.productService.getProducts().subscribe((data) => {
-      //
-      this.produits = data.map((product, index) => ({
-        ...product,
-        id: index + 1,
-      }));
-      console.log(data);
-      this.produits = data;
-      this.initializeDataTable();
+  loadProduits(): void {
+    this.produitservice.getProduit().subscribe((data) => {
+      this.products = data;
+      console.log('datasource loaded:', this.dataSource.data);
     });
   }
 
-  initializeDataTable() {
-    $(document).ready(() => {
-      if ($.fn.DataTable.isDataTable('#example')) {
-        $('#example').DataTable().clear().destroy();
+  loadCategories(): void {
+    this.produitservice.getCategories().subscribe(
+      (data) => {
+        this.categories = data;
+        console.log('Categories loaded:', this.categories);
+      },
+      (error) => {
+        console.error('Error loading categories:', error);
       }
-      $('#example').DataTable({
-        language: {
-          processing: 'Traitement en cours...',
-          search: 'Rechercher&nbsp;:',
-          lengthMenu: 'Afficher _MENU_ &eacute;l&eacute;ments',
-          info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-          infoEmpty:
-            "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-          infoFiltered:
-            '(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)',
-          loadingRecords: 'Chargement en cours...',
-          zeroRecords: 'Aucun &eacute;l&eacute;ment &agrave; afficher',
-          emptyTable: 'Aucune donnée disponible dans le tableau',
-          paginate: {
-            first: '<<',
-            previous: 'Prev',
-            next: 'Suiv',
-            last: '>>',
-          },
-        },
-        data: this.produits,
-        columns: [
-          { data: 'id' }, // Column 0: Numéro
-          { data: 'nom' }, // Column 1: Nom de Produit
-          {data: 'description'}, // Column 2: Description
-          { data: 'prix' }, // Column 3: Prix
-          { data: 'quantite' }, // Column 4: Quantite
-          { data: 'category' }, // Column 5: Categorie
-          { data: 'sousCategory' }, // Column 6: SousCategorie
-        ],
-        columnDefs: [
-          {
-            targets: 6,
-            data: null,
-          },
-        ]
-      });
-    
-    });
+    );
+  }
+
+  filterSousCategories(categoryId: number): void {
+    this.filteredSousCategories = this.sousCategories.filter(
+      (sousCategory) => sousCategory.category.id === categoryId
+    );
+  }
+
+  modifierProduit(id: number): void {
+    this.produitservice.modifierProduit(id, this.produitModifier).subscribe(
+      (response) => {
+        this.loadProduits();
+        this.hideEditContainer();
+        this.snackBar.open('Modification réussie', 'Fermer', {
+          duration: 3000,
+        });
+        this.resetProduit();
+      },
+      (error) => {
+        this.snackBar.open('Échec de la modification', 'Fermer', {
+          duration: 3000,
+        });
+        console.error('Erreur lors de la modification du produit', error);
+      }
+    );
+  }
+
+  supprimerProduit(id: number): void {
+    this.produitservice.supprimerProduit(id).subscribe(
+      (response) => {
+        this.loadProduits();
+        this.hideDeleteContainer();
+        this.snackBar.open('Suppression réussie', 'Fermer', {
+          duration: 3000,
+        });
+      },
+      (error) => {
+        this.snackBar.open('Échec de la suppression', 'Fermer', {
+          duration: 3000,
+        });
+        console.error('Erreur lors de la suppression du produit', error);
+      }
+    );
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
-      height: '650px',
-      panelClass: 'custom-dialog-container',
+      width: '500px',
       data: {
         //
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadProduits();
+      }
+    });
+  }
+
+  // ouvrir pour la mdoification du dialog
+  openEditDialog(produit: Produit): void {
+    const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
+      height: '650px',
+      panelClass: 'custom-dialog-container',
+      data: produit,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-      this.fetchProducts();
+      if (result === true) {
+        this.loadProduits();
+      }
     });
   }
 
-  deleteProduct(id: number): void {
-    if (confirm('Voulez-vous supprimer ce produit ?')) {
-      this.productService.deleteProduct(id).subscribe(() => {
-        this.fetchProducts();
-      });
-    }
+  showContainer() {
+    this.resetProduit();
+    this.isContainerVisible = true;
   }
 
-  editProduct(id: number): void {
-    this.productService.getProductById(id).subscribe((product) => {
-      const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
-        height: '650px',
-        panelClass: 'custom-dialog-container',
-        data: product,
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.productService.updateProduct(id, result).subscribe(() => {
-            this.fetchProducts();
-          });
-        }
-      });
-    });
+  showEditContainer(produit: ProduitA) {
+    this.produit = { ...produit };
+    this.isEditContainerVisible = true;
   }
 
-  viewProduct(id: number): void {
-    this.productService.getProductById(id).subscribe((product) => {
-      const dialogRef = this.dialog.open(AjoutModifeProduitComponent, {
-        height: '650px',
-        panelClass: 'custom-dialog-container',
-        data: { product, viewOnly: true },
-      });
+  showDeleteContainer(produit: ProduitA) {
+    this.produit = { ...produit };
+    this.isDeleteContainerVisible = true;
+  }
 
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.fetchProducts();
-        }
-      });
-    });
+  hideContainer() {
+    this.isContainerVisible = false;
+  }
+
+  hideEditContainer() {
+    this.isEditContainerVisible = false;
+  }
+
+  hideDeleteContainer() {
+    this.isDeleteContainerVisible = false;
+  }
+
+  //initialiser le formulaire
+  resetProduit() {
+    this.produit = {
+      libelle: '',
+      quantite: 0,
+      prix: 0,
+      description: '',
+      sousCategory: { id: 0 },
+    };
   }
 }

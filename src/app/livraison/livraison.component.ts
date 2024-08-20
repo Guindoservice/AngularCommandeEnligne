@@ -6,26 +6,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { LivraisonService, Livraison } from '../Services/livraison.service';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-livraison',
   standalone: true,
-  imports: [MatTableModule,CommonModule, ChartModule, MatSelectModule,MatIcon,MatPaginator],
+  imports: [MatTableModule,CommonModule, ChartModule, MatSelectModule],
   templateUrl: './livraison.component.html',
   styleUrl: './livraison.component.css'
 })
 export class LivraisonComponent implements OnInit{
-editProduct(arg0: any) {
-throw new Error('Method not implemented.');
-}
-deleteProduct(arg0: any) {
-throw new Error('Method not implemented.');
-}
-filterelement($event: Event) {
-throw new Error('Method not implemented.');
-}
 
   displayedColumns: string[] = ['numeroCommande', 'date', 'nomClient', 'contactClient', 'totalCommande', 'option'];
   dataSource: Livraison[] = [];

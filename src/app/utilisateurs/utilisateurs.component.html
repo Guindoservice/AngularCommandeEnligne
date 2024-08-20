@@ -1,123 +1,164 @@
+<p-toast position="center"></p-toast>
+<p-confirmPopup></p-confirmPopup>
 
 <div class="user-table-container">
-  <!-- Bouton pour afficher le formulaire d'ajout d'utilisateur -->
-  <button class="add-user-btn" (click)="showContainer()">
-    Ajouter Utilisateur
-  </button>
-
-  <!-- Tableau des utilisateurs avec Angular Material Table -->
+  <div class="searchetajout">
+    <div class="search-box">
+      <button class="btn-search"><i class="fas fa-search"></i></button>
+      <input
+        matInput
+        (input)="filterelement($event)"
+        placeholder="Search"
+        class="input-search"
+      />
+    </div>
+    <button class="add-user-btn" (click)="showContainer()">
+      Ajouter Utilisateur
+    </button>
+  </div>
   <table
     mat-table
     [dataSource]="dataSource"
     class="mat-elevation-z8 user-table"
   >
-    <!-- Colonne pour l'ID de l'utilisateur -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let user">{{ user.id }}</td>
     </ng-container>
 
-    <!-- Colonne pour l'email de l'utilisateur -->
-    <ng-container matColumnDef="mail">
+    <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let user">{{ user.mail }}</td>
+      <td mat-cell *matCellDef="let user">{{ user.email }}</td>
     </ng-container>
 
-    <!-- Colonne pour le nom d'utilisateur -->
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef>Username</th>
       <td mat-cell *matCellDef="let user">{{ user.username }}</td>
     </ng-container>
 
-    <!-- Colonne pour le mot de passe de l'utilisateur -->
-    <ng-container matColumnDef="password">
-      <th mat-header-cell *matHeaderCellDef>Password</th>
-      <td mat-cell *matCellDef="let user">
-        <!-- Masquer le mot de passe par défaut et afficher en texte clair lorsqu'on clique sur l'icône -->
-        {{ getMaskedPassword(user.password, user.showPassword) }}
-        <button mat-icon-button (click)="togglePasswordVisibility(user)">
-          <!-- Icône pour afficher/masquer le mot de passe -->
-          <mat-icon>{{
-            user.showPassword ? "visibility_off" : "visibility"
-          }}</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <!-- Colonne pour le rôle de l'utilisateur -->
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
-      <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+      <td mat-cell *matCellDef="let user">{{ user.roleType?.nom }}</td>
     </ng-container>
 
-    <!-- Colonne pour les actions (éditer, supprimer) -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let user">
-        <!-- Icône pour éditer l'utilisateur -->
         <i
-          class="fa-regular fa-pen-to-square edit-icon"
-          (click)="editUser(user)"
+          class="fa-solid fa-trash delete-icon"
+          (click)="deleteUser(user, $event)"
         ></i>
-        <!-- Icône pour supprimer l'utilisateur -->
-        <i class="fa-solid fa-trash delete-icon" (click)="deleteUser(user)"></i>
       </td>
     </ng-container>
 
-    <!-- Ligne d'en-tête du tableau -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <!-- Lignes du tableau -->
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+  <mat-paginator
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    class="pagination"
+  ></mat-paginator>
 </div>
 
-<!-- Formulaire pour ajouter/éditer un utilisateur, affiché conditionnellement -->
 <div *ngIf="isContainerVisible" class="user-form-container">
   <div class="formulaire">
-    <!-- Formulaire avec soumission -->
-    <form (ngSubmit)="addUser()">
-      <!-- Icône pour fermer le formulaire -->
+    <h3 id="titreformulaire">Ajouter un utilisateur</h3>
+    <form (ngSubmit)="addUser(userForm, $event)" #userForm="ngForm">
       <i
         id="span1"
         (click)="hideContainer()"
         class="fa-solid fa-x close-icon"
       ></i>
-      <!-- Champ pour le nom d'utilisateur -->
-      <input
-        type="text"
-        [(ngModel)]="newUser.username"
-        name="username"
-        placeholder="Username"
-        required
-      />
-      <!-- Champ pour l'email -->
-      <input
-        type="text"
-        [(ngModel)]="newUser.mail"
-        name="mail"
-        placeholder="Mail"
-        required
-      />
-      <!-- Champ pour le mot de passe -->
-      <input
-        type="password"
-        [(ngModel)]="newUser.password"
-        name="password"
-        placeholder="Password"
-        required
-      />
-      <!-- Sélecteur pour le rôle -->
-      <select [(ngModel)]="newUser.role" name="role" required>
-        <option value="" disabled selected>Role</option>
-        <option value="admin">Admin</option>
-        <option value="personnel">Personnel</option>
-        <option value="client">Client</option>
-      </select>
-      <!-- Bouton de soumission -->
-      <button type="submit">{{ isEditing ? "Modifier" : "Ajouter" }}</button>
+
+      <div class="div1" style="display: flex; gap: 20px">
+        <input
+          type="text"
+          [(ngModel)]="newUser.username"
+          name="username"
+          placeholder="Username"
+          required
+          maxlength="50"
+          #username="ngModel"
+        />
+        <div *ngIf="username.invalid && username.touched" class="error-message">
+          <div *ngIf="username.errors?.['required']">Saisir Username</div>
+          <div *ngIf="username.errors?.['maxlength']">
+            Username ne peut pas depasser 50 characters
+          </div>
+        </div>
+
+        <input
+          type="email"
+          [(ngModel)]="newUser.email"
+          name="email"
+          placeholder="Email"
+          required
+          maxlength="100"
+          #email="ngModel"
+        />
+        <div *ngIf="email.invalid && email.touched" class="error-message">
+          <div *ngIf="email.errors?.['required']">Saisir Email</div>
+          <div *ngIf="email.errors?.['maxlength']">
+            Email ne peut pas depasser 100 characters
+          </div>
+          <div *ngIf="email.errors?.['email']">Invalid email format</div>
+        </div>
+      </div>
+
+      <div class="div2" style="display: flex; gap: 20px">
+        <input
+          type="password"
+          [(ngModel)]="newUser.motDePasse"
+          name="motDePasse"
+          placeholder="Mot de passe"
+          required
+          minlength="8"
+          maxlength="20"
+          #motDePasse="ngModel"
+        />
+        <div
+          *ngIf="motDePasse.invalid && motDePasse.touched"
+          class="error-message"
+        >
+          <div *ngIf="motDePasse.errors?.['required']">Saisir Mot de passe</div>
+          <div *ngIf="motDePasse.errors?.['minlength']">
+            Mot de passe doit avoir min 8 characters
+          </div>
+          <div *ngIf="motDePasse.errors?.['maxlength']">
+            Mot de passe ne peut pas depasser 20 characters
+          </div>
+        </div>
+
+        <select
+          [(ngModel)]="userType"
+          name="userType"
+          required
+          #userTypeModel="ngModel"
+        >
+          <option value="" disabled selected>Type d'utilisateur</option>
+          <option value="admin">Admin</option>
+          <option value="personnel">Personnel</option>
+        </select>
+        <div
+          *ngIf="userTypeModel.invalid && userTypeModel.touched"
+          class="error-message"
+        >
+          <div *ngIf="userTypeModel.errors?.['required']">
+            Selectionner Type d'utilisateur
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="div3"
+        style="display: flex; align-items: center; justify-content: center"
+      >
+        <button type="submit" [disabled]="userForm.invalid">Ajouter</button>
+      </div>
     </form>
-    <!-- Message d'erreur affiché conditionnellement -->
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </div>
 </div>
-

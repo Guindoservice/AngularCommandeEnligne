@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgModel, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,8 +13,22 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClient } from '@angular/common/http';
 import { CategorieService } from '../../Services/categorie.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+interface Category {
+  id: number;
+  libelle: string;
+}
+export interface SouscatInterface {
+  Id: number;
+  libelle: string;
+  category: {
+    id: number;
+  };
+}
 
 @Component({
   selector: 'app-ajout-modife-produit',
@@ -36,63 +50,80 @@ import { CategorieService } from '../../Services/categorie.service';
   styleUrls: ['./ajout-modife-categorie.component.css'],
 })
 export class AjoutModifeCategorieComponent {
-  categorieForm: FormGroup;
-  categoryAdded: any;
+  categorieForm!: FormGroup;
+  isEditMode: boolean = false;
+  selectedFile!: File;
 
   constructor(
     public dialogRef: MatDialogRef<AjoutModifeCategorieComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
+    private categorieService: CategorieService,
     private http: HttpClient,
-    private categorieService: CategorieService
+    private snackBar: MatSnackBar
   ) {
+    this.isEditMode = !!data.id;
+  }
+
+  ngOnInit(): void {
     this.categorieForm = this.fb.group({
-      id: [{ value: data.id || '', disabled: true }],
-      libelle: [data.libelle || '', Validators.required],
+      image:[this.data.image || '',Validators.required],
+      libelle: [this.data.libelle || '', Validators.required],
     });
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
   onSave(): void {
     if (this.categorieForm.valid) {
-      const formValue = this.categorieForm.value;
-      const newcategorie = {
-        libelle: formValue.libelle,
-        // Exclude id or manage as needed
-      };
-      this.http
-        .post('http://localhost:8080/admin/creer-categories', newcategorie)
-        .subscribe(
-          () => {
-             this.categoryAdded.emit();
-            this.dialogRef.close(newcategorie);
-          },
-          (error) => {
-            console.error('Error saving category', error);
-          }
-        );
-      this.dialogRef.close();
+      const formData = new FormData();
+      formData.append('libelle', this.categorieForm.value.libelle);
+      if (this.selectedFile) {
+        formData.append('files', this.selectedFile);
+      }
+
+      const request = this.isEditMode
+        ? this.categorieService.modifierCat(this.data.id, formData)
+        : this.categorieService.createCategory(formData);
+
+      request.subscribe({
+        next: (response) => {
+          this.snackBar.open(
+            `Categorie ${this.isEditMode ? 'modifiée' : 'ajoutée'}`,
+            'Fermer',
+            {
+              duration: 3000,
+              horizontalPosition: 'center',
+            }
+          );
+          this.dialogRef.close({
+            action: this.isEditMode ? 'edit' : 'add',
+            data: response,
+          });
+        },
+        error: (error) => {
+          console.error('Error:', error);
+          this.snackBar.open("Échec de l'opération", 'Fermer', {
+            duration: 3000,
+          });
+        },
+      });
+    } else {
+      this.categorieForm.markAllAsTouched();
     }
   }
 
   onReset(): void {
-    this.categorieForm.reset({
-      id: this.data.id || '',
-      libelle: this.data.libelle || '',
-    });
-  }
-
-  refreshCategories(): void {
-    this.categorieService.getCategories().subscribe(
-      (categories) => {
-        // Handle the updated categories here
-        console.log('Categories refreshed', categories);
-      },
-      (error) => {
-        console.error('Error refreshing categories', error);
-      }
-    );
+    this.categorieForm.reset();
+    this.selectedFile = undefined!;
   }
 }

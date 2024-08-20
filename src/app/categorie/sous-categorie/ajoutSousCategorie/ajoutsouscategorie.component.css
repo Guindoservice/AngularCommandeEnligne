@@ -1,0 +1,68 @@
+:is(mat-form-field, mat-dialog-content, input),mat-select {
+  width: 100%;
+   color: #374151;
+   font-weight: bold;
+   caret-color: #292828;
+}
+mat-label {
+  color: #292828;
+}
+input{
+  font-size: 24px;
+  color: #292828;
+}
+
+mat-dialog-content {
+  background: #fff;
+}
+h6{
+  font-size: 14px;
+}
+.mat-title {
+  margin-top: 25px;
+  text-align: center;
+  color: rgb(66, 66, 65);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.btn_close {
+  color: #e22424;
+  cursor: pointer;
+}
+
+.btn {
+  width: 40%;
+}
+.btn {
+  width: 40%;
+}
+.reset,
+.submit {
+  background: #fff;
+  color: #ee4d2d;
+  border: 1px solid #ee4d2d;
+}
+.reset:hover,
+.submit:hover {
+  background: #ee4d2d;
+  color: #fff;
+}
+
+.mat-mdc-dialog-surface {
+  background: #e22424;
+}
+mat-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5px;
+  width: 90%;
+}
+.mdc-text-field--filled {
+  background-color: red;
+}
+/*-----------------------------------*/
+

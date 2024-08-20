@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,15 +15,46 @@ import {
   MatDialogClose,
   MatDialogContent,
 } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import {
-  MatCheckboxChange,
-  MatCheckboxModule,
-} from '@angular/material/checkbox';
-import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioButton } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
+import { ProduitService } from '../../Services/produit.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+interface SousCategory {
+  id: number;
+  libelle: string;
+  category: { id: number; libelle: string };
+}
+interface Categories {
+  id: number;
+  libelle: string;
+}
+interface Produit {
+  id: number;
+  image: File;
+  libelle: string;
+  quantite: number;
+  prix: number;
+  date: string;
+  description: string;
+  utilisateur: utilisateur;
+  sousCategory: SousCategory;
+  cat: Categories;
+}
+interface utilisateur {
+  id: number;
+  email: string;
+  mot_de_passe: string;
+  id_role: role;
+}
+interface role {
+  id: number;
+  nom: string;
+}
 
 @Component({
   selector: 'app-ajout-modife-produit',
@@ -41,138 +77,170 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './ajout-modife-produit.component.html',
   styleUrls: ['./ajout-modife-produit.component.css'],
 })
-export class AjoutModifeProduitComponent {
-  variant2Label: any;
-  variant2Options: any;
-
+export class AjoutModifeProduitComponent implements OnInit {
   productForm: FormGroup;
-  categories: string[] = [];
-  SousCategories: string[] = [];
-  allSousCategories: { [key: string]: string[] } = {};
-  showSousCategorie: boolean = false;
-  showVariant2: any;
-  showVariant1: any;
-  variant1Label: any;
-  variant1Options: any;
+  filteredSousCategories: SousCategory[] = [];
+  sousCategory: SousCategory[] = [];
+  categories: Categories[] = [];
+  selectedFile?: File;
+  imageUrl?: string;
+  isEditMode: boolean;
+  selectedCategoryId!: number;
 
   constructor(
     public dialogRef: MatDialogRef<AjoutModifeProduitComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private produitService: ProduitService,
+    private snackBar: MatSnackBar
   ) {
+    this.isEditMode = !!data.id;
     this.productForm = this.fb.group({
-      id: [data.id || ''],
-      nom: [data.nom || '', Validators.required],
+      image: [null, Validators.required],
       description: [data.description || '', Validators.required],
-      prix: [data.prix || '', Validators.required],
-      quantite: [data.quantite || '', Validators.required],
-      categorie: [data.categorie || ''],
-      sousCategorie: [data.sousCategorie || '', Validators.required],
+      prix: [data.prix || null, [Validators.required, Validators.min(0)]],
+      quantite: [
+        data.quantite || null,
+        [Validators.required, Validators.min(0)],
+      ],
+      libelle: [data.libelle || '', Validators.required],
+      category: [data.categories?.id],
+      sousCategory: [data.sousCategorie?.id || '', Validators.required],
     });
 
-    if (data.categorie) {
-      this.onCategoryChange();
+    if (this.data && this.data.product) {
+      this.isEditMode = true;
+      this.productForm.patchValue(this.data.product);
     }
   }
+
   ngOnInit(): void {
-    this.fetchCategories();
-  }
-
-  // ----------------------------------------------------------------
-  fetchCategories(): void {
-    this.http
-      .get<{ id: number; libelle: string }[]>(
-        'http://localhost:8080/admin/categories'
-      )
-      .subscribe(
-        (response) => {
-          this.categories = response.map((category) => category.libelle);
-          this.categories.forEach((category) => {
-            this.fetchSousCategories(category);
-          });
-        },
-        (error) => {
-          console.error('Error fetching categories:', error);
-        }
-      );
-  }
-
-  fetchSousCategories(category: string): void {
-    this.http
-      .get<{ id: number; libelle: string }[]>(
-        `
-        http://localhost:8080/admin/${category}/sous-categorie`
-      )
-      .subscribe(
-        (response) => {
-          this.allSousCategories[category] = response.map(
-            (sousCategory) => sousCategory.libelle
-          );
-        },
-        (error) => {
-          console.error('Error fetching subcategories:', error);
-        }
-      );
-  }
-
-  // ------------------------------------------------------------------------------------------------
-  onCategoryChange(): void {
-    const selectedCategory: string = this.productForm.get('categorie')?.value;
-    this.SousCategories = this.allSousCategories[selectedCategory] || [];
-    this.showSousCategorie = this.SousCategories.length > 0;
+    this.loadCategories();
+    this.loadSousCategories();
+    if (this.isEditMode) {
+      const categoryId = this.productForm.get('category')?.value;
+      if (categoryId) {
+        this.filterSousCategories();
+      }
+    }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-  // ----------------------------------------------------------------
 
-  onSave(): void {
-    if (this.productForm.valid) {
-      const newProduct = {
-        ...this.productForm.value,
-        id: this.data.id || this.generateId(),
-      };
-      console.log('Submitting product:', newProduct); // Debug log
-      this.http
-        .post('http://localhost:8080/admin/listesProduit', newProduct)
-        .subscribe(
-          (response) => {
-            console.log('Submission response:', response); // Debug log
-            this.dialogRef.close(newProduct);
-          },
-          (error) => {
-            console.error('Submission error:', error); // Debug log
-          }
-        );
-    } else {
-      console.log('Form is invalid:', this.productForm); // Debug log
+  loadCategories(): void {
+    this.produitService.getCategories().subscribe(
+      (data) => {
+        this.categories = data;
+        console.log('Categories loaded:', this.categories);
+      },
+      (error) => {
+        console.error('Error loading categories:', error);
+      }
+    );
+  }
+
+  loadSousCategories(): void {
+    this.produitService.getSousCategories().subscribe((data) => {
+      this.sousCategory = data;
+      console.log('SousCategories loaded:', this.sousCategory);
+      if (this.isEditMode) {
+        this.filterSousCategories();
+      }
+    });
+  }
+
+  filterSousCategories() {
+    console.log(
+      (this.sousCategory || []).find((sousCategorie) => sousCategorie.id)
+    );
+    this.filteredSousCategories = this.sousCategory.filter((sousCategorie) => {
+      return (
+        sousCategorie &&
+        sousCategorie.category &&
+        sousCategorie.category.id === this.selectedCategoryId
+      );
+    });
+  }
+
+  onCategoryChange(event: MatSelectChange): void {
+    const selectedCategoryId = event.value;
+    console.log('Selected Category ID:', selectedCategoryId);
+    this.filteredSousCategories = this.sousCategory.filter(
+      (sousCategory) => sousCategory.category?.id === selectedCategoryId
+    );
+    console.log('Filtered SousCategories:', this.filteredSousCategories);
+    // ----------------------------------------------------------------
+    if (this.filteredSousCategories.length === 0) {
+      this.productForm.patchValue({ sousCategory: null });
     }
   }
 
-  generateId(): number {
-    return Math.floor(Math.random() * 1000);
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.productForm.patchValue({ image: file });
+
+      //
+      // const reader = new FileReader();
+      // reader.onload = (e: any) => {
+      //   this.imagePreview = e.target.result;
+      // };
+      // reader.readAsDataURL(file);
+    }
+  }
+
+  onSave(): void {
+    if (this.productForm.valid) {
+      const formData = new FormData();
+      const description = this.productForm.get('description')?.value;
+      if (description) formData.append('description', description);
+
+      const prix = this.productForm.get('prix')?.value;
+      if (prix) formData.append('prix', prix);
+
+      const quantite = this.productForm.get('quantite')?.value;
+      if (quantite) formData.append('quantite', quantite);
+
+      const libelle = this.productForm.get('libelle')?.value;
+      if (libelle) formData.append('libelle', libelle);
+
+      const category = this.productForm.get('category')?.value;
+      if (category) formData.append('category', category.toString());
+
+      const sousCategoryId = this.productForm.get('sousCategory')?.value;
+      if (sousCategoryId)
+        formData.append('sousCategory', sousCategoryId.toString());
+
+      const files = this.productForm.get('image')?.value;
+      if (files) formData.append('files', files);
+
+      this.produitService.ajouterProduit(formData).subscribe(
+        (response) => {
+          this.snackBar.open('Produit ajouté avec succès', 'Fermer', {
+            duration: 2000,
+            horizontalPosition: 'center',
+          });
+          this.dialogRef.close(true);
+          this.reloadData();
+        },
+        (error) => {
+          console.error('Error adding product:', error);
+        }
+      );
+    }
+  }
+  reloadData() {
+    this.ngOnInit();
   }
 
   onReset(): void {
     this.productForm.reset();
-  }
-
-  onCheckboxChange(_t59: number, $event: MatCheckboxChange) {
-    throw new Error('Method not implemented.');
-  }
-
-  checkboxes: any;
-  onFileChange($event: Event) {
-    throw new Error('Method not implemented.');
-  }
-
-  onVariant2Change($event: MatRadioChange) {
-    throw new Error('Method not implemented.');
-  }
-
-  onVariant1Change($event: MatCheckboxChange) {
-    throw new Error('Method not implemented.');
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
   }
 }

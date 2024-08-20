@@ -1,8 +1,10 @@
 <div class="table-container mat-elevation-z3">
+   <div class="row panier"></div>
+    <app-panier *ngIf="OpenPanier"></app-panier>
+    <div class="rightS">
   <div class="caption">
     <div class="leftS"><h5>Liste des Clients |</h5></div>
-
-    <div class="rightS">
+   
       <!--  -->
       <div class="searchetajout">
         <!--  -->
@@ -34,29 +36,37 @@
           <th>Nom</th>
           <th>Prénom</th>
           <th>Statut</th>
+          <th>Addresse</th>
           <th>Téléphone</th>
           <th>ََActions</th>
         </tr>
       </thead>
       <!--  -->
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Adama</td>
-          <td>Diarra</td>
-          <td>
-            <select class="custom-select">
-              <option value="Livré" class="livré">Actif</option>
-              <option value="En Cours" class="encours">Inatif</option>
-            </select>
-          </td>
+        @for (list of ListeCient; track list) {
+          <tr >
+            <td>{{list.id}}</td>
+            <td>{{list.nom}}</td>
+            <td>{{list.prenom}}</td>
 
-          <td>99 44 32 44</td>
-          <td class="displayT">
-            <mat-icon style="color: #ee4d2d">shopping_cart</mat-icon>
-            <mat-icon style="color: #ee4d2d">delete</mat-icon>
-          </td>
-        </tr>
+            <td> {{list.status}} </td>
+            <td>{{list.adresse}}</td>
+            <td>{{list.telephone}}</td>
+
+          
+            
+            <td >
+             <button  (click)="OuvrirPanier()" class="btns">
+               <mat-icon style="color: #ee4d2d">shopping_cart</mat-icon>
+             
+             </button> 
+             <button (click)="Suppriner(list.id)" class="btns">
+               <mat-icon style="color: #ee4d2d">delete</mat-icon>
+             </button>
+            </td>
+          </tr>
+        }
+       
       </tbody>
       <!--  -->
     </table>

@@ -18,7 +18,7 @@ export interface Livraison {
 })
 export class LivraisonService {
 
-  private apiUrl = 'http://localhost:8080/api/livraisons';
+  private apiUrl = 'http://localhost:8080/admin/listeLivraison';
 
   constructor(private http: HttpClient) {}
 

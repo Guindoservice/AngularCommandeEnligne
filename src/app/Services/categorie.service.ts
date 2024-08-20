@@ -1,38 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Categorie } from '../categorie/categorie.component'; // Adjust the import path accordingly
+import { CategorieComponent } from '../categorie/categorie.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategorieService {
-  private apiUrl = 'http://localhost:8080/admin/categories';
+  private baseUrl = 'http://localhost:8080/admin';
+  public Urlcat = 'http://localhost:8080/admin/list-categories';
+  private UrlCreerCat = 'http://localhost:8080/admin/creer-categorie';
 
   constructor(private http: HttpClient) {}
 
-  // Fetch all categories
-  getCategories(): Observable<Categorie[]> {
-    return this.http.get<Categorie[]>(this.apiUrl);
+  getAllCategories(): Observable<any[]> {
+    return this.http.get<any[]>(this.Urlcat);
   }
 
-  // Fetch a specific category by ID
-  getCategorie(id: number): Observable<Categorie> {
-    return this.http.get<Categorie>(`${this.apiUrl}/${id}`);
+  // createCategory(category: any): Observable<any> {
+  //   return this.http.post<any>(this.UrlCreerCat, category);
+  // }
+  createCategory(categoryData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/creer-categorie`, categoryData);
   }
 
-  // Update a category by ID
-  updateCategorie(id: number, categorie: Categorie): Observable<Categorie> {
-    return this.http.put<Categorie>(`${this.apiUrl}/${id}`, categorie);
+  modifierCat(id: number, categoryData: FormData): Observable<any> {
+    const url = `${this.baseUrl}/modifier-categorie/${id}`;
+    return this.http.put(url, categoryData);
   }
 
-  // Delete a category by ID
-  deleteCategorie(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/supprimer-categorie/${id}`);
   }
 
-  // Create a new category
-  createCategorie(categorie: Categorie): Observable<Categorie> {
-    return this.http.post<Categorie>(this.apiUrl, categorie);
+  getCategorieById(id: any): Observable<any> {
+    return this.http.get(`http://localhost:8080/admin/categoriesBySous/${id}`);
   }
+
+  // modifierCat(id: number, category: any): Observable<any> {
+  //   const url = `http://localhost:8080/admin/modifier-categorie/${id}`;
+  //   return this.http.put(url, category);
+  // }
 }

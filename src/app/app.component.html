@@ -34,15 +34,14 @@
 
         <div class="containerL">
           <div class="userpic">
-            <button class="userPro" routerLink="parametres" >
+            <button mat-icon-button matTooltip="My Account" routerLink="parametres">
               <mat-icon>account_circle</mat-icon>
-              <span class="userName"></span>
             </button>
             <mat-menu #userAccountMenu></mat-menu>
           </div>
           <div class="i">
-            <button mat-menu-item routerLink="login" id="deconnexion" [disableRipple]="true">
-              <mat-icon (click)="logout()">exit_to_app</mat-icon>
+            <button mat-menu-item (click)="logout()" id="Deconnexionbtn" routerLink="login">
+              <mat-icon>exit_to_app</mat-icon>
             </button>
           </div>
         </div>
@@ -60,11 +59,9 @@
 
             <mat-list-item
               class="mat-list-item active"
-              routerLink="dashboard"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              id="dashboardItem"
-            >
+              routerLink="dashboard" id="dashboardItem" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+              
+          
               <button class="btn_menu" mat-button>
                 <mat-icon style="color: #ee4d2d">dashboard</mat-icon>
                <span>Dashboard</span>
@@ -126,8 +123,7 @@
                 <span>Stocks</span>
               </button>
             </mat-list-item>
-            <mat-list-item class="mat-list-item active" id="livparametresItem" routerLink="livparametres" routerLinkActive="active">
-              <!--  -->
+            <mat-list-item class="mat-list-item active" id="livparametresItem" routerLink="livparametre"  routerLinkActive="active">
               <button id="parambtn" class="btn" mat-button>
                 <mat-icon style="color: #ee4d2d">settings</mat-icon>
                 <span>Paramètres</span>

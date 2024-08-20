@@ -1,5 +1,8 @@
-:is(mat-form-field, mat-dialog-content, input) {
+:is(mat-form-field, mat-dialog-content, input),mat-select {
   width: 100%;
+   color: #374151;
+   font-weight: bold;
+   caret-color: #292828;
 }
 mat-dialog-content {
   background: #fff;
@@ -15,44 +18,27 @@ mat-dialog-content {
   align-items: center;
   gap: 25px;
 }
-.first{
-  display: flex;
-}
-img{
-  width: 160px;
-  object-fit: cover;
-}
-.second{
-  display: flex;
-  gap: 5px;
-}
-
 .close-button {
   background: none;
   color: #e22424;
   cursor: pointer;
 }
 
-
-/* ------------------------ */
 .btn {
   width: 40%;
 }
-.reset, .submit {
+.reset,
+.submit {
   background: #fff;
   color: #ee4d2d;
   border: 1px solid #ee4d2d;
 }
-
-.reset:hover, .submit:hover {
+.reset:hover,
+.submit:hover {
   background: #ee4d2d;
   color: #fff;
 }
 
-/* ------------------------ */
-.mat-mdc-dialog-surface {
-  background: #e22424;
-}
 mat-dialog-actions {
   display: flex;
   flex-direction: row;
@@ -63,18 +49,37 @@ mat-dialog-actions {
 .mdc-text-field--filled {
   background-color: red;
 }
-
-
-/* produitImage */
-.produitImg{
-  display: flex;
-
+.mdc-text-field--filled:has(.mdc-text-field--disabled) {
+  background-color: #be0303;
 }
-#display {
-    width: 175px;
-    height: 211px;
-    border: 1px solid black;
-    background-position: center;
-    background-size: cover;
-    border-radius: 10px;
+mat-label {
+  color: #292828;
+}
+input{
+  font-size: 24px;
+  color: #292828;
+}
+mat-option{
+  font-size: 14px;
+  color: #292828;
+}
+/* ------------------------------ */
+.image-upload {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.image-upload label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.image-upload input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
 }

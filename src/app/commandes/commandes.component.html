@@ -36,15 +36,37 @@
           <th>Contact client</th>
           <th>Total Commande</th>
           <th>Statut Commande</th>
-          <th>Livraison</th>
         </tr>
       </thead>
       <!--  -->
       <tbody>
+        <tr *ngFor="let commande of commande">
+          <td>{{ commande.id }}</td>
+          <td>{{commande.date }}</td>
+          <td>{{commande.nom }}</td>
+          <td>{{commande.d }}</td>
+          <td>{{commande.d }}</td>
+          
+           <!-- Statut Commande Column -->
+           <td>
+            <select class="custom-select" [(ngModel)]="commande.statu.libelle">
+              <option value="Default" [selected]="commande.statu.libelle === 'Default'">Default</option>
+              <option value="Livré" [selected]="commande.statu.libelle === 'Livré'">Livré</option>
+              <option value="En Cours" [selected]="commande.statu.libelle === 'En Cours'">En Cours</option>
+              <option value="Expedié" [selected]="commande.statu.libelle === 'Expedié'">Expedié</option>
+            </select>
+          </td>
+          
+          <td>
+           
+          </td>
+        </tr>
+      </tbody>
+      <!-- <tbody>
         <tr>
-          <!-- <td>{{ commande.id }}</td>*ngFor="let commande of commande"
+          <td>{{ commande.id }}</td>*ngFor="let commande of commande"
             <td>{{ commande.date }}</td>
-            <td>{{ categorie.souscategorie }}</td> -->
+            <td>{{ c }}</td>
           <td>2</td>
           <td>1/03/2023</td>
           <td>Hamidou Diallo</td>
@@ -58,16 +80,8 @@
               <option value="Expedié" class="expedié">Expedié</option>
             </select>
           </td>
-          <td>
-            <select class="custom-select">
-              <option value="Default" class="default">Default</option>
-              <option value="Livré" class="livré">Livré</option>
-              <option value="En Cours" class="encours">En Cours</option>
-              <option value="Expedié" class="expedié">Expedié</option>
-            </select>
-          </td>
         </tr>
-      </tbody>
+      </tbody> -->
       <!--  -->
     </table>
     <mat-paginator

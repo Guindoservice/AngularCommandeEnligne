@@ -1,43 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Categorie } from '../categorie/categorie.component'; // Adjust the import path accordingly
-import { Scategorie } from '../categorie/sousCategorie/sous-categorie.component';
+import { Observable } from 'rxjs';
+import { SousCategorieComponent } from '../categorie/sous-categorie/sous-categorie.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SousCategorieService {
-  private creerUrl = 'http://localhost:8080/admin//creer-sous-categorie';
-  private getSousCategorieUrl = 'http://localhost:8080/admin/sous-categories';
+  private UrlCreat = 'http://localhost:8080/admin/creer-sous-categorie';
+  private UrlList = 'http://localhost:8080/admin/list-sous-categorie';
+  private UrlGetOne = 'http://localhost:8080/admin/categoriesBySous';
+  private UrlUpdate = 'http://localhost:8080/admin/modifier-sous-categorie';
+  private UrlDelete = 'http://localhost:8080/admin/supprimer-sous-categorie';
 
   constructor(private http: HttpClient) {}
 
-  // Fetch all categories
-  getSoucategorie(): Observable<Categorie[]> {
-    return this.http.get<Scategorie[]>(this.getSousCategorieUrl);
+  createSousCategory(
+    sousCategory: any
+  ): Observable<any> {
+    return this.http.post<any>(this.UrlCreat, sousCategory);
   }
 
-  // Fetch a specific category by ID
-  getSouscategorie(id: number): Observable<Scategorie> {
-    return this.http.get<Scategorie>(`${this.getSousCategorieUrl}/${id}`);
+  getSousCategorie(): Observable<any[]> {
+    return this.http.get<any[]>(this.UrlList);
   }
 
-  // Update a category by ID
-  updateSouscategorie(
-    id: number,
-    souscategorie: Scategorie
-  ): Observable<Scategorie> {
-    return this.http.put<Scategorie>(`${this.creerUrl}/${id}`, souscategorie);
+  getOneSousCat(id: number): Observable<any> {
+    return this.http.get<any>(`${this.UrlGetOne}/${id}`);
   }
 
-  // Delete a category by ID
-  deleteSouscategorie(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.creerUrl}/${id}`);
+  UpdateSousCat(id: number, sousCat: any): Observable<any> {
+    return this.http.put(`${this.UrlUpdate}/${id}`, sousCat);
   }
 
-  // Create a new category
-  createSouscategorie(scategorie: Scategorie): Observable<Scategorie> {
-    return this.http.post<Scategorie>(this.creerUrl, scategorie);
+  DelSousCat(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.UrlDelete}/${id}`);
   }
 }

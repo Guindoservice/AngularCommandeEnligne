@@ -1,88 +1,90 @@
 <h5 mat-dialog-title class="mat-title">
-  {{ data.numero ? "Edit Product" : "Ajout de produit" }}
-  <mat-icon mat-icon-button (click)="onNoClick()" class="close-button"
-    >close</mat-icon
-  >
+  {{ isEditMode ? "Modifier Produit" : "Ajout de produit" }}
+  <mat-icon mat-icon-button (click)="onNoClick()" class="close-button">
+    close
+  </mat-icon>
 </h5>
+
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="productForm" class="popup">
-    <div class="first">
-      <div class="imgProduit">
-        <div id="display"></div>
-        <input type="file" id="imageInput" accept="image/png, image/jpg" />
-      </div>
-      <div class="int">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Nom" formControlName="nom" />
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input
-            matInput
-            placeholder="Description"
-            formControlName="description"
-          />
-        </mat-form-field>
-      </div>
+    <!-- Description Field -->
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Description" formControlName="description" />
+    </mat-form-field>
+    
+    <!-- Prix Field -->
+    <mat-form-field class="full-width">
+      <mat-label>Prix</mat-label>
+      <input
+        matInput
+        placeholder="Prix"
+        formControlName="prix"
+        type="number"
+        step="any"
+      />
+    </mat-form-field>
+    
+    <!-- Quantité Field -->
+    <mat-form-field class="full-width">
+      <mat-label>Quantité</mat-label>
+      <input
+        matInput
+        placeholder="Quantité"
+        formControlName="quantite"
+        type="number"
+      />
+    </mat-form-field>
+    
+    <!-- Libelle Field -->
+    <mat-form-field class="full-width">
+      <mat-label>Libelle</mat-label>
+      <input matInput placeholder="Libelle" formControlName="libelle" />
+    </mat-form-field>
+    
+    <!-- Uploader Image -->
+    <div class="image-upload">
+      <label for="file">Image</label>
+      <input
+        type="file"
+        id="file"
+        (change)="onFileChange($event)"
+        formControlName="image"
+        accept="image/png"
+      />
     </div>
-    <div class="second">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Prix" formControlName="prix" />
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Quantité" formControlName="quantite" />
-      </mat-form-field>
-    </div>
-    <div class="third">
-      <mat-form-field class="full-width">
-        <mat-label>Categorie</mat-label>
-        <mat-select
-          formControlName="categorie"
-          (selectionChange)="onCategoryChange()"
+    
+    <!-- Categorie select -->
+    <mat-form-field class="full-width">
+      <mat-label>Categorie</mat-label>
+      <mat-select
+        formControlName="category"
+        (selectionChange)="onCategoryChange($event)"
+      >
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{ category.libelle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <!-- SousCategorie selectOption -->
+    <mat-form-field
+      class="full-width"
+      *ngIf="filteredSousCategories.length > 0"
+    >
+      <mat-label>SousCategorie</mat-label>
+      <mat-select formControlName="sousCategory">
+        <mat-option
+          *ngFor="let sousCategory of filteredSousCategories"
+          [value]="sousCategory.id"
         >
-          <mat-option *ngFor="let category of categories" [value]="category">{{
-            category
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="full-width" *ngIf="showSousCategorie">
-        <mat-label>SousCategorie</mat-label>
-        <mat-select formControlName="sousCategorie">
-          <mat-option
-            *ngFor="let sousCat of SousCategories"
-            [value]="SousCategories"
-            >{{ SousCategories }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="containerV">
-      <div *ngIf="showVariant1" class="var var1">
-        <label>{{ variant1Label }}</label>
-        <div class="variant-options">
-          <mat-checkbox
-            *ngFor="let var1 of variant1Options"
-            [value]="var1"
-            (change)="onVariant1Change($event)"
-          >
-            {{ var1 }}
-          </mat-checkbox>
-        </div>
-      </div>
-      <div *ngIf="showVariant2" class="var var2">
-        <label>{{ variant2Label }}</label>
-        <div class="variant-options">
-          <mat-radio-group formControlName="variant2">
-            <mat-radio-button
-              *ngFor="let var2 of variant2Options"
-              [value]="var2"
-              >{{ var2 }}</mat-radio-button
-            >
-          </mat-radio-group>
-        </div>
-      </div>
-    </div>
+          {{ sousCategory.libelle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="center">
   <button mat-raised-button (click)="onReset()" class="btn reset">Reset</button>
   <button
@@ -91,6 +93,6 @@
     (click)="onSave()"
     class="btn submit"
   >
-    Submit
+    {{ isEditMode ? "Modifier" : "Ajouter" }}
   </button>
 </mat-dialog-actions>
